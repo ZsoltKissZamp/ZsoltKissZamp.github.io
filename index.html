@@ -312,7 +312,7 @@
 						if (Object.values({ red, blue }).some(p => p.score === 5)) {
 							localStorage.setItem('gameState', JSON.stringify(defaultGame))
 							this.resetGame()
-							location.reload()
+							// location.reload()
 						} else {
 							localStorage.setItem('gameState', JSON.stringify(this.$data.game))
 						}
