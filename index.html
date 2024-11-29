@@ -51,7 +51,6 @@
 			</div>
 			<div class="offcanvas-body">
 				<div class="container">
-					<!-- Add New Nickname Input -->
 					<div class="form-group row">
 						<input type="text" id="new-nickname" class="form-control col" :value="newNickname"
 							placeholder="Enter a new nickname" @input="addNewNickname" @keyup.enter="addNickname">
@@ -63,8 +62,6 @@
 							</svg>
 						</button>
 					</div>
-
-					<!-- Display Players -->
 					<div class="mt-3">
 						<ul class="list-group">
 							<li v-for="player in nicknames" class="list-group-item">{{ player }}</li>
@@ -117,8 +114,8 @@
 								<h3>{{ side.player }}</h3>
 							</div>
 							<div v-else class="card-body">
-								<label for="red-select-{{side.position}}">{{ _.upperFirst(side.position) }}</label>
-								<select class="form-control" id="red-select-{{side.position}}" v-model="game.red[side.position]">
+								<label for="{{side.position}}">{{ _.upperFirst(side.position) }}</label>
+								<select class="form-control" :id="{{side.position}}" v-model="game.red[side.position]">
 									<option v-for="player in _.filter([game.red[side.position], ...suitablePlayers])">
 										{{ player }}
 									</option>
@@ -153,8 +150,8 @@
 								<h3>{{ side.player }}</h3>
 							</div>
 							<div v-else class="card-body">
-								<label for="blue-select-{{side.position}}">{{ _.upperFirst(side.position) }}</label>
-								<select class="form-control" id="blue-select-{{side.position}}" v-model="game.blue[side.position]">
+								<label for="{{side.position}}">{{ _.upperFirst(side.position) }}</label>
+								<select class="form-control" :id="{{side.position}}" v-model="game.blue[side.position]">
 									<option v-for="player in _.filter([game.blue[side.position], ...suitablePlayers])" :key="player">
 										{{ player }}
 									</option>
