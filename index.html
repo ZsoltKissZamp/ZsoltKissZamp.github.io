@@ -115,7 +115,7 @@
 							</div>
 							<div v-else class="card-body">
 								<label for="{{side.position}}">{{ _.upperFirst(side.position) }}</label>
-								<select class="form-control" :id="{{side.position}}" v-model="game.red[side.position]">
+								<select class="form-control" id="{{side.position}}" v-model="game.red[side.position]">
 									<option v-for="player in _.filter([game.red[side.position], ...suitablePlayers])">
 										{{ player }}
 									</option>
@@ -151,7 +151,7 @@
 							</div>
 							<div v-else class="card-body">
 								<label for="{{side.position}}">{{ _.upperFirst(side.position) }}</label>
-								<select class="form-control" :id="{{side.position}}" v-model="game.blue[side.position]">
+								<select class="form-control" id="{{side.position}}" v-model="game.blue[side.position]">
 									<option v-for="player in _.filter([game.blue[side.position], ...suitablePlayers])" :key="player">
 										{{ player }}
 									</option>
