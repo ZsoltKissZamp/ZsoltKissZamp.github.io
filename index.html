@@ -219,8 +219,6 @@
 					this.newNickname = value
 				},
 				addNickname() {
-					const d = _.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')
-					console.log('nickname', this.newNickname, d, _.isEmpty(d))
 					if (!_.isEmpty(_.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')) && !this.nicknames.includes(this.newNickname)) {
 						this.nicknames.push(this.newNickname)
 						this.newNickname = ''
