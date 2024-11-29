@@ -219,8 +219,8 @@
 					this.newNickname = value
 				},
 				addNickname() {
-					console.log('nickname', this.newNickname, _.chain(this.newNickname).slice().filter(!_.isEqual(' ')).isEmpty().value())
-					if (!_.chain(this.newNickname).slice().filter(!_.isEqual(' ')).isEmpty().value() && !this.nicknames.includes(this.newNickname)) {
+					console.log('nickname', this.newNickname, _.isEmpty(_.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')))
+					if (!_.isEmpty(_.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')) && !this.nicknames.includes(this.newNickname)) {
 						this.nicknames.push(this.newNickname)
 						this.newNickname = ''
 					} else {
