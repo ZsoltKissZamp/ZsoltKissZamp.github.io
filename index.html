@@ -108,15 +108,28 @@
 		<div class="row context align-items-center flex-nowrap">
 			<div class="row context align-items-center flex-nowrap">
 				<div class="col teams">
-					<div class="row" v-for="side in red">
+					<div class="row">
 						<div class="card text-danger">
-							<div v-if="!gameOver" class="card-body" @click="increment(side.position, 'red')">
-								<h3>{{ side.player }}</h3>
+							<div v-if="!gameOver" class="card-body" @click="increment('front', 'red')">
+								<h3>{{ game.red.front }}</h3>
 							</div>
 							<div v-else class="card-body">
-								<label for="{{side.position}}">{{ _.upperFirst(side.position) }}</label>
-								<select class="form-control" id="{{side.position}}" v-model="game.red[side.position]">
-									<option v-for="player in _.filter([game.red[side.position], ...suitablePlayers])">
+								<label for="redFront">Front</label>
+								<select class="form-control" id="redFront" v-model="game.red.front">
+									<option v-for="player in _.filter([game.red.front, ...suitablePlayers])">
+										{{ player }}
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="card text-danger">
+							<div v-if="!gameOver" class="card-body" @click="increment('back', 'red')">
+								<h3>{{ game.red.back }}</h3>
+							</div>
+							<div v-else class="card-body">
+								<label for="redBack">Back</label>
+								<select class="form-control" id="redBack" v-model="game.red.back">
+									<option v-for="player in _.filter([game.red.back, ...suitablePlayers])">
 										{{ player }}
 									</option>
 								</select>
@@ -144,15 +157,28 @@
 					</div>
 				</div>
 				<div class="col teams">
-					<div class="row" v-for="side in blue">
+					<div class="row">
 						<div class="card text-primary">
-							<div v-if="!gameOver" class="card-body" @click="increment(side.position, 'blue')">
-								<h3>{{ side.player }}</h3>
+							<div v-if="!gameOver" class="card-body" @click="increment('front', 'blue')">
+								<h3>{{ game.blue.front }}</h3>
 							</div>
 							<div v-else class="card-body">
-								<label for="{{side.position}}">{{ _.upperFirst(side.position) }}</label>
-								<select class="form-control" id="{{side.position}}" v-model="game.blue[side.position]">
-									<option v-for="player in _.filter([game.blue[side.position], ...suitablePlayers])" :key="player">
+								<label for="blueFront">Front</label>
+								<select class="form-control" id="blueFront" v-model="game.blue.front">
+									<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player">
+										{{ player }}
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="card text-primary">
+							<div v-if="!gameOver" class="card-body" @click="increment('back', 'blue')">
+								<h3>{{ game.blue.back }}</h3>
+							</div>
+							<div v-else class="card-body">
+								<label for="blueBack">Back</label>
+								<select class="form-control" id="blueBack" v-model="game.blue.back">
+									<option v-for="player in _.filter([game.blue.back, ...suitablePlayers])" :key="player">
 										{{ player }}
 									</option>
 								</select>
@@ -192,13 +218,14 @@
 			red: {
 				score: 0,
 				front: '',
-				back: ''
+				back: '',
 			},
 			blue: {
 				score: 0,
 				front: '',
-				back: ''
-			}
+				back: '',
+			},
+			goals: []
 		}
 		new Vue({
 			el: '#app',
@@ -233,30 +260,10 @@
 				},
 				increment(position, side) {
 					this.game[side].score++
-					if (Object.values(this.game).some(p => p.score === 5)) {
-						this.resetGame()
-					}
+					this.game.goals.push({ position, side })
 				}
 			},
 			computed: {
-				red: {
-					get() {
-						return _.compact(_.map(this.game.red, (player, position) => {
-							if (_.isString(player)) {
-								return { player, position }
-							}
-						}))
-					},
-				},
-				blue: {
-					get() {
-						return _.compact(_.map(this.game.blue, (player, position) => {
-							if (_.isString(player)) {
-								return { player, position }
-							}
-						}))
-					}
-				},
 				playersCount: {
 					get() {
 						return _.uniq(
@@ -301,7 +308,14 @@
 			watch: {
 				game: {
 					handler() {
-						localStorage.setItem('gameState', JSON.stringify(this.$data.game))
+						const { red, blue } = this.$data.game
+						if (Object.values({ red, blue }).some(p => p.score === 5)) {
+							localStorage.setItem('gameState', JSON.stringify(defaultGame))
+							this.resetGame()
+							location.reload()
+						} else {
+							localStorage.setItem('gameState', JSON.stringify(this.$data.game))
+						}
 					},
 					deep: true
 				},
