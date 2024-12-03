@@ -8,15 +8,13 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 	<style>
-		.extra {
-			margin: 0 .5em
-		}
-		.utso {
-			margin-right: 12px;
+		.display {
+			height: 10.5em;
+			border-radius: 16px;
 		}
 
-		.vs {
-			width: 10vw;
+		.extra {
+			top: .8em
 		}
 
 		.stats {
@@ -29,17 +27,16 @@
 		}
 
 		h1 {
-			font-size: 20vh;
-		}
-
-		.emelt {
-			height: 31vh;
-			margin: 12px auto;
+			font-size: 5em;
 		}
 
 		.list-group {
 			max-height: 60vh;
 			overflow-y: scroll;
+		}
+
+		.table {
+			max-height: 50%;
 		}
 	</style>
 </head>
@@ -81,30 +78,54 @@
 			</div>
 			<div class="offcanvas-body">
 				<div class="container">
-					<table class="table bg-white">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col" class="text-danger">RF</th>
-								<th scope="col" class="text-danger">RB</th>
-								<th scope="col" class="text-danger">RS</th>
-								<th scope="col" class="text-primary">BS</th>
-								<th scope="col" class="text-primary">BF</th>
-								<th scope="col" class="text-primary">BB</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="(game, index) in games">
-								<th scope="row">{{ index + 1 }}</th>
-								<td>{{ game.red.front }}</td>
-								<td>{{ game.red.back }}</td>
-								<td>{{ game.red.score }}</td>
-								<td>{{ game.blue.score }}</td>
-								<td>{{ game.blue.front }}</td>
-								<td>{{ game.blue.back }}</td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="row">
+						<table class="table bg-white">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col" class="text-danger">RF</th>
+									<th scope="col" class="text-danger">RB</th>
+									<th scope="col" class="text-danger">RS</th>
+									<th scope="col" class="text-primary">BS</th>
+									<th scope="col" class="text-primary">BF</th>
+									<th scope="col" class="text-primary">BB</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
+									<th scope="row" @click="toggleView(game.meta[0].uid)">
+										{{ index + 1 }}
+									</th>
+									<td>{{ game.red.front }}</td>
+									<td>{{ game.red.back }}</td>
+									<td>{{ game.red.score }}</td>
+									<td>{{ game.blue.score }}</td>
+									<td>{{ game.blue.front }}</td>
+									<td>{{ game.blue.back }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<table class="table bg-white">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Name</th>
+									<th scope="col">Goals</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(player, index) in nicknames">
+									<th scope="row" @click="togglePlayerView(player)">
+										{{ index + 1 }}
+									</th>
+									<td>{{ player }}</td>
+									<td>{{ goalCounter(player) }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -120,83 +141,102 @@
 			</div>
 		</div>
 		<div class="row context align-items-center flex-nowrap">
-			<div class="row context align-items-center flex-nowrap">
-				<div class="col teams">
-					<div class="row">
-						<div class="card text-danger">
-							<div v-if="!gameOver" class="card-body" @click="increment('front', 'red')">
-								<h3>{{ game.red.front }}</h3>
-							</div>
-							<div v-else class="card-body">
-								<label for="redFront">Front</label>
-								<select class="form-control" id="redFront" v-model="game.red.front">
-									<option v-for="player in _.filter([game.red.front, ...suitablePlayers])">
-										{{ player }}
-									</option>
-								</select>
-							</div>
+			<div class="col-md-3">
+				<div class="row">
+					<div class="card text-danger">
+						<div v-if="!gameOver" class="card-body" @click="increment('front', 'red')">
+							<h3>{{ game.red.front }}</h3>
 						</div>
-						<div class="card text-danger">
-							<div v-if="!gameOver" class="card-body" @click="increment('back', 'red')">
-								<h3>{{ game.red.back }}</h3>
-							</div>
-							<div v-else class="card-body">
-								<label for="redBack">Back</label>
-								<select class="form-control" id="redBack" v-model="game.red.back">
-									<option v-for="player in _.filter([game.red.back, ...suitablePlayers])">
-										{{ player }}
-									</option>
-								</select>
-							</div>
+						<div v-else class="card-body">
+							<label for="redFront">Front</label>
+							<select class="form-control" id="redFront" v-model="game.red.front">
+								<option v-for="player in _.filter([game.red.front, ...suitablePlayers])">
+									{{ player }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div @click="switchSides('red')" v-if="!gameOver">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+							<path fill-rule="evenodd"
+								d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+						</svg>
+					</div>
+					<div class="card text-danger">
+						<div v-if="!gameOver" class="card-body" @click="increment('back', 'red')">
+							<h3>{{ game.red.back }}</h3>
+						</div>
+						<div v-else class="card-body">
+							<label for="redBack">Back</label>
+							<select class="form-control" id="redBack" v-model="game.red.back">
+								<option v-for="player in _.filter([game.red.back, ...suitablePlayers])">
+									{{ player }}
+								</option>
+							</select>
 						</div>
 					</div>
 				</div>
-				<div class="col bg-danger" v-if="!gameOver">
-					<div class="card emelt">
+			</div>
+			<div class="row col">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+					class="bi bi-arrow-left-right" viewBox="0 0 16 16" @click="switchSides()" v-if="!gameOver">
+					<path fill-rule="evenodd"
+						d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+				</svg>
+				<div class="col-md bg-danger display" v-if="!gameOver">
+					<div class="card extra">
 						<div class="card-body align-conten-md-center">
 							<h1>{{ game.red?.score}}</h1>
 						</div>
 					</div>
 				</div>
-				<div class="col bg-primary" v-if="!gameOver">
-					<div class="card emelt">
+				<div class="col-md bg-primary display" v-if="!gameOver">
+					<div class="card extra">
 						<div class="card-body align-conten-md-center">
 							<h1>{{ game.blue?.score}}</h1>
 						</div>
 					</div>
 				</div>
-				<div v-else class="row justify-content-md-center vs">
-					<div class="card">
+				<div v-else class="row justify-content-md-center">
+					<div class="card col-md-2">
 						VS
 					</div>
 				</div>
-				<div class="col teams">
-					<div class="row">
-						<div class="card text-primary">
-							<div v-if="!gameOver" class="card-body" @click="increment('front', 'blue')">
-								<h3>{{ game.blue.front }}</h3>
-							</div>
-							<div v-else class="card-body">
-								<label for="blueFront">Front</label>
-								<select class="form-control" id="blueFront" v-model="game.blue.front">
-									<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player">
-										{{ player }}
-									</option>
-								</select>
-							</div>
+			</div>
+			<div class="col-md-3">
+				<div class="row">
+					<div class="card text-primary">
+						<div v-if="!gameOver" class="card-body" @click="increment('front', 'blue')">
+							<h3>{{ game.blue.front }}</h3>
 						</div>
-						<div class="card text-primary">
-							<div v-if="!gameOver" class="card-body" @click="increment('back', 'blue')">
-								<h3>{{ game.blue.back }}</h3>
-							</div>
-							<div v-else class="card-body">
-								<label for="blueBack">Back</label>
-								<select class="form-control" id="blueBack" v-model="game.blue.back">
-									<option v-for="player in _.filter([game.blue.back, ...suitablePlayers])" :key="player">
-										{{ player }}
-									</option>
-								</select>
-							</div>
+						<div v-else class="card-body">
+							<label for="blueFront">Front</label>
+							<select class="form-control" id="blueFront" v-model="game.blue.front">
+								<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player">
+									{{ player }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div @click="switchSides('blue')" v-if="!gameOver">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+							<path fill-rule="evenodd"
+								d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+						</svg>
+					</div>
+					<div class="card text-primary">
+						<div v-if="!gameOver" class="card-body" @click="increment('back', 'blue')">
+							<h3>{{ game.blue.back }}</h3>
+						</div>
+						<div v-else class="card-body">
+							<label for="blueBack">Back</label>
+							<select class="form-control" id="blueBack" v-model="game.blue.back">
+								<option v-for="player in _.filter([game.blue.back, ...suitablePlayers])" :key="player">
+									{{ player }}
+								</option>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -210,16 +250,16 @@
 			</div>
 			<div class="col-md-10">
 				<div class="card">
-					<div class="row flex-nowrap justify-content-end">
-						<button class="btn btn-secondary col-md-1 extra" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
+					<div class="row justify-content-end">
+						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
 							aria-controls="gameBackdrop">Game</button>
-						<button class="btn btn-secondary col-md-1 extra" data-bs-toggle="offcanvas" data-bs-target="#statsBackdrop"
+						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#statsBackdrop"
 							aria-controls="statsBackdrop">Stats</button>
-						<button class="btn btn-primary col-md-2 extra" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
 							aria-controls="staticBackdrop">
 							New player
 						</button>
-						<button v-if="gameOver" :disabled="isReady" class="btn btn-success col-md-2 utso" @click="startGame">Start New
+						<button v-if="gameOver" :disabled="isReady" class="btn btn-success col" @click="startGame">Start New
 							Game</button>
 					</div>
 				</div>
@@ -229,7 +269,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-	<script>
+	<script type="module">
+		import { UUID } from "https://unpkg.com/uuidjs@^5";
 		const defaultGame = {
 			red: {
 				score: 0,
@@ -241,7 +282,7 @@
 				front: '',
 				back: '',
 			},
-			goals: []
+			meta: []
 		}
 		new Vue({
 			el: '#app',
@@ -268,6 +309,7 @@
 				},
 				startGame() {
 					this.gameOver = false
+					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate() })
 				},
 				resetGame() {
 					this.games.push(this.game)
@@ -276,8 +318,70 @@
 				},
 				increment(position, side) {
 					this.game[side].score++
-					this.game.goals.push({ position, side })
-				}
+					this.game.meta.push({ position, side, timestamp: Date.now() })
+				},
+				switchSides(side) {
+					if (side) {
+						const front = this.game[side].front
+						this.game[side].front = this.game[side].back
+						this.game[side].back = front
+						this.game.meta.push({ changed: 'positions', side, timestamp: Date.now() })
+					} else {
+						const red = this.game.red
+						this.game.red = this.game.blue
+						this.game.blue = red
+
+						this.game.meta.push({ changed: 'sides', timestamp: Date.now() })
+					}
+				},
+				toggleView(index) {
+					console.log(index)
+				},
+				goalCounter(player) {
+					return _.reduce(_.map(this.games, (game, gameIndex) => {
+						const isRedFront = _.isEqual(game.red.front, player)
+						const isRedBack = _.isEqual(game.red.back, player)
+						const isBlueFront = _.isEqual(game.blue.front, player)
+						const isBlueBack = _.isEqual(game.blue.back, player)
+						if (_.some([isRedFront, isRedBack, isBlueFront, isBlueBack])) {
+							const metaData = _.drop(game.meta)
+							const side = _.some([isBlueFront, isBlueBack]) ? 'blue' : 'red'
+							const position = _.some([isBlueFront, isRedFront]) ? 'front' : 'back'
+							const wasChanged = _.some(metaData, o =>
+								_.has(o, 'changed') && _.isEqual(o.changed, 'positions') && _.isEqual(o.side, side)
+							)
+							if (!wasChanged) return _.filter(metaData, o => !_.has(o, 'changed') && _.isEqual(side, o.side) && _.isEqual(position, o.position)).length
+							let counter = 0
+							const changes = _.compact(_.map(metaData, (o, i) => _.has(o, 'changed') && _.isEqual(o.changed, 'positions') && { i }))
+							let notC = 0
+							_.map(changes, ({ i }, cix) => {
+								if(!cix) {
+									_.map(_.slice(metaData, 0, i), (data, dataIndex) => {
+										!_.isEqual(data.position, position) && counter++
+									})
+									_.map(_.slice(metaData, i + 1), (data, dataIndex) => {
+										if(_.isEqual(data.position, position)) {
+											counter++
+										}
+									})
+									return
+								}
+								// TBD MORE CHANGES
+								if(_.isEqual(cix - changes[cix - 1].i, 1)) {
+									notC++
+									return
+								}
+								if(_.isEqual(notC % 2, 1)) {
+									console.log(cix, i, changes[cix - 1].i)
+									return
+								}
+								return				
+							})
+							return counter
+						}
+						return 0
+					}), ((t, c) => (t + c)))
+				},
 			},
 			computed: {
 				playersCount: {
