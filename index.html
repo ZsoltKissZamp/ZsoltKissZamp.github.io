@@ -43,10 +43,10 @@
 
 <body>
 	<div id="app" class="container text-center">
-		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
-			aria-labelledby="staticBackdropLabel">
+		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="newPlayerBackdrop"
+			aria-labelledby="newPlayerBackdropLabel">
 			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="staticBackdropLabel">Add New Player</h5>
+				<h5 class="offcanvas-title" id="newPlayerBackdropLabel">Add New Player</h5>
 				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			</div>
 			<div class="offcanvas-body">
@@ -64,7 +64,16 @@
 					</div>
 					<div class="mt-3">
 						<ul class="list-group player">
-							<li v-for="player in nicknames" class="list-group-item">{{ player }}</li>
+							<li v-for="player in nicknames" class="list-group-item">
+								<div class="row">
+									<div class="col">{{ player.name }}</div>
+									<div class="col-2" @click="updatePlayer(player.uid)">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+										</svg>
+									</div>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -95,17 +104,17 @@
 							<tbody>
 								<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
 									<th scope="row" @click="toggelSelected({id: game.meta[0].uid, type: 'game'})">
-										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
-											aria-controls="gameBackdrop">
+										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#configurationBackdrop"
+											aria-controls="configurationBackdrop">
 											{{ index + 1 }}
 										</button>
 									</th>
-									<td>{{ game.red.front }}</td>
-									<td>{{ game.red.back }}</td>
-									<td>{{ game.red.score }}</td>
-									<td>{{ game.blue.score }}</td>
-									<td>{{ game.blue.front }}</td>
-									<td>{{ game.blue.back }}</td>
+									<td>{{ game.red.front }}<span class="badge text-bg-secondary">New</span></td>
+									<td>{{ game.red.back }}<span class="badge text-bg-secondary">New</span></td>
+									<td>{{ game.red.score }}<span class="badge text-bg-secondary">New</span></td>
+									<td>{{ game.blue.score }}<span class="badge text-bg-secondary">New</span></td>
+									<td>{{ game.blue.front }}<span class="badge text-bg-secondary">New</span></td>
+									<td>{{ game.blue.back }}<span class="badge text-bg-secondary">New</span></td>
 								</tr>
 							</tbody>
 						</table>
@@ -120,15 +129,15 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(player, index) in nicknames">
-									<th scope="row" @click="toggelSelected({id: player, type: 'player'})">
-										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
-											aria-controls="gameBackdrop">
+								<tr v-for="(player, index) in nicknames" :key="player.id">
+									<th scope="row" @click="toggelSelected({id: player.name, type: 'player'})">
+										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#configurationBackdrop"
+											aria-controls="configurationBackdrop">
 											{{ index + 1 }}
 										</button>
 									</th>
-									<td>{{ player }}</td>
-									<td>{{ goalCounter(player) }}</td>
+									<td>{{ player.name }}</td>
+									<td>{{ goalCounter(player.name) }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -136,7 +145,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="offcanvas offcanvas-start text-bg-dark stats" data-bs-backdrop="static" tabindex="-1" id="gameBackdrop"
+		<div class="offcanvas offcanvas-start text-bg-dark stats" data-bs-backdrop="static" tabindex="-1" id="configurationBackdrop"
 			aria-labelledby="gameBackdropLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="gameBackdropLabel">Stats</h5>
@@ -296,12 +305,12 @@
 			<div class="col-md-10">
 				<div class="card">
 					<div class="row justify-content-end">
-						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
-							aria-controls="gameBackdrop">Settings</button>
+						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#configurationBackdrop"
+							aria-controls="configurationBackdrop">Settings</button>
 						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#statsBackdrop"
 							aria-controls="statsBackdrop">Stats</button>
-						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
-							aria-controls="staticBackdrop">
+						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#newPlayerBackdrop"
+							aria-controls="newPlayerBackdrop">
 							New player
 						</button>
 						<button v-if="gameOver" :disabled="isReady" class="btn btn-success col" @click="startGame">Start New
@@ -342,7 +351,8 @@
 					newNickname: '',
 					nicknames: [],
 					gameOver: true,
-					selected: defaultSelected
+					selected: defaultSelected,
+					updateId: undefined,
 				}
 			},
 			methods: {
@@ -350,12 +360,15 @@
 					this.newNickname = value
 				},
 				addNickname() {
-					if (!_.isEmpty(_.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')) && !this.nicknames.includes(this.newNickname)) {
-						this.nicknames.push(this.newNickname)
+					if (!_.isEmpty(_.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')) && !_.find(this.nicknames, { name: this.newNickname })) {
+						this.nicknames.push({ name: this.newNickname, uuid: UUID.generate() })
 						this.newNickname = ''
 					} else {
 						alert('Nickname already exists or input is empty.')
 					}
+				},
+				updatePlayer(id) {
+					this.updateId = id
 				},
 				startGame() {
 					this.gameOver = false
@@ -378,20 +391,18 @@
 				},
 				switchSides(side) {
 					if (side) {
-						const front = this.game[side].front
+						const { front } = this.game[side]
 						this.game[side].front = this.game[side].back
 						this.game[side].back = front
 						this.game.meta.push({ changed: 'position', side, timestamp: Date.now() })
 					} else {
-						const red = this.game.red
+						const { red } = this.game
 						this.game.red = this.game.blue
 						this.game.blue = red
-
 						this.game.meta.push({ changed: 'side', timestamp: Date.now() })
 					}
 				},
 				toggelSelected(selected = defaultSelected) {
-					console.log(selected)
 					const localSelected = {
 						...selected,
 					}
@@ -401,15 +412,15 @@
 							_.assignIn(localSelected, { data: _.find(this.games, ({ meta }) => _.isEqual(meta[0].uid, player)) })
 						}
 						else {
-							const data = _.filter(this.games, ({ red, blue }) => {
-								const isRedFront = _.isEqual(red.front, player)
-								const isRedBack = _.isEqual(red.back, player)
-								const isBlueFront = _.isEqual(blue.front, player)
-								const isBlueBack = _.isEqual(blue.back, player)
-								return _.some([isRedFront, isRedBack, isBlueFront, isBlueBack])
+							_.assignIn(localSelected, { data:
+								_.filter(this.games, ({ red, blue }) => {
+									const isRedFront = _.isEqual(red.front, player)
+									const isRedBack = _.isEqual(red.back, player)
+									const isBlueFront = _.isEqual(blue.front, player)
+									const isBlueBack = _.isEqual(blue.back, player)
+									return _.some([isRedFront, isRedBack, isBlueFront, isBlueBack])
+								})
 							})
-							_.assignIn(localSelected, { data })
-							console.log(data)
 						}
 					}
 					this.selected = localSelected
