@@ -74,7 +74,8 @@
 			aria-labelledby="statsBackdropLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="statsBackdropLabel">Stats</h5>
-				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
+					@click="toggelSelected()"></button>
 			</div>
 			<div class="offcanvas-body">
 				<div class="container">
@@ -93,8 +94,11 @@
 							</thead>
 							<tbody>
 								<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
-									<th scope="row" @click="toggleView(game.meta[0].uid)">
-										{{ index + 1 }}
+									<th scope="row" @click="toggelSelected({id: game.meta[0].uid, type: 'game'})">
+										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
+											aria-controls="gameBackdrop">
+											{{ index + 1 }}
+										</button>
 									</th>
 									<td>{{ game.red.front }}</td>
 									<td>{{ game.red.back }}</td>
@@ -117,8 +121,11 @@
 							</thead>
 							<tbody>
 								<tr v-for="(player, index) in nicknames">
-									<th scope="row" @click="togglePlayerView(player)">
-										{{ index + 1 }}
+									<th scope="row" @click="toggelSelected({id: player, type: 'player'})">
+										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
+											aria-controls="gameBackdrop">
+											{{ index + 1 }}
+										</button>
 									</th>
 									<td>{{ player }}</td>
 									<td>{{ goalCounter(player) }}</td>
@@ -133,10 +140,25 @@
 			aria-labelledby="gameBackdropLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="gameBackdropLabel">Stats</h5>
-				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
+					@click="toggelSelected()"></button>
 			</div>
 			<div class="offcanvas-body">
 				<div class="container">
+					<div v-if="_.isEqual(selected.type, 'game')">
+						Game: {{ selected.id }}
+						<ul class="list-group">
+							<li v-for="meta in selected.data.meta" class="list-group-item">{{ meta }}</li>
+						</ul>
+					</div>
+					<div v-else>
+						<div v-if="_.isEqual(selected.type, 'player')">
+							Player: {{ selected.id }} {{ selected.data }}
+						</div>
+						<div v-else>
+							Default
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -252,7 +274,7 @@
 				<div class="card">
 					<div class="row justify-content-end">
 						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
-							aria-controls="gameBackdrop">Game</button>
+							aria-controls="gameBackdrop">Settings</button>
 						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#statsBackdrop"
 							aria-controls="statsBackdrop">Stats</button>
 						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
@@ -284,6 +306,10 @@
 			},
 			meta: []
 		}
+		const defaultSelected = {
+			type: null,
+			id: '',
+		}
 		new Vue({
 			el: '#app',
 			data() {
@@ -292,7 +318,8 @@
 					games: [],
 					newNickname: '',
 					nicknames: [],
-					gameOver: true
+					gameOver: true,
+					selected: defaultSelected
 				}
 			},
 			methods: {
@@ -318,7 +345,7 @@
 				},
 				increment(position, side) {
 					this.game[side].score++
-					this.game.meta.push({ 
+					this.game.meta.push({
 						position,
 						side,
 						timestamp: Date.now(),
@@ -340,11 +367,20 @@
 						this.game.meta.push({ changed: 'sides', timestamp: Date.now() })
 					}
 				},
-				toggleView(index) {
-					console.log(index)
+				toggelSelected(selected = defaultSelected) {
+					console.log(selected)
+					const localSelected = {
+						...selected,
+					}
+					if (selected.type) {
+						if (_.isEqual(selected.type, 'game')) {
+							_.assignIn(localSelected, { data: _.find(this.games, ({ meta }) => _.isEqual(meta[0].uid, selected.id)) })
+						}
+					}
+					this.selected = localSelected
 				},
 				goalCounter(player) {
-					return _.reduce(_.map(this.games, (game, gameIndex) => 
+					return _.reduce(_.map(this.games, (game, gameIndex) =>
 						_.filter(game.meta, meta => _.isEqual(player, meta.player)).length
 					), ((t, c) => (t + c)))
 				},
