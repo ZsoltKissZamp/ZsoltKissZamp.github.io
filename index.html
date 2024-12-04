@@ -318,7 +318,13 @@
 				},
 				increment(position, side) {
 					this.game[side].score++
-					this.game.meta.push({ position, side, timestamp: Date.now() })
+					this.game.meta.push({ 
+						position,
+						side,
+						timestamp: Date.now(),
+						player: this.game[side][position],
+						isOwn: false
+					})
 				},
 				switchSides(side) {
 					if (side) {
@@ -338,49 +344,9 @@
 					console.log(index)
 				},
 				goalCounter(player) {
-					return _.reduce(_.map(this.games, (game, gameIndex) => {
-						const isRedFront = _.isEqual(game.red.front, player)
-						const isRedBack = _.isEqual(game.red.back, player)
-						const isBlueFront = _.isEqual(game.blue.front, player)
-						const isBlueBack = _.isEqual(game.blue.back, player)
-						if (_.some([isRedFront, isRedBack, isBlueFront, isBlueBack])) {
-							const metaData = _.drop(game.meta)
-							const side = _.some([isBlueFront, isBlueBack]) ? 'blue' : 'red'
-							const position = _.some([isBlueFront, isRedFront]) ? 'front' : 'back'
-							const wasChanged = _.some(metaData, o =>
-								_.has(o, 'changed') && _.isEqual(o.changed, 'positions') && _.isEqual(o.side, side)
-							)
-							if (!wasChanged) return _.filter(metaData, o => !_.has(o, 'changed') && _.isEqual(side, o.side) && _.isEqual(position, o.position)).length
-							let counter = 0
-							const changes = _.compact(_.map(metaData, (o, i) => _.has(o, 'changed') && _.isEqual(o.changed, 'positions') && { i }))
-							let notC = 0
-							_.map(changes, ({ i }, cix) => {
-								if(!cix) {
-									_.map(_.slice(metaData, 0, i), (data, dataIndex) => {
-										!_.isEqual(data.position, position) && counter++
-									})
-									_.map(_.slice(metaData, i + 1), (data, dataIndex) => {
-										if(_.isEqual(data.position, position)) {
-											counter++
-										}
-									})
-									return
-								}
-								// TBD MORE CHANGES
-								if(_.isEqual(cix - changes[cix - 1].i, 1)) {
-									notC++
-									return
-								}
-								if(_.isEqual(notC % 2, 1)) {
-									console.log(cix, i, changes[cix - 1].i)
-									return
-								}
-								return				
-							})
-							return counter
-						}
-						return 0
-					}), ((t, c) => (t + c)))
+					return _.reduce(_.map(this.games, (game, gameIndex) => 
+						_.filter(game.meta, meta => _.isEqual(player, meta.player)).length
+					), ((t, c) => (t + c)))
 				},
 			},
 			computed: {
