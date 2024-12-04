@@ -8,15 +8,13 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 	<style>
-		.extra {
-			margin: 0 .5em
-		}
-		.utso {
-			margin-right: 12px;
+		.display {
+			height: 10.5em;
+			border-radius: 16px;
 		}
 
-		.vs {
-			width: 10vw;
+		.extra {
+			top: .8em
 		}
 
 		.stats {
@@ -29,17 +27,16 @@
 		}
 
 		h1 {
-			font-size: 20vh;
+			font-size: 5em;
 		}
 
-		.emelt {
-			height: 31vh;
-			margin: 12px auto;
-		}
-
-		.list-group {
+		.player {
 			max-height: 60vh;
 			overflow-y: scroll;
+		}
+
+		.table {
+			max-height: 50%;
 		}
 	</style>
 </head>
@@ -66,7 +63,7 @@
 						</button>
 					</div>
 					<div class="mt-3">
-						<ul class="list-group">
+						<ul class="list-group player">
 							<li v-for="player in nicknames" class="list-group-item">{{ player }}</li>
 						</ul>
 					</div>
@@ -77,34 +74,65 @@
 			aria-labelledby="statsBackdropLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="statsBackdropLabel">Stats</h5>
-				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
+					@click="toggelSelected()"></button>
 			</div>
 			<div class="offcanvas-body">
 				<div class="container">
-					<table class="table bg-white">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col" class="text-danger">RF</th>
-								<th scope="col" class="text-danger">RB</th>
-								<th scope="col" class="text-danger">RS</th>
-								<th scope="col" class="text-primary">BS</th>
-								<th scope="col" class="text-primary">BF</th>
-								<th scope="col" class="text-primary">BB</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="(game, index) in games">
-								<th scope="row">{{ index + 1 }}</th>
-								<td>{{ game.red.front }}</td>
-								<td>{{ game.red.back }}</td>
-								<td>{{ game.red.score }}</td>
-								<td>{{ game.blue.score }}</td>
-								<td>{{ game.blue.front }}</td>
-								<td>{{ game.blue.back }}</td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="row">
+						<table class="table bg-white">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col" class="text-danger">RF</th>
+									<th scope="col" class="text-danger">RB</th>
+									<th scope="col" class="text-danger">RS</th>
+									<th scope="col" class="text-primary">BS</th>
+									<th scope="col" class="text-primary">BF</th>
+									<th scope="col" class="text-primary">BB</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
+									<th scope="row" @click="toggelSelected({id: game.meta[0].uid, type: 'game'})">
+										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
+											aria-controls="gameBackdrop">
+											{{ index + 1 }}
+										</button>
+									</th>
+									<td>{{ game.red.front }}</td>
+									<td>{{ game.red.back }}</td>
+									<td>{{ game.red.score }}</td>
+									<td>{{ game.blue.score }}</td>
+									<td>{{ game.blue.front }}</td>
+									<td>{{ game.blue.back }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<table class="table bg-white">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Name</th>
+									<th scope="col">Goals</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(player, index) in nicknames">
+									<th scope="row" @click="toggelSelected({id: player, type: 'player'})">
+										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
+											aria-controls="gameBackdrop">
+											{{ index + 1 }}
+										</button>
+									</th>
+									<td>{{ player }}</td>
+									<td>{{ goalCounter(player) }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -112,91 +140,148 @@
 			aria-labelledby="gameBackdropLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="gameBackdropLabel">Stats</h5>
-				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
+					@click="toggelSelected()"></button>
 			</div>
 			<div class="offcanvas-body">
 				<div class="container">
+					<div v-if="_.isEqual(selected.type, 'game')">
+						Game: {{ selected.id }}
+						<ul class="list-group">
+							<li v-for="meta in selected.data.meta" class="list-group-item">
+								<div v-if="meta.uid">
+									<h3>Start</h3>
+								</div>
+								<div v-else>
+									<div v-if="_.has(meta, 'changed')">
+										<h3>Changed:
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+												class="bi bi-arrow-down-up" viewBox="0 0 16 16" v-if="_.isEqual(meta.changed, 'position')">
+												<path fill-rule="evenodd"
+													d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+											</svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+												class="bi bi-arrow-left-right" viewBox="0 0 16 16" v-else>
+												<path fill-rule="evenodd"
+													d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+											</svg>
+										</h3>
+									</div>
+									<div v-else>
+										<h3>Goal: {{ meta.player }} {{ meta.position }} {{ meta.side }}</h3>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div v-else>
+						<div v-if="_.isEqual(selected.type, 'player')">
+							Player: {{ selected.id }} {{ selected.data }}
+						</div>
+						<div v-else>
+							Default
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row context align-items-center flex-nowrap">
-			<div class="row context align-items-center flex-nowrap">
-				<div class="col teams">
-					<div class="row">
-						<div class="card text-danger">
-							<div v-if="!gameOver" class="card-body" @click="increment('front', 'red')">
-								<h3>{{ game.red.front }}</h3>
-							</div>
-							<div v-else class="card-body">
-								<label for="redFront">Front</label>
-								<select class="form-control" id="redFront" v-model="game.red.front">
-									<option v-for="player in _.filter([game.red.front, ...suitablePlayers])">
-										{{ player }}
-									</option>
-								</select>
-							</div>
+			<div class="col-md-3">
+				<div class="row">
+					<div class="card text-danger">
+						<div v-if="!gameOver" class="card-body" @click="increment('front', 'red')">
+							<h3>{{ game.red.front }}</h3>
 						</div>
-						<div class="card text-danger">
-							<div v-if="!gameOver" class="card-body" @click="increment('back', 'red')">
-								<h3>{{ game.red.back }}</h3>
-							</div>
-							<div v-else class="card-body">
-								<label for="redBack">Back</label>
-								<select class="form-control" id="redBack" v-model="game.red.back">
-									<option v-for="player in _.filter([game.red.back, ...suitablePlayers])">
-										{{ player }}
-									</option>
-								</select>
-							</div>
+						<div v-else class="card-body">
+							<label for="redFront">Front</label>
+							<select class="form-control" id="redFront" v-model="game.red.front">
+								<option v-for="player in _.filter([game.red.front, ...suitablePlayers])">
+									{{ player }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div @click="switchSides('red')" v-if="!gameOver">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+							<path fill-rule="evenodd"
+								d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+						</svg>
+					</div>
+					<div class="card text-danger">
+						<div v-if="!gameOver" class="card-body" @click="increment('back', 'red')">
+							<h3>{{ game.red.back }}</h3>
+						</div>
+						<div v-else class="card-body">
+							<label for="redBack">Back</label>
+							<select class="form-control" id="redBack" v-model="game.red.back">
+								<option v-for="player in _.filter([game.red.back, ...suitablePlayers])">
+									{{ player }}
+								</option>
+							</select>
 						</div>
 					</div>
 				</div>
-				<div class="col bg-danger" v-if="!gameOver">
-					<div class="card emelt">
+			</div>
+			<div class="row col">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+					class="bi bi-arrow-left-right" viewBox="0 0 16 16" @click="switchSides()" v-if="!gameOver">
+					<path fill-rule="evenodd"
+						d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+				</svg>
+				<div class="col-md bg-danger display" v-if="!gameOver">
+					<div class="card extra">
 						<div class="card-body align-conten-md-center">
 							<h1>{{ game.red?.score}}</h1>
 						</div>
 					</div>
 				</div>
-				<div class="col bg-primary" v-if="!gameOver">
-					<div class="card emelt">
+				<div class="col-md bg-primary display" v-if="!gameOver">
+					<div class="card extra">
 						<div class="card-body align-conten-md-center">
 							<h1>{{ game.blue?.score}}</h1>
 						</div>
 					</div>
 				</div>
-				<div v-else class="row justify-content-md-center vs">
-					<div class="card">
+				<div v-else class="row justify-content-md-center">
+					<div class="card col-md-2">
 						VS
 					</div>
 				</div>
-				<div class="col teams">
-					<div class="row">
-						<div class="card text-primary">
-							<div v-if="!gameOver" class="card-body" @click="increment('front', 'blue')">
-								<h3>{{ game.blue.front }}</h3>
-							</div>
-							<div v-else class="card-body">
-								<label for="blueFront">Front</label>
-								<select class="form-control" id="blueFront" v-model="game.blue.front">
-									<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player">
-										{{ player }}
-									</option>
-								</select>
-							</div>
+			</div>
+			<div class="col-md-3">
+				<div class="row">
+					<div class="card text-primary">
+						<div v-if="!gameOver" class="card-body" @click="increment('front', 'blue')">
+							<h3>{{ game.blue.front }}</h3>
 						</div>
-						<div class="card text-primary">
-							<div v-if="!gameOver" class="card-body" @click="increment('back', 'blue')">
-								<h3>{{ game.blue.back }}</h3>
-							</div>
-							<div v-else class="card-body">
-								<label for="blueBack">Back</label>
-								<select class="form-control" id="blueBack" v-model="game.blue.back">
-									<option v-for="player in _.filter([game.blue.back, ...suitablePlayers])" :key="player">
-										{{ player }}
-									</option>
-								</select>
-							</div>
+						<div v-else class="card-body">
+							<label for="blueFront">Front</label>
+							<select class="form-control" id="blueFront" v-model="game.blue.front">
+								<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player">
+									{{ player }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div @click="switchSides('blue')" v-if="!gameOver">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+							<path fill-rule="evenodd"
+								d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+						</svg>
+					</div>
+					<div class="card text-primary">
+						<div v-if="!gameOver" class="card-body" @click="increment('back', 'blue')">
+							<h3>{{ game.blue.back }}</h3>
+						</div>
+						<div v-else class="card-body">
+							<label for="blueBack">Back</label>
+							<select class="form-control" id="blueBack" v-model="game.blue.back">
+								<option v-for="player in _.filter([game.blue.back, ...suitablePlayers])" :key="player">
+									{{ player }}
+								</option>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -210,16 +295,16 @@
 			</div>
 			<div class="col-md-10">
 				<div class="card">
-					<div class="row flex-nowrap justify-content-end">
-						<button class="btn btn-secondary col-md-1 extra" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
-							aria-controls="gameBackdrop">Game</button>
-						<button class="btn btn-secondary col-md-1 extra" data-bs-toggle="offcanvas" data-bs-target="#statsBackdrop"
+					<div class="row justify-content-end">
+						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
+							aria-controls="gameBackdrop">Settings</button>
+						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#statsBackdrop"
 							aria-controls="statsBackdrop">Stats</button>
-						<button class="btn btn-primary col-md-2 extra" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
 							aria-controls="staticBackdrop">
 							New player
 						</button>
-						<button v-if="gameOver" :disabled="isReady" class="btn btn-success col-md-2 utso" @click="startGame">Start New
+						<button v-if="gameOver" :disabled="isReady" class="btn btn-success col" @click="startGame">Start New
 							Game</button>
 					</div>
 				</div>
@@ -229,7 +314,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-	<script>
+	<script type="module">
+		import { UUID } from "https://unpkg.com/uuidjs@^5";
 		const defaultGame = {
 			red: {
 				score: 0,
@@ -241,7 +327,11 @@
 				front: '',
 				back: '',
 			},
-			goals: []
+			meta: []
+		}
+		const defaultSelected = {
+			type: null,
+			id: '',
 		}
 		new Vue({
 			el: '#app',
@@ -251,7 +341,8 @@
 					games: [],
 					newNickname: '',
 					nicknames: [],
-					gameOver: true
+					gameOver: true,
+					selected: defaultSelected
 				}
 			},
 			methods: {
@@ -268,6 +359,7 @@
 				},
 				startGame() {
 					this.gameOver = false
+					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate() })
 				},
 				resetGame() {
 					this.games.push(this.game)
@@ -276,8 +368,57 @@
 				},
 				increment(position, side) {
 					this.game[side].score++
-					this.game.goals.push({ position, side })
-				}
+					this.game.meta.push({
+						position,
+						side,
+						timestamp: Date.now(),
+						player: this.game[side][position],
+						isOwn: false
+					})
+				},
+				switchSides(side) {
+					if (side) {
+						const front = this.game[side].front
+						this.game[side].front = this.game[side].back
+						this.game[side].back = front
+						this.game.meta.push({ changed: 'position', side, timestamp: Date.now() })
+					} else {
+						const red = this.game.red
+						this.game.red = this.game.blue
+						this.game.blue = red
+
+						this.game.meta.push({ changed: 'side', timestamp: Date.now() })
+					}
+				},
+				toggelSelected(selected = defaultSelected) {
+					console.log(selected)
+					const localSelected = {
+						...selected,
+					}
+					if (selected.type) {
+						const player = selected.id
+						if (_.isEqual(selected.type, 'game')) {
+							_.assignIn(localSelected, { data: _.find(this.games, ({ meta }) => _.isEqual(meta[0].uid, player)) })
+						}
+						else {
+							const data = _.filter(this.games, ({ red, blue }) => {
+								const isRedFront = _.isEqual(red.front, player)
+								const isRedBack = _.isEqual(red.back, player)
+								const isBlueFront = _.isEqual(blue.front, player)
+								const isBlueBack = _.isEqual(blue.back, player)
+								return _.some([isRedFront, isRedBack, isBlueFront, isBlueBack])
+							})
+							_.assignIn(localSelected, { data })
+							console.log(data)
+						}
+					}
+					this.selected = localSelected
+				},
+				goalCounter(player) {
+					return _.reduce(_.map(this.games, (game, gameIndex) =>
+						_.filter(game.meta, meta => _.isEqual(player, meta.player)).length
+					), ((t, c) => (t + c)))
+				},
 			},
 			computed: {
 				playersCount: {
