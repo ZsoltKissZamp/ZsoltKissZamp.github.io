@@ -30,7 +30,7 @@
 			font-size: 5em;
 		}
 
-		.list-group {
+		.player {
 			max-height: 60vh;
 			overflow-y: scroll;
 		}
@@ -63,7 +63,7 @@
 						</button>
 					</div>
 					<div class="mt-3">
-						<ul class="list-group">
+						<ul class="list-group player">
 							<li v-for="player in nicknames" class="list-group-item">{{ player }}</li>
 						</ul>
 					</div>
@@ -148,7 +148,30 @@
 					<div v-if="_.isEqual(selected.type, 'game')">
 						Game: {{ selected.id }}
 						<ul class="list-group">
-							<li v-for="meta in selected.data.meta" class="list-group-item">{{ meta }}</li>
+							<li v-for="meta in selected.data.meta" class="list-group-item">
+								<div v-if="meta.uid">
+									<h3>Start</h3>
+								</div>
+								<div v-else>
+									<div v-if="_.has(meta, 'changed')">
+										<h3>Changed:
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+												class="bi bi-arrow-down-up" viewBox="0 0 16 16" v-if="_.isEqual(meta.changed, 'position')">
+												<path fill-rule="evenodd"
+													d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+											</svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+												class="bi bi-arrow-left-right" viewBox="0 0 16 16" v-else>
+												<path fill-rule="evenodd"
+													d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+											</svg>
+										</h3>
+									</div>
+									<div v-else>
+										<h3>Goal: {{ meta.player }} {{ meta.position }} {{ meta.side }}</h3>
+									</div>
+								</div>
+							</li>
 						</ul>
 					</div>
 					<div v-else>
@@ -358,13 +381,13 @@
 						const front = this.game[side].front
 						this.game[side].front = this.game[side].back
 						this.game[side].back = front
-						this.game.meta.push({ changed: 'positions', side, timestamp: Date.now() })
+						this.game.meta.push({ changed: 'position', side, timestamp: Date.now() })
 					} else {
 						const red = this.game.red
 						this.game.red = this.game.blue
 						this.game.blue = red
 
-						this.game.meta.push({ changed: 'sides', timestamp: Date.now() })
+						this.game.meta.push({ changed: 'side', timestamp: Date.now() })
 					}
 				},
 				toggelSelected(selected = defaultSelected) {
@@ -373,8 +396,20 @@
 						...selected,
 					}
 					if (selected.type) {
+						const player = selected.id
 						if (_.isEqual(selected.type, 'game')) {
-							_.assignIn(localSelected, { data: _.find(this.games, ({ meta }) => _.isEqual(meta[0].uid, selected.id)) })
+							_.assignIn(localSelected, { data: _.find(this.games, ({ meta }) => _.isEqual(meta[0].uid, player)) })
+						}
+						else {
+							const data = _.filter(this.games, ({ red, blue }) => {
+								const isRedFront = _.isEqual(red.front, player)
+								const isRedBack = _.isEqual(red.back, player)
+								const isBlueFront = _.isEqual(blue.front, player)
+								const isBlueBack = _.isEqual(blue.back, player)
+								return _.some([isRedFront, isRedBack, isBlueFront, isBlueBack])
+							})
+							_.assignIn(localSelected, { data })
+							console.log(data)
 						}
 					}
 					this.selected = localSelected
