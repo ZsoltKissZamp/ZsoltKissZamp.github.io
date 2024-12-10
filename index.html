@@ -8,6 +8,10 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 	<style>
+		.tets * {
+			outline: 1px solid red;
+		}
+
 		.display {
 			height: 10.5em;
 			border-radius: 16px;
@@ -38,15 +42,31 @@
 		.table {
 			max-height: 50%;
 		}
+
+		.form-switch {
+			align-content: center;
+		}
 	</style>
 </head>
 
 <body>
-	<div id="app" class="container text-center">
-		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
-			aria-labelledby="staticBackdropLabel">
+	<div id="app" class="container text-center user-select-none">
+		<div class="modal fade" id="pauseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="pauseModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="toggleStatus('pause')">
+							<icon-selector :selector="'play'"></icon-selector>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="newPlayerBackdrop"
+			aria-labelledby="newPlayerBackdropLabel">
 			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="staticBackdropLabel">Add New Player</h5>
+				<h5 class="offcanvas-title" id="newPlayerBackdropLabel">Add New Player</h5>
 				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			</div>
 			<div class="offcanvas-body">
@@ -55,91 +75,119 @@
 						<input type="text" id="new-nickname" class="form-control col" :value="newNickname"
 							placeholder="Enter a new nickname" @input="addNewNickname" @keyup.enter="addNickname">
 						<button class="btn btn-outline-success col-2" @click="addNickname" title="add">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-								class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-								<path
-									d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
-							</svg>
+							<icon-selector :selector="'plus'"></icon-selector>
 						</button>
 					</div>
 					<div class="mt-3">
 						<ul class="list-group player">
-							<li v-for="player in nicknames" class="list-group-item">{{ player }}</li>
+							<li v-for="player in nicknames" class="list-group-item">
+								<div class="row">
+									<div class="col">{{ player.name }}</div>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="offcanvas offcanvas-end text-bg-dark stats" data-bs-backdrop="static" tabindex="-1" id="statsBackdrop"
-			aria-labelledby="statsBackdropLabel">
+		<div class="offcanvas offcanvas-end text-bg-dark stats" data-bs-backdrop="static" tabindex="-1"
+			id="gamesStatsBackdrop" aria-labelledby="gamesStatsBackdropLabel">
 			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="statsBackdropLabel">Stats</h5>
+				<h5 class="offcanvas-title" id="gamesStatsBackdropLabel"></h5>
 				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
 					@click="toggelSelected()"></button>
 			</div>
 			<div class="offcanvas-body">
 				<div class="container">
-					<div class="row">
-						<table class="table bg-white">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col" class="text-danger">RF</th>
-									<th scope="col" class="text-danger">RB</th>
-									<th scope="col" class="text-danger">RS</th>
-									<th scope="col" class="text-primary">BS</th>
-									<th scope="col" class="text-primary">BF</th>
-									<th scope="col" class="text-primary">BB</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
-									<th scope="row" @click="toggelSelected({id: game.meta[0].uid, type: 'game'})">
-										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
-											aria-controls="gameBackdrop">
-											{{ index + 1 }}
-										</button>
-									</th>
-									<td>{{ game.red.front }}</td>
-									<td>{{ game.red.back }}</td>
-									<td>{{ game.red.score }}</td>
-									<td>{{ game.blue.score }}</td>
-									<td>{{ game.blue.front }}</td>
-									<td>{{ game.blue.back }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="row">
-						<table class="table bg-white">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Name</th>
-									<th scope="col">Goals</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(player, index) in nicknames">
-									<th scope="row" @click="toggelSelected({id: player, type: 'player'})">
-										<button class="btn btn--secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
-											aria-controls="gameBackdrop">
-											{{ index + 1 }}
-										</button>
-									</th>
-									<td>{{ player }}</td>
-									<td>{{ goalCounter(player) }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+					<table class="table bg-white" id="gameTable">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col" class="text-danger">RF</th>
+								<th scope="col" class="text-danger">RB</th>
+								<th scope="col" class="text-danger">RS</th>
+								<th scope="col" class="text-danger">Meta</th>
+								<th scope="col" class="text-primary">BS</th>
+								<th scope="col" class="text-primary">BF</th>
+								<th scope="col" class="text-primary">BB</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
+								<th scope="row" @click="toggelSelected({id: game.meta[0].uid, type: 'game'})">
+									<button class="btn btn--secondary col" data-bs-toggle="offcanvas"
+										data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">
+										{{ index + 1 }}
+									</button>
+								</th>
+								<td>{{ playerById(game.red.front) }}</td>
+								<td>{{ playerById(game.red.back) }}</td>
+								<td>{{ game.red.score }}</td>
+								<td>
+									<ul class="list-group list-group-horizontal justify-content-md-center">
+										<li v-for="meta in defaultChanges" class="list-group-item">
+											<icon-selector :selector="meta.changed" :size="16" :color="meta.side"></icon-selector>
+											<span class="badge bg-secondary">
+												{{ getMetaCount(game, meta) }}
+											</span>
+										</li>
+									</ul>
+								</td>
+								<td>{{ game.blue.score }}</td>
+								<td>{{ playerById(game.blue.front) }}</td>
+								<td>{{ playerById(game.blue.back) }}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-		<div class="offcanvas offcanvas-start text-bg-dark stats" data-bs-backdrop="static" tabindex="-1" id="gameBackdrop"
-			aria-labelledby="gameBackdropLabel">
+		<div class="offcanvas offcanvas-end text-bg-dark stats" data-bs-backdrop="static" tabindex="-1"
+			id="playersStatsBackdrop" aria-labelledby="playersStatsBackdropLabel">
 			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="gameBackdropLabel">Stats</h5>
+				<h5 class="offcanvas-title" id="playersStatsBackdropLabel"></h5>
+				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
+					@click="toggelSelected()"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="container">
+					<table class="table bg-white" id="playerTable">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Name</th>
+								<th scope="col">Goals</th>
+								<th scope="col">Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(player, index) in nicknames" :key="player.id">
+								<th scope="row" @click="toggelSelected({id: player.name, type: 'player'})">
+									<button class="btn btn--secondary col" data-bs-toggle="offcanvas"
+										data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">
+										{{ index + 1 }}
+									</button>
+								</th>
+								<td>
+									<input v-if="_.isEqual(updateId?.uid, player.uid)" type="text" id="update-nickname"
+										:value="updateId.name" placeholder="Update nickname" @keyup.enter="updatePlayerName"
+										class="form-control col-md-1" @input="updateName">
+									<h5 v-else>{{ player.name }}</h5>
+								</td>
+								<td>{{ goalCounter(player.uid) }}</td>
+								<td @click="updatePlayer(player)">
+									<icon-selector :selector="'edit'"></icon-selector>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="offcanvas offcanvas-start text-bg-dark stats" data-bs-backdrop="static" tabindex="-1"
+			id="configurationBackdrop" aria-labelledby="gameBackdropLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="gameBackdropLabel"></h5>
 				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
 					@click="toggelSelected()"></button>
 			</div>
@@ -155,68 +203,93 @@
 								<div v-else>
 									<div v-if="_.has(meta, 'changed')">
 										<h3>Changed:
-											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-												class="bi bi-arrow-down-up" viewBox="0 0 16 16" v-if="_.isEqual(meta.changed, 'position')">
-												<path fill-rule="evenodd"
-													d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
-											</svg>
-											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-												class="bi bi-arrow-left-right" viewBox="0 0 16 16" v-else>
-												<path fill-rule="evenodd"
-													d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
-											</svg>
+											<icon-selector :selector="meta.changed" :size="32" :color="meta.side"></icon-selector>
 										</h3>
 									</div>
 									<div v-else>
-										<h3>Goal: {{ meta.player }} {{ meta.position }} {{ meta.side }}</h3>
+										<h3>Goal: {{ playerById(meta.player) }} {{ meta.position }} {{ meta.side }}</h3>
 									</div>
 								</div>
 							</li>
 						</ul>
 					</div>
+					<div v-else-if="_.isEqual(selected.type, 'player')">
+						Player: {{ selected.id }} {{ selected.data }}
+					</div>
 					<div v-else>
-						<div v-if="_.isEqual(selected.type, 'player')">
-							Player: {{ selected.id }} {{ selected.data }}
-						</div>
-						<div v-else>
-							Default
+						<div class="bg-white row col-md-4">
+							<div class="mb-2 input-group">
+								<span class="input-group-text col-md-6" id="addon-tide-brake">1v1:</span>
+								<div class="form-switch">
+									<input type="checkbox" class="form-check-input" id="singlePlayer" :checked="settings.singlePlayMode"
+										placeholder="" aria-label="singlePlayer" @click="toggleSimplePlayer">
+								</div>
+							</div>
+							<div class="mb-2 input-group">
+								<span class="input-group-text col-md-6" id="addon-max-score">Max Score:</span>
+								<input type="number" class="form-control" id="maxScoreCount" aria-describedby="maxScore"
+									:value="settings.maxScore" @input="incrementScore" placeholder="0">
+							</div>
+							<div class="mb-2 input-group">
+								<span class="input-group-text col-md-6" id="addon-tide-brake">Tide Brake:</span>
+								<div class="form-switch">
+									<input type="checkbox" class="form-check-input" id="tideBrake" :checked="settings.tideBrake"
+										placeholder="" aria-label="tideBrake" @click="toggleTideBrake">
+								</div>
+							</div>
+							<div v-if="settings.tideBrake" class="mb-2 input-group">
+								<span class="input-group-text col-md-6" id="addon-tide-brake-span">TB Difference:</span>
+								<input type="number" class="form-control" id="tideBrakeSpan" aria-describedby="tideBrakeSpan"
+									:value="settings.tideBrakeSpan" placeholder="2" @input="incrementTideBrakeSpan">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row context align-items-center flex-nowrap">
+		<div class="context row align-items-center flex-nowrap">
 			<div class="col-md-3">
-				<div class="row">
+				<div v-if="settings.singlePlayMode" class="row">
 					<div class="card text-danger">
-						<div v-if="!gameOver" class="card-body" @click="increment('front', 'red')">
-							<h3>{{ game.red.front }}</h3>
+						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'red')">
+							<h3>{{ playerById(game.red.front) }}</h3>
 						</div>
 						<div v-else class="card-body">
-							<label for="redFront">Front</label>
+							<label for="redFront">Red</label>
 							<select class="form-control" id="redFront" v-model="game.red.front">
-								<option v-for="player in _.filter([game.red.front, ...suitablePlayers])">
-									{{ player }}
+								<option v-for="player in _.filter([game.red.front, ...suitablePlayers])" :key="player" :value="player">
+									{{ playerById(player) }}
 								</option>
 							</select>
 						</div>
 					</div>
-					<div @click="switchSides('red')" v-if="!gameOver">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-							class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-							<path fill-rule="evenodd"
-								d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
-						</svg>
+				</div>
+				<div v-else class="row">
+					<div class="card text-danger">
+						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'red')">
+							<h3>{{ playerById(game.red.front) }}</h3>
+						</div>
+						<div v-else class="card-body">
+							<label for="redFront">Front</label>
+							<select class="form-control" id="redFront" v-model="game.red.front">
+								<option v-for="player in _.filter([game.red.front, ...suitablePlayers])" :key="player" :value="player">
+									{{ playerById(player) }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div @click="switchSides('red')" v-if="isGameRunning">
+						<icon-selector :selector="'position'" :size="32"></icon-selector>
 					</div>
 					<div class="card text-danger">
-						<div v-if="!gameOver" class="card-body" @click="increment('back', 'red')">
-							<h3>{{ game.red.back }}</h3>
+						<div v-if="isGameRunning" class="card-body" @click="increment('back', 'red')">
+							<h3>{{ playerById(game.red.back) }}</h3>
 						</div>
 						<div v-else class="card-body">
 							<label for="redBack">Back</label>
 							<select class="form-control" id="redBack" v-model="game.red.back">
-								<option v-for="player in _.filter([game.red.back, ...suitablePlayers])">
-									{{ player }}
+								<option v-for="player in _.filter([game.red.back, ...suitablePlayers])" :key="player" :value="player">
+									{{ playerById(player) }}
 								</option>
 							</select>
 						</div>
@@ -224,22 +297,20 @@
 				</div>
 			</div>
 			<div class="row col">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-					class="bi bi-arrow-left-right" viewBox="0 0 16 16" @click="switchSides()" v-if="!gameOver">
-					<path fill-rule="evenodd"
-						d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
-				</svg>
-				<div class="col-md bg-danger display" v-if="!gameOver">
+				<div v-if="isGameRunning" @click="switchSides()">
+					<icon-selector :selector="'side'" :size="32"></icon-selector>
+				</div>
+				<div class="col-md bg-danger display" v-if="isGameRunning">
 					<div class="card extra">
 						<div class="card-body align-conten-md-center">
-							<h1>{{ game.red?.score}}</h1>
+							<h1>{{ game.red.score }}</h1>
 						</div>
 					</div>
 				</div>
-				<div class="col-md bg-primary display" v-if="!gameOver">
+				<div class="col-md bg-primary display" v-if="isGameRunning">
 					<div class="card extra">
 						<div class="card-body align-conten-md-center">
-							<h1>{{ game.blue?.score}}</h1>
+							<h1>{{ game.blue.score }}</h1>
 						</div>
 					</div>
 				</div>
@@ -250,36 +321,47 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="row">
+				<div v-if="settings.singlePlayMode" class="row">
 					<div class="card text-primary">
-						<div v-if="!gameOver" class="card-body" @click="increment('front', 'blue')">
-							<h3>{{ game.blue.front }}</h3>
+						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'blue')">
+							<h3>{{ playerById(game.blue.front) }}</h3>
 						</div>
 						<div v-else class="card-body">
-							<label for="blueFront">Front</label>
+							<label for="blueFront">Blue</label>
 							<select class="form-control" id="blueFront" v-model="game.blue.front">
-								<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player">
-									{{ player }}
+								<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player" :value="player">
+									{{ playerById(player) }}
 								</option>
 							</select>
 						</div>
 					</div>
-					<div @click="switchSides('blue')" v-if="!gameOver">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-							class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-							<path fill-rule="evenodd"
-								d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
-						</svg>
+				</div>
+				<div v-else class="row">
+					<div class="card text-primary">
+						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'blue')">
+							<h3>{{ playerById(game.blue.front) }}</h3>
+						</div>
+						<div v-else class="card-body">
+							<label for="blueFront">Front</label>
+							<select class="form-control" id="blueFront" v-model="game.blue.front">
+								<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player" :value="player">
+									{{ playerById(player) }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div @click="switchSides('blue')" v-if="isGameRunning">
+						<icon-selector :selector="'position'" :size="32"></icon-selector>
 					</div>
 					<div class="card text-primary">
-						<div v-if="!gameOver" class="card-body" @click="increment('back', 'blue')">
-							<h3>{{ game.blue.back }}</h3>
+						<div v-if="isGameRunning" class="card-body" @click="increment('back', 'blue')">
+							<h3>{{ playerById(game.blue.back) }}</h3>
 						</div>
 						<div v-else class="card-body">
 							<label for="blueBack">Back</label>
 							<select class="form-control" id="blueBack" v-model="game.blue.back">
-								<option v-for="player in _.filter([game.blue.back, ...suitablePlayers])" :key="player">
-									{{ player }}
+								<option v-for="player in _.filter([game.blue.back, ...suitablePlayers])" :key="player" :value="player">
+									{{ playerById(player) }}
 								</option>
 							</select>
 						</div>
@@ -289,22 +371,30 @@
 		</div>
 		<div class="row justify-content-md-between">
 			<div class="col-md-2">
-				<div class="card">
-					Timer
+				<div v-if="isGameRunning" class="card">
+					<div class="card-header">
+						<span @click="toggleStatus('play')">MM:SS:MS</span>
+						<button class="btn btn-link col" data-bs-toggle="modal" data-bs-target="#pauseModal" title="add"
+							@click="toggleStatus('play')">
+							<icon-selector :selector="'pause'"></icon-selector>
+						</button>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-10">
 				<div class="card">
 					<div class="row justify-content-end">
-						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gameBackdrop"
-							aria-controls="gameBackdrop">Settings</button>
-						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#statsBackdrop"
-							aria-controls="statsBackdrop">Stats</button>
-						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
-							aria-controls="staticBackdrop">
+						<button v-if="!isGameRunning" class="btn btn-secondary col" data-bs-toggle="offcanvas"
+							data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">Settings</button>
+							<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#playersStatsBackdrop"
+							aria-controls="playersStatsBackdrop">Players</button>
+						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gamesStatsBackdrop"
+							aria-controls="gamesStatsBackdrop">Games</button>
+						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#newPlayerBackdrop"
+							aria-controls="newPlayerBackdrop">
 							New player
 						</button>
-						<button v-if="gameOver" :disabled="isReady" class="btn btn-success col" @click="startGame">Start New
+						<button v-if="!isGameRunning" v-show="!isReady" class="btn btn-success col" @click="startGame">Start New
 							Game</button>
 					</div>
 				</div>
@@ -316,6 +406,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 	<script type="module">
 		import { UUID } from "https://unpkg.com/uuidjs@^5";
+		// const { ref } = Vue
 		const defaultGame = {
 			red: {
 				score: 0,
@@ -332,7 +423,61 @@
 		const defaultSelected = {
 			type: null,
 			id: '',
+			data: [],
 		}
+		Vue.component('icon-selector', {
+			props: ['selector', 'size', 'color'],
+			methods: {
+				getIcon(selector, size, color = 'currentColor') {
+					switch (selector) {
+						case 'position': {
+							return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+								</svg>
+							`;
+						}
+						case 'play': {
+							return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+									<path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+								</svg>
+							`
+						}
+						case 'pause': {
+							return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+									<path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
+								</svg>
+							`
+						}
+						case 'edit': {
+							return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+									<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+								</svg>
+							`
+						}
+						case 'plus': {
+							return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+									<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
+								</svg>
+							`
+						}
+						default:
+						case 'side': {
+							return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+								</svg>
+							`
+						}
+					}
+				}
+			},
+			template: `<div v-html="getIcon(selector, size, color)"></div>`
+		});
 		new Vue({
 			el: '#app',
 			data() {
@@ -341,30 +486,65 @@
 					games: [],
 					newNickname: '',
 					nicknames: [],
-					gameOver: true,
-					selected: defaultSelected
+					selected: defaultSelected,
+					updateId: undefined,
+					settings: {
+						maxScore: 5,
+						tideBrake: false,
+						tideBrakeSpan: 2,
+						singlePlayMode: false,
+						gameStatus: 'play',
+						isRuning: false,
+					}
 				}
 			},
 			methods: {
+				playerById(uid) {
+					return _.find(this.nicknames, { uid })?.name
+				},
 				addNewNickname({ target: { value } }) {
 					this.newNickname = value
 				},
 				addNickname() {
-					if (!_.isEmpty(_.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')) && !this.nicknames.includes(this.newNickname)) {
-						this.nicknames.push(this.newNickname)
+					if (!_.isEmpty(_.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')) && !_.find(this.nicknames, { name: this.newNickname })) {
+						this.nicknames.push({ name: this.newNickname, uid: UUID.generate() })
 						this.newNickname = ''
 					} else {
 						alert('Nickname already exists or input is empty.')
 					}
 				},
+				updatePlayer(id) {
+					this.updateId = id
+				},
+				updateName({ target: { value } }) {
+					this.updateId.name = value
+				},
+				updatePlayerName(e) {
+					if (_.isEmpty(_.slice(this.updateId.name).filter(r => !_.isEqual(r, ' ')).join('')) || _.find(this.nicknames, ({ name, uid }) => _.isEqual(name, this.updateId.name) && !_.isEqual(uid, this.updateId.uid))) {
+						e.preventDefault()
+						alert('Nickname already exists or input is empty.')
+						return
+					}
+					this.nicknames = _.map(this.nicknames, nick => _.isEqual(nick.uid, this.updateId.uid) ? this.updateId : nick)
+					this.updateId = undefined
+				},
 				startGame() {
-					this.gameOver = false
-					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate() })
+					this.settings.gameStatus = 'pause'
+					this.settings.isRuning = true
+					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), is1v1: this.settings.singlePlayMode })
 				},
 				resetGame() {
 					this.games.push(this.game)
 					this.game = defaultGame
-					this.gameOver = true
+					this.settings.isRuning = false
+					this.settings.gameStatus = 'play'
+				},
+				toggleStatus(changed) {
+					this.settings.gameStatus = changed
+					this.game.meta.push({
+						changed,
+						timestamp: Date.now(),
+					})
 				},
 				increment(position, side) {
 					this.game[side].score++
@@ -378,20 +558,18 @@
 				},
 				switchSides(side) {
 					if (side) {
-						const front = this.game[side].front
+						const { front } = this.game[side]
 						this.game[side].front = this.game[side].back
 						this.game[side].back = front
 						this.game.meta.push({ changed: 'position', side, timestamp: Date.now() })
 					} else {
-						const red = this.game.red
+						const { red } = this.game
 						this.game.red = this.game.blue
 						this.game.blue = red
-
 						this.game.meta.push({ changed: 'side', timestamp: Date.now() })
 					}
 				},
 				toggelSelected(selected = defaultSelected) {
-					console.log(selected)
 					const localSelected = {
 						...selected,
 					}
@@ -401,26 +579,63 @@
 							_.assignIn(localSelected, { data: _.find(this.games, ({ meta }) => _.isEqual(meta[0].uid, player)) })
 						}
 						else {
-							const data = _.filter(this.games, ({ red, blue }) => {
-								const isRedFront = _.isEqual(red.front, player)
-								const isRedBack = _.isEqual(red.back, player)
-								const isBlueFront = _.isEqual(blue.front, player)
-								const isBlueBack = _.isEqual(blue.back, player)
-								return _.some([isRedFront, isRedBack, isBlueFront, isBlueBack])
+							_.assignIn(localSelected, {
+								data:
+									_.filter(this.games, ({ red, blue }) => {
+										const isRedFront = _.isEqual(red.front, player)
+										const isRedBack = _.isEqual(red.back, player)
+										const isBlueFront = _.isEqual(blue.front, player)
+										const isBlueBack = _.isEqual(blue.back, player)
+										return _.some([isRedFront, isRedBack, isBlueFront, isBlueBack])
+									})
 							})
-							_.assignIn(localSelected, { data })
-							console.log(data)
 						}
 					}
 					this.selected = localSelected
+					this.updateId = undefined
 				},
 				goalCounter(player) {
 					return _.reduce(_.map(this.games, (game, gameIndex) =>
 						_.filter(game.meta, meta => _.isEqual(player, meta.player)).length
 					), ((t, c) => (t + c)))
 				},
+				getMetaCount(game, meta) {
+					return _.get(_.groupBy(_.get(_.groupBy(_.filter(game.meta, 'changed'), 'changed'), meta.changed), 'side'), meta.side)?.length || 0
+				},
+				incrementScore({ target: { value } }) {
+					this.settings.maxScore = value
+				},
+				toggleTideBrake() {
+					this.settings.tideBrake = !this.settings.tideBrake
+				},
+				incrementTideBrakeSpan({ target: { value } }) {
+					this.settings.tideBrakeSpan = value
+				},
+				toggleSimplePlayer() {
+					this.settings.singlePlayMode = !this.settings.singlePlayMode
+				},
 			},
 			computed: {
+				defaultChanges: {
+					get() {
+						return [
+							{
+								changed: 'position',
+								side: 'red'
+							},
+							{
+								changed: 'position',
+								side: 'blue'
+							},
+							{
+								changed: 'side'
+							},
+							{
+								changed: 'pause'
+							}
+						]
+					}
+				},
 				playersCount: {
 					get() {
 						return _.uniq(
@@ -435,14 +650,19 @@
 				},
 				isReady: {
 					get() {
-						return this.playersCount.length < 4
+						return !_.isEqual(this.playersCount.length, this.settings.singlePlayMode ? 2 : 4)
 					}
 				},
 				suitablePlayers: {
 					get() {
-						return _.filter(this.nicknames, n => !_.includes(this.playersCount, n))
+						return _.map((_.filter(this.nicknames, ({ uid }) => !_.includes(this.playersCount, uid))), 'uid')
 					}
 				},
+				isGameRunning: {
+					get() {
+						return this.settings.isRuning
+					}
+				}
 			},
 			mounted() {
 				const gameState = localStorage.getItem('gameState');
@@ -457,16 +677,16 @@
 				if (nicknamesState) {
 					this.nicknames = JSON.parse(nicknamesState)
 				}
-				const gameOverdState = localStorage.getItem('gameOverState');
-				if (gameOverdState) {
-					this.gameOver = JSON.parse(gameOverdState)
+				const settingsState = localStorage.getItem('settingsState');
+				if (settingsState) {
+					this.settings = JSON.parse(settingsState)
 				}
 			},
 			watch: {
 				game: {
 					handler() {
-						const { red, blue } = this.$data.game
-						if (Object.values({ red, blue }).some(p => p.score === 5)) {
+						const { game: { red, blue }, settings: { maxScore } } = this.$data
+						if (Object.values({ red, blue }).some(({ score }) => _.isEqual(score, Number(maxScore)))) {
 							localStorage.setItem('gameState', JSON.stringify(defaultGame))
 							this.resetGame()
 							location.reload()
@@ -488,9 +708,9 @@
 					},
 					deep: true
 				},
-				gameOver: {
+				settings: {
 					handler() {
-						localStorage.setItem('gameOverState', JSON.stringify(this.$data.gameOver))
+						localStorage.setItem('settingsState', JSON.stringify(this.$data.settings))
 					},
 					deep: true
 				},
