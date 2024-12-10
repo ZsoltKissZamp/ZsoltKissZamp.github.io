@@ -209,23 +209,30 @@
 						Player: {{ selected.id }} {{ selected.data }}
 					</div>
 					<div v-else>
-						<div class="bg-white row col-md-3">
+						<div class="bg-white row col-md-4">
+							<div class="mb-2 input-group">
+								<span class="input-group-text col-md-6" id="addon-tide-brake">1v1:</span>
+								<div class="form-switch">
+									<input type="checkbox" class="form-check-input" id="singlePlayer" :checked="settings.singlePlayMode"
+										placeholder="" aria-label="singlePlayer" @click="toggleSimplePlayer">
+								</div>
+							</div>
 							<div class="mb-2 input-group">
 								<span class="input-group-text col-md-6" id="addon-max-score">Max Score:</span>
 								<input type="number" class="form-control" id="maxScoreCount" aria-describedby="maxScore"
-									:value="settings.maxScore" placeholder="0">
+									:value="settings.maxScore" @input="incrementScore" placeholder="0">
 							</div>
 							<div class="mb-2 input-group">
 								<span class="input-group-text col-md-6" id="addon-tide-brake">Tide Brake:</span>
 								<div class="form-switch">
 									<input type="checkbox" class="form-check-input" id="tideBrake" :checked="settings.tideBrake"
-										placeholder="" aria-label="tideBrake">
+										placeholder="" aria-label="tideBrake" @click="toggleTideBrake">
 								</div>
 							</div>
 							<div v-if="settings.tideBrake" class="mb-2 input-group">
 								<span class="input-group-text col-md-6" id="addon-tide-brake-span">TB Difference:</span>
 								<input type="number" class="form-control" id="tideBrakeSpan" aria-describedby="tideBrakeSpan"
-									:value="settings.tideBrakeSpan" placeholder="2">
+									:value="settings.tideBrakeSpan" placeholder="2" @input="incrementTideBrakeSpan">
 							</div>
 						</div>
 					</div>
@@ -234,7 +241,22 @@
 		</div>
 		<div class="context row align-items-center flex-nowrap">
 			<div class="col-md-3">
-				<div class="row">
+				<div v-if="settings.singlePlayMode" class="row">
+					<div class="card text-danger">
+						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'red')">
+							<h3>{{ playerById(game.red.front) }}</h3>
+						</div>
+						<div v-else class="card-body">
+							<label for="redFront">Red</label>
+							<select class="form-control" id="redFront" v-model="game.red.front">
+								<option v-for="player in _.filter([game.red.front, ...suitablePlayers])" :key="player" :value="player">
+									{{ playerById(player) }}
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div v-else class="row">
 					<div class="card text-danger">
 						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'red')">
 							<h3>{{ playerById(game.red.front) }}</h3>
@@ -291,7 +313,22 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="row">
+				<div v-if="settings.singlePlayMode" class="row">
+					<div class="card text-primary">
+						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'blue')">
+							<h3>{{ playerById(game.blue.front) }}</h3>
+						</div>
+						<div v-else class="card-body">
+							<label for="blueFront">Blue</label>
+							<select class="form-control" id="blueFront" v-model="game.blue.front">
+								<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player" :value="player">
+									{{ playerById(player) }}
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div v-else class="row">
 					<div class="card text-primary">
 						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'blue')">
 							<h3>{{ playerById(game.blue.front) }}</h3>
@@ -327,9 +364,10 @@
 		<div class="row justify-content-md-between">
 			<div class="col-md-2">
 				<div v-if="isGameRunning" class="card">
-					<div class="card-header" >
+					<div class="card-header">
 						<span @click="toggleStatus('play')">MM:SS:MS</span>
-						<button class="btn btn-link col" data-bs-toggle="modal" data-bs-target="#pauseModal" title="add" @click="toggleStatus('play')">
+						<button class="btn btn-link col" data-bs-toggle="modal" data-bs-target="#pauseModal" title="add"
+							@click="toggleStatus('play')">
 							<icon-selector :selector="'pause'"></icon-selector>
 						</button>
 					</div>
@@ -358,6 +396,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 	<script type="module">
 		import { UUID } from "https://unpkg.com/uuidjs@^5";
+		// const { ref } = Vue
 		const defaultGame = {
 			red: {
 				score: 0,
@@ -376,26 +415,6 @@
 			id: '',
 			data: [],
 		}
-		const defaultChanges = [
-			{
-				changed: 'position',
-				side: 'red'
-			},
-			{
-				changed: 'position',
-				side: 'blue'
-			},
-			{
-				changed: 'side'
-			},
-			{
-				changed: 'pause'
-			}
-		]
-		// IconSelector Component
-		Vue.component('status-selector', {
-			props: ['selector'],
-		})
 		Vue.component('icon-selector', {
 			props: ['selector', 'size', 'color'],
 			methods: {
@@ -463,6 +482,7 @@
 						maxScore: 5,
 						tideBrake: false,
 						tideBrakeSpan: 2,
+						singlePlayMode: false,
 						gameStatus: 'play',
 						isRuning: false,
 					}
@@ -501,7 +521,7 @@
 				startGame() {
 					this.settings.gameStatus = 'pause'
 					this.settings.isRuning = true
-					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate() })
+					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), type: this.settings.singlePlayMode ? 1 : 2 })
 				},
 				resetGame() {
 					this.games.push(this.game)
@@ -572,10 +592,39 @@
 				getMetaCount(game, meta) {
 					return _.get(_.groupBy(_.get(_.groupBy(_.filter(game.meta, 'changed'), 'changed'), meta.changed), 'side'), meta.side)?.length || 0
 				},
+				incrementScore({ target: { value } }) {
+					this.settings.maxScore = value
+				},
+				toggleTideBrake() {
+					this.settings.tideBrake = !this.settings.tideBrake
+				},
+				incrementTideBrakeSpan({ target: { value } }) {
+					this.settings.tideBrakeSpan = value
+				},
+				toggleSimplePlayer() {
+					this.settings.singlePlayMode = !this.settings.singlePlayMode
+				},
 			},
 			computed: {
 				defaultChanges: {
-					get() { return defaultChanges }
+					get() {
+						return [
+							{
+								changed: 'position',
+								side: 'red'
+							},
+							{
+								changed: 'position',
+								side: 'blue'
+							},
+							{
+								changed: 'side'
+							},
+							{
+								changed: 'pause'
+							}
+						]
+					}
 				},
 				playersCount: {
 					get() {
@@ -591,7 +640,7 @@
 				},
 				isReady: {
 					get() {
-						return this.playersCount.length < 4
+						return !_.isEqual(this.playersCount.length, this.settings.singlePlayMode ? 2 : 4 )
 					}
 				},
 				suitablePlayers: {
