@@ -90,89 +90,97 @@
 				</div>
 			</div>
 		</div>
-		<div class="offcanvas offcanvas-end text-bg-dark stats" data-bs-backdrop="static" tabindex="-1" id="statsBackdrop"
-			aria-labelledby="statsBackdropLabel">
+		<div class="offcanvas offcanvas-end text-bg-dark stats" data-bs-backdrop="static" tabindex="-1"
+			id="gamesStatsBackdrop" aria-labelledby="gamesStatsBackdropLabel">
 			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="statsBackdropLabel"></h5>
+				<h5 class="offcanvas-title" id="gamesStatsBackdropLabel"></h5>
 				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
 					@click="toggelSelected()"></button>
 			</div>
 			<div class="offcanvas-body">
 				<div class="container">
-					<div class="row">
-						<table class="table bg-white" id="gameTable">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col" class="text-danger">RF</th>
-									<th scope="col" class="text-danger">RB</th>
-									<th scope="col" class="text-danger">RS</th>
-									<th scope="col" class="text-danger">Meta</th>
-									<th scope="col" class="text-primary">BS</th>
-									<th scope="col" class="text-primary">BF</th>
-									<th scope="col" class="text-primary">BB</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
-									<th scope="row" @click="toggelSelected({id: game.meta[0].uid, type: 'game'})">
-										<button class="btn btn--secondary col" data-bs-toggle="offcanvas"
-											data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">
-											{{ index + 1 }}
-										</button>
-									</th>
-									<td>{{ playerById(game.red.front) }}</td>
-									<td>{{ playerById(game.red.back) }}</td>
-									<td>{{ game.red.score }}</td>
-									<td>
-										<ul class="list-group list-group-horizontal justify-content-md-center">
-											<li v-for="meta in defaultChanges" class="list-group-item">
-												<icon-selector :selector="meta.changed" :size="16" :color="meta.side"></icon-selector>
-												<span class="badge bg-secondary">
-													{{ getMetaCount(game, meta) }}
-												</span>
-											</li>
-										</ul>
-									</td>
-									<td>{{ game.blue.score }}</td>
-									<td>{{ playerById(game.blue.front) }}</td>
-									<td>{{ playerById(game.blue.back) }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="row">
-						<table class="table bg-white" id="playerTable">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Name</th>
-									<th scope="col">Goals</th>
-									<th scope="col">Edit</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(player, index) in nicknames" :key="player.id">
-									<th scope="row" @click="toggelSelected({id: player.name, type: 'player'})">
-										<button class="btn btn--secondary col" data-bs-toggle="offcanvas"
-											data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">
-											{{ index + 1 }}
-										</button>
-									</th>
-									<td>
-										<input v-if="_.isEqual(updateId?.uid, player.uid)" type="text" id="update-nickname"
-											:value="updateId.name" placeholder="Update nickname" @keyup.enter="updatePlayerName"
-											class="form-control col-md-1" @input="updateName">
-										<h5 v-else>{{ player.name }}</h5>
-									</td>
-									<td>{{ goalCounter(player.uid) }}</td>
-									<td @click="updatePlayer(player)">
-										<icon-selector :selector="'edit'"></icon-selector>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+					<table class="table bg-white" id="gameTable">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col" class="text-danger">RF</th>
+								<th scope="col" class="text-danger">RB</th>
+								<th scope="col" class="text-danger">RS</th>
+								<th scope="col" class="text-danger">Meta</th>
+								<th scope="col" class="text-primary">BS</th>
+								<th scope="col" class="text-primary">BF</th>
+								<th scope="col" class="text-primary">BB</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
+								<th scope="row" @click="toggelSelected({id: game.meta[0].uid, type: 'game'})">
+									<button class="btn btn--secondary col" data-bs-toggle="offcanvas"
+										data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">
+										{{ index + 1 }}
+									</button>
+								</th>
+								<td>{{ playerById(game.red.front) }}</td>
+								<td>{{ playerById(game.red.back) }}</td>
+								<td>{{ game.red.score }}</td>
+								<td>
+									<ul class="list-group list-group-horizontal justify-content-md-center">
+										<li v-for="meta in defaultChanges" class="list-group-item">
+											<icon-selector :selector="meta.changed" :size="16" :color="meta.side"></icon-selector>
+											<span class="badge bg-secondary">
+												{{ getMetaCount(game, meta) }}
+											</span>
+										</li>
+									</ul>
+								</td>
+								<td>{{ game.blue.score }}</td>
+								<td>{{ playerById(game.blue.front) }}</td>
+								<td>{{ playerById(game.blue.back) }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="offcanvas offcanvas-end text-bg-dark stats" data-bs-backdrop="static" tabindex="-1"
+			id="playersStatsBackdrop" aria-labelledby="playersStatsBackdropLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="playersStatsBackdropLabel"></h5>
+				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
+					@click="toggelSelected()"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="container">
+					<table class="table bg-white" id="playerTable">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Name</th>
+								<th scope="col">Goals</th>
+								<th scope="col">Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(player, index) in nicknames" :key="player.id">
+								<th scope="row" @click="toggelSelected({id: player.name, type: 'player'})">
+									<button class="btn btn--secondary col" data-bs-toggle="offcanvas"
+										data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">
+										{{ index + 1 }}
+									</button>
+								</th>
+								<td>
+									<input v-if="_.isEqual(updateId?.uid, player.uid)" type="text" id="update-nickname"
+										:value="updateId.name" placeholder="Update nickname" @keyup.enter="updatePlayerName"
+										class="form-control col-md-1" @input="updateName">
+									<h5 v-else>{{ player.name }}</h5>
+								</td>
+								<td>{{ goalCounter(player.uid) }}</td>
+								<td @click="updatePlayer(player)">
+									<icon-selector :selector="'edit'"></icon-selector>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -378,13 +386,15 @@
 					<div class="row justify-content-end">
 						<button v-if="!isGameRunning" class="btn btn-secondary col" data-bs-toggle="offcanvas"
 							data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">Settings</button>
-						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#statsBackdrop"
-							aria-controls="statsBackdrop">Stats</button>
+							<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#playersStatsBackdrop"
+							aria-controls="playersStatsBackdrop">Players</button>
+						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gamesStatsBackdrop"
+							aria-controls="gamesStatsBackdrop">Games</button>
 						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#newPlayerBackdrop"
 							aria-controls="newPlayerBackdrop">
 							New player
 						</button>
-						<button v-if="!isGameRunning" :disabled="isReady" class="btn btn-success col" @click="startGame">Start New
+						<button v-if="!isGameRunning" v-show="!isReady" class="btn btn-success col" @click="startGame">Start New
 							Game</button>
 					</div>
 				</div>
@@ -640,7 +650,7 @@
 				},
 				isReady: {
 					get() {
-						return !_.isEqual(this.playersCount.length, this.settings.singlePlayMode ? 2 : 4 )
+						return !_.isEqual(this.playersCount.length, this.settings.singlePlayMode ? 2 : 4)
 					}
 				},
 				suitablePlayers: {
@@ -676,7 +686,7 @@
 				game: {
 					handler() {
 						const { game: { red, blue }, settings: { maxScore } } = this.$data
-						if (Object.values({ red, blue }).some(p => p.score === maxScore)) {
+						if (Object.values({ red, blue }).some(({ score }) => _.isEqual(score, Number(maxScore)))) {
 							localStorage.setItem('gameState', JSON.stringify(defaultGame))
 							this.resetGame()
 							location.reload()
