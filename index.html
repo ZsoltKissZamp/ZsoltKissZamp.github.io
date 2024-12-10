@@ -521,7 +521,7 @@
 				startGame() {
 					this.settings.gameStatus = 'pause'
 					this.settings.isRuning = true
-					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), type: this.settings.singlePlayMode ? 1 : 2 })
+					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), is1v1: this.settings.singlePlayMode })
 				},
 				resetGame() {
 					this.games.push(this.game)
