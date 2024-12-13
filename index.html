@@ -221,7 +221,7 @@
 							<div class="mb-2 input-group">
 								<span class="input-group-text col-md-6" id="addon-tide-brake">1v1:</span>
 								<div class="form-switch">
-									<input type="checkbox" class="form-check-input" id="singlePlayer" :checked="settings.singlePlayMode"
+									<input type="checkbox" class="form-check-input" id="singlePlayer" :checked="settings.is1v1"
 										placeholder="" aria-label="singlePlayer" @click="toggleSimplePlayer">
 								</div>
 							</div>
@@ -231,16 +231,16 @@
 									:value="settings.maxScore" @input="incrementScore" placeholder="0">
 							</div>
 							<div class="mb-2 input-group">
-								<span class="input-group-text col-md-6" id="addon-tide-brake">Tide Brake:</span>
+								<span class="input-group-text col-md-6" id="addon-tide-brake">Tie Break:</span>
 								<div class="form-switch">
-									<input type="checkbox" class="form-check-input" id="tideBrake" :checked="settings.tideBrake"
-										placeholder="" aria-label="tideBrake" @click="toggleTideBrake">
+									<input type="checkbox" class="form-check-input" id="tieBreak" :checked="settings.tieBreak"
+										placeholder="" aria-label="tieBreak" @click="toggletieBreak">
 								</div>
 							</div>
-							<div v-if="settings.tideBrake" class="mb-2 input-group">
+							<div v-if="settings.tieBreak" class="mb-2 input-group">
 								<span class="input-group-text col-md-6" id="addon-tide-brake-span">TB Difference:</span>
-								<input type="number" class="form-control" id="tideBrakeSpan" aria-describedby="tideBrakeSpan"
-									:value="settings.tideBrakeSpan" placeholder="2" @input="incrementTideBrakeSpan">
+								<input type="number" class="form-control" id="tieBreakSpan" aria-describedby="tieBreakSpan"
+									:value="settings.tieBreakSpan" placeholder="2" @input="incrementtieBreakSpan">
 							</div>
 						</div>
 					</div>
@@ -249,7 +249,7 @@
 		</div>
 		<div class="context row align-items-center flex-nowrap">
 			<div class="col-md-3">
-				<div v-if="settings.singlePlayMode" class="row">
+				<div v-if="settings.is1v1" class="row">
 					<div class="card text-danger">
 						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'red')">
 							<h3>{{ playerById(game.red.front) }}</h3>
@@ -321,7 +321,7 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div v-if="settings.singlePlayMode" class="row">
+				<div v-if="settings.is1v1" class="row">
 					<div class="card text-primary">
 						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'blue')">
 							<h3>{{ playerById(game.blue.front) }}</h3>
@@ -372,13 +372,11 @@
 		<div class="row justify-content-md-between">
 			<div class="col-md-2">
 				<div v-if="isGameRunning" class="card">
-					<div class="card-header">
-						<span @click="toggleStatus('play')">MM:SS:MS</span>
-						<button class="btn btn-link col" data-bs-toggle="modal" data-bs-target="#pauseModal" title="add"
-							@click="toggleStatus('play')">
-							<icon-selector :selector="'pause'"></icon-selector>
-						</button>
-					</div>
+					<button class="btn btn-link col" data-bs-toggle="modal" data-bs-target="#pauseModal" title="add"
+						@click="toggleStatus('play')">
+						<span>{{ timerValue }}</span>
+						<icon-selector :selector="'pause'"></icon-selector>
+					</button>
 				</div>
 			</div>
 			<div class="col-md-10">
@@ -386,7 +384,7 @@
 					<div class="row justify-content-end">
 						<button v-if="!isGameRunning" class="btn btn-secondary col" data-bs-toggle="offcanvas"
 							data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">Settings</button>
-							<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#playersStatsBackdrop"
+						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#playersStatsBackdrop"
 							aria-controls="playersStatsBackdrop">Players</button>
 						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gamesStatsBackdrop"
 							aria-controls="gamesStatsBackdrop">Games</button>
@@ -404,9 +402,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
 	<script type="module">
 		import { UUID } from "https://unpkg.com/uuidjs@^5";
-		// const { ref } = Vue
+		dayjs.extend(window.dayjs_plugin_relativeTime)
 		const defaultGame = {
 			red: {
 				score: 0,
@@ -482,18 +482,34 @@
 			el: '#app',
 			data() {
 				return {
-					game: defaultGame,
+					game: {
+						red: {
+							score: 0,
+							front: '',
+							back: '',
+						},
+						blue: {
+							score: 0,
+							front: '',
+							back: '',
+						},
+						meta: []
+					},
 					games: [],
 					newNickname: '',
 					nicknames: [],
-					selected: defaultSelected,
+					selected: {
+						type: null,
+						id: '',
+						data: [],
+					},
 					updateId: undefined,
 					settings: {
 						maxScore: 5,
-						tideBrake: false,
-						tideBrakeSpan: 2,
-						singlePlayMode: false,
-						gameStatus: 'play',
+						tieBreak: false,
+						tieBreakSpan: 2,
+						is1v1: false,
+						isPlaying: false,
 						isRuning: false,
 					}
 				}
@@ -529,18 +545,19 @@
 					this.updateId = undefined
 				},
 				startGame() {
-					this.settings.gameStatus = 'pause'
+					this.settings.isPlaying = true
 					this.settings.isRuning = true
-					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), is1v1: this.settings.singlePlayMode })
+					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), is1v1: this.settings.is1v1 })
 				},
 				resetGame() {
 					this.games.push(this.game)
+					console.log(defaultGame.red.score)
 					this.game = defaultGame
 					this.settings.isRuning = false
-					this.settings.gameStatus = 'play'
+					this.settings.isPlaying = false
 				},
 				toggleStatus(changed) {
-					this.settings.gameStatus = changed
+					this.settings.isPlaying = _.isEqual(changed, 'play')
 					this.game.meta.push({
 						changed,
 						timestamp: Date.now(),
@@ -555,6 +572,9 @@
 						player: this.game[side][position],
 						isOwn: false
 					})
+					if (_.isEqual(this.game[side].score, Number(this.settings.maxScore))) {
+						this.resetGame()
+					}
 				},
 				switchSides(side) {
 					if (side) {
@@ -599,20 +619,18 @@
 						_.filter(game.meta, meta => _.isEqual(player, meta.player)).length
 					), ((t, c) => (t + c)))
 				},
-				getMetaCount(game, meta) {
-					return _.get(_.groupBy(_.get(_.groupBy(_.filter(game.meta, 'changed'), 'changed'), meta.changed), 'side'), meta.side)?.length || 0
-				},
+				getMetaCount: (game, meta) => _.get(_.groupBy(_.get(_.groupBy(_.filter(game.meta, 'changed'), 'changed'), meta.changed), 'side'), meta.side)?.length || 0,
 				incrementScore({ target: { value } }) {
 					this.settings.maxScore = value
 				},
-				toggleTideBrake() {
-					this.settings.tideBrake = !this.settings.tideBrake
+				toggletieBreak() {
+					this.settings.tieBreak = !this.settings.tieBreak
 				},
-				incrementTideBrakeSpan({ target: { value } }) {
-					this.settings.tideBrakeSpan = value
+				incrementtieBreakSpan({ target: { value } }) {
+					this.settings.tieBreakSpan = value
 				},
 				toggleSimplePlayer() {
-					this.settings.singlePlayMode = !this.settings.singlePlayMode
+					this.settings.is1v1 = !this.settings.is1v1
 				},
 			},
 			computed: {
@@ -650,7 +668,7 @@
 				},
 				isReady: {
 					get() {
-						return !_.isEqual(this.playersCount.length, this.settings.singlePlayMode ? 2 : 4)
+						return !_.isEqual(this.playersCount.length, this.settings.is1v1 ? 2 : 4)
 					}
 				},
 				suitablePlayers: {
@@ -662,7 +680,20 @@
 					get() {
 						return this.settings.isRuning
 					}
-				}
+				},
+				timerValue: {
+					get() {
+						if(!this.game.meta.length) return '00:00:00'
+						let d
+						const startTime = dayjs(this.game.meta[0].timestamp)
+						
+						setTimeout(() => {
+							d = dayjs(startTime).toNow(true)
+							console.log("mivan")
+						}, 2)
+						return d
+					}
+				},
 			},
 			mounted() {
 				const gameState = localStorage.getItem('gameState');
@@ -685,14 +716,7 @@
 			watch: {
 				game: {
 					handler() {
-						const { game: { red, blue }, settings: { maxScore } } = this.$data
-						if (Object.values({ red, blue }).some(({ score }) => _.isEqual(score, Number(maxScore)))) {
-							localStorage.setItem('gameState', JSON.stringify(defaultGame))
-							this.resetGame()
-							location.reload()
-						} else {
-							localStorage.setItem('gameState', JSON.stringify(this.$data.game))
-						}
+						localStorage.setItem('gameState', JSON.stringify(this.$data.game))
 					},
 					deep: true
 				},
