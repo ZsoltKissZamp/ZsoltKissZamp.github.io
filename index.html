@@ -406,7 +406,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 	<script type="module">
 		import { UUID } from "https://unpkg.com/uuidjs@^5";
-		// const { ref } = Vue
+		const { createApp, ref, defineEmits } = Vue
 		const defaultGame = {
 			red: {
 				score: 0,
@@ -478,6 +478,31 @@
 			},
 			template: `<div v-html="getIcon(selector, size, color)"></div>`
 		});
+		Vue.component('side-selector', {
+			props: ['side', 'position', 'increment'],
+			emits: ['increment'],
+			methods: {
+				setPlay(side, position) {
+
+					return `
+						<div class="card text-${_.isEqual(side, 'blue') ? 'primary' : 'danger'}">
+							<div v-if="isGameRunning" class="card-body" @click="$emit('increment',${position}, ${side}))">
+								<h3>{{ playerById(game.red.front) }}</h3>
+							</div>
+							<div v-else class="card-body">
+								<label for="redFront">Front</label>
+								<select class="form-control" id="redFront" v-model="game.red.front">
+									<option v-for="player in _.filter([game.red.front, ...suitablePlayers])" :key="player" :value="player">
+										{{ playerById(player) }}
+									</option>
+								</select>
+							</div>
+						</div>
+					`
+				}
+			},
+			template: ``
+		})
 		new Vue({
 			el: '#app',
 			data() {
