@@ -430,7 +430,6 @@
 		import { UUID } from "https://unpkg.com/uuidjs@^5";
 		dayjs.extend(window.dayjs_plugin_relativeTime)
 		dayjs.extend(dayjs_plugin_duration);
-		let timer
 		const defaultGame = {
 			red: {
 				score: 0,
@@ -508,6 +507,7 @@
 			el: '#app',
 			data() {
 				return {
+					timer,
 					game: {
 						red: {
 							score: 0,
@@ -577,27 +577,15 @@
 					this.settings.isPlaying = true
 					this.settings.isRunning = true
 					this.game.timeElapsed = '00:00:00'
-					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), is1v1: this.settings.is1v1 })
+					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), is1v1: this.settings.is1v1, type: '' })
 					this.updateTimer()
 				},
 				resetGame() {
 					this.games.push(this.game)
-					this.game = clearPlayers ? defaultGame : { 
-						...defaultGame,
-						red: {
-							score: 0,
-							front: this.game.red.front,
-							back: this.game.red.back,
-						},
-						blue: {
-							score: 0,
-							front: this.game.blue.front,
-							back: this.game.blue.back,
-						}
-					}
+					this.game = defaultGame
 					this.settings.isRunning = false
 					this.settings.isPlaying = false
-					clearInterval(timer)
+					clearInterval(this.timer)
 				},
 				toggleStatus(changed) {
 					this.settings.isPlaying = _.isEqual(changed, 'play')
@@ -679,7 +667,7 @@
 					this.settings.clearPlayers = !this.settings.clearPlayers
 				},
 				updateTimer() {
-					timer = setInterval(() => {
+					this.timer = setInterval(() => {
 							if (this.settings.isRunning && this.game.meta.length > 0 && this.game.meta[0].timestamp) {
 							const startTime = dayjs(this.game.meta[0].timestamp)
 							const now = dayjs();
