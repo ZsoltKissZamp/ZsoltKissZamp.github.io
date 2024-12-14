@@ -585,12 +585,14 @@
 					this.game = clearPlayers ? defaultGame : { 
 						...defaultGame,
 						red: {
-							...this.game.red,
-							score: 0
+							score: 0,
+							front: this.game.red.front,
+							back: this.game.red.back,
 						},
 						blue: {
-							...this.game.blue,
-							score: 0
+							score: 0,
+							front: this.game.blue.front,
+							back: this.game.blue.back,
 						}
 					}
 					this.settings.isRunning = false
