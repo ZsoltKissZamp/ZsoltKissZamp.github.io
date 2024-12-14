@@ -229,6 +229,13 @@
 					<div v-else>
 						<div class="bg-white row col-md-4">
 							<div class="mb-2 input-group">
+								<span class="input-group-text col-md-6" id="Clear Players">Clear Players:</span>
+								<div class="form-switch">
+									<input type="checkbox" class="form-check-input" id="clearPlayers" :checked="settings.clearPlayers"
+										placeholder="" aria-label="clearPlayers" @click="toggleclearPlayers">
+								</div>
+							</div>
+							<div class="mb-2 input-group">
 								<span class="input-group-text col-md-6" id="addon-tide-brake">1v1:</span>
 								<div class="form-switch">
 									<input type="checkbox" class="form-check-input" id="singlePlayer" :checked="settings.is1v1"
@@ -331,7 +338,7 @@
 				</div>
 				<div v-if="isGameRunning" class="row justify-content-lg-center">
 					<div class="col-md-auto orbitron-timer" >
-						{{ timeElapsed }}
+						{{ game.timeElapsed }}
 					</div>
 				</div>						
 			</div>
@@ -423,6 +430,7 @@
 		import { UUID } from "https://unpkg.com/uuidjs@^5";
 		dayjs.extend(window.dayjs_plugin_relativeTime)
 		dayjs.extend(dayjs_plugin_duration);
+		let timer
 		const defaultGame = {
 			red: {
 				score: 0,
@@ -531,8 +539,9 @@
 						is1v1: false,
 						isPlaying: false,
 						isRunning: false,
+						clearPlayers: true
 					}
-,				}
+				}
 			},
 			methods: {
 				playerById(uid) {
@@ -569,13 +578,24 @@
 					this.settings.isRunning = true
 					this.game.timeElapsed = '00:00:00'
 					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), is1v1: this.settings.is1v1 })
+					this.updateTimer()
 				},
 				resetGame() {
 					this.games.push(this.game)
-					console.log(defaultGame.red.score)
-					this.game = defaultGame
+					this.game = clearPlayers ? defaultGame : { 
+						...defaultGame,
+						red: {
+							...this.game.red,
+							score: 0
+						},
+						blue: {
+							...this.game.blue,
+							score: 0
+						}
+					}
 					this.settings.isRunning = false
 					this.settings.isPlaying = false
+					clearInterval(timer)
 				},
 				toggleStatus(changed) {
 					this.settings.isPlaying = _.isEqual(changed, 'play')
@@ -653,8 +673,11 @@
 				toggleSimplePlayer() {
 					this.settings.is1v1 = !this.settings.is1v1
 				},
+				toggleclearPlayers() {
+					this.settings.clearPlayers = !this.settings.clearPlayers
+				},
 				updateTimer() {
-					setInterval(() => {
+					timer = setInterval(() => {
 							if (this.settings.isRunning && this.game.meta.length > 0 && this.game.meta[0].timestamp) {
 							const startTime = dayjs(this.game.meta[0].timestamp)
 							const now = dayjs();
@@ -717,11 +740,6 @@
 						return this.settings.isRunning
 					}
 				},
-				timeElapsed: {
-					get() {
-						return this.game.timeElapsed
-					}
-				},
 			},
 			mounted() {
 				 const gameState = localStorage.getItem('gameState');
@@ -740,7 +758,6 @@
 				if (settingsState) {
 					this.settings = JSON.parse(settingsState)
 				}
-				this.updateTimer()
 			},
 			watch: {
 				game: {
