@@ -1328,12 +1328,10 @@
             }, 1000);
           },
           resetShowDisplay(tricki) {
-            if (tricki) {
-              const offcanvasElement = new bootstrap.Offcanvas(
-                `#${this.app.showType}sStatsBackdrop`
-              );
-              offcanvasElement.show();
-            }
+            const offcanvasElement =
+              this.app.showType &&
+              new bootstrap.Offcanvas(`#${this.app.showType}sStatsBackdrop`);
+            offcanvasElement?.show();
             this.app = {
               showId: undefined,
               showType: undefined,
