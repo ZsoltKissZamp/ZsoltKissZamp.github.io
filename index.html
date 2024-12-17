@@ -96,27 +96,25 @@
   <body>
     <div id="app" class="container text-center user-select-none">
       <div
-        class="modal"
-        id="pauseModal"
+        class="offcanvas offcanvas-top"
+        id="pauseBackdrop"
         data-bs-backdrop="static"
-        data-bs-keyboard="false"
         tabindex="-1"
-        aria-labelledby="pauseModalLabel"
-        aria-hidden="true"
+        aria-labelledby="pauseBackdropLabel"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-                @click="toggleStatus('play')"
-              >
-                <icon-selector :selector="'play'" />
-              </button>
-            </div>
-          </div>
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="pauseBackdropLabel"></h5>
+        </div>
+        <div class="offcanvas-body">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="offcanvas"
+            @click="toggleStatus('play')"
+            aria-label="Close"
+          >
+            <icon-selector :selector="'play'" />
+          </button>
         </div>
       </div>
       <div
@@ -157,112 +155,153 @@
         </div>
         <div class="offcanvas-body">
           <div class="container">
-            <table class="table bg-white" id="gameTable">
-              <thead class="table-info">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col" class="text-danger">
-                    <icon-selector
-                      :selector="'front'"
-                      :color="'red'"
-                      :size="24"
-                    />
-                  </th>
-                  <th scope="col" class="text-danger">
-                    <icon-selector
-                      :selector="'back'"
-                      :color="'red'"
-                      :size="24"
-                    />
-                  </th>
-                  <th scope="col" class="text-danger">
-                    <icon-selector
-                      :selector="'award'"
-                      :color="'red'"
-                      :size="24"
-                    />
-                  </th>
-                  <th scope="col" class="text-secondary">
-                    <icon-selector :selector="'meta'" :size="24" />
-                  </th>
-                  <th scope="col" class="text-primary">
-                    <icon-selector
-                      :selector="'award'"
-                      :color="'blue'"
-                      :size="24"
-                    />
-                  </th>
-                  <th scope="col" class="text-primary">
-                    <icon-selector
-                      :selector="'front'"
-                      :color="'blue'"
-                      :size="24"
-                    />
-                  </th>
-                  <th scope="col" class="text-primary">
-                    <icon-selector
-                      :selector="'back'"
-                      :color="'blue'"
-                      :size="24"
-                    />
-                  </th>
-                  <th scope="col" class="text-secondary">
-                    <icon-selector :selector="'gear'" :size="24" />
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(game, index) in games" :id="game.meta[0].uid">
-                  <th scope="row">{{ index + 1 }}</th>
-                  <td>{{ playerById(game.red.front) }}</td>
-                  <td>{{ playerById(game.red.back) }}</td>
-                  <td>{{ game.red.score }}</td>
-                  <td>
-                    <ul
-                      class="list-group list-group-horizontal justify-content-md-center"
-                    >
-                      <li
-                        v-for="meta in defaultChanges"
-                        class="list-group-item"
-                      >
+            <div class="row justify-content-md-between">
+              <div class="col-md-9">
+                <table class="table table-responsive" id="gameTable">
+                  <thead class="table-info">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col" v-if="configurations.displayDate">
+                        <icon-selector :selector="'date'" />
+                      </th>
+                      <th scope="col" class="text-danger">
                         <icon-selector
-                          :selector="meta.changed"
-                          :size="16"
-                          :color="meta.side"
-                        ></icon-selector>
-                        <span class="badge bg-secondary">
-                          {{ getMetaCount(game, meta) }}
-                        </span>
-                      </li>
-                    </ul>
-                  </td>
-                  <td>{{ game.blue.score }}</td>
-                  <td>{{ playerById(game.blue.front) }}</td>
-                  <td>{{ playerById(game.blue.back) }}</td>
-                  <td>
-                    <button
-                      class="btn btn-outline"
-                      data-bs-toggle="offcanvas"
-                      data-bs-target="#displayBackdrop"
-                      aria-controls="displayBackdrop"
-                      @click="showGame(game.meta[0].uid)"
-                      type="button"
-                      title="show"
-                    >
-                      <icon-selector :selector="'eye'" />
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-outline"
-                      title="delete"
-                      @click="deleteGame(game)"
-                    >
-                      <icon-selector :selector="'trash3'" />
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                          :selector="'front'"
+                          :color="'red'"
+                          :size="24"
+                        />
+                      </th>
+                      <th scope="col" class="text-danger">
+                        <icon-selector
+                          :selector="'back'"
+                          :color="'red'"
+                          :size="24"
+                        />
+                      </th>
+                      <th scope="col" class="text-danger">
+                        <icon-selector
+                          :selector="'award'"
+                          :color="'red'"
+                          :size="24"
+                        />
+                      </th>
+                      <th scope="col" class="text-secondary">
+                        <icon-selector :selector="'meta'" :size="24" />
+                      </th>
+                      <th scope="col" class="text-primary">
+                        <icon-selector
+                          :selector="'award'"
+                          :color="'blue'"
+                          :size="24"
+                        />
+                      </th>
+                      <th scope="col" class="text-primary">
+                        <icon-selector
+                          :selector="'front'"
+                          :color="'blue'"
+                          :size="24"
+                        />
+                      </th>
+                      <th scope="col" class="text-primary">
+                        <icon-selector
+                          :selector="'back'"
+                          :color="'blue'"
+                          :size="24"
+                        />
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-secondary"
+                        v-if="configurations.displayGamesUtils"
+                      >
+                        <icon-selector :selector="'gear'" :size="24" />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(game, index) in games" :id="game.meta[0].uid">
+                      <th scope="row">{{ index + 1 }}</th>
+                      <td v-if="configurations.displayDate">
+                        {{dayjs(game.meta[0].timestamp).format('DD-MM-YYYY')}}/{{dayjs(game.meta[0].timestamp).format('HH:mm:ss')}}
+                      </td>
+                      <td>{{ playerById(game.red.front) }}</td>
+                      <td>{{ playerById(game.red.back) }}</td>
+                      <td>{{ game.red.score }}</td>
+                      <td>
+                        <ul
+                          class="list-group list-group-horizontal justify-content-md-center"
+                        >
+                          <li
+                            v-for="meta in defaultChanges"
+                            class="list-group-item"
+                          >
+                            <icon-selector
+                              :selector="meta.changed"
+                              :size="16"
+                              :color="meta.side"
+                            ></icon-selector>
+                            <span class="badge bg-secondary">
+                              {{ getMetaCount(game, meta) }}
+                            </span>
+                          </li>
+                        </ul>
+                      </td>
+                      <td>{{ game.blue.score }}</td>
+                      <td>{{ playerById(game.blue.front) }}</td>
+                      <td>{{ playerById(game.blue.back) }}</td>
+                      <td class="row" v-if="configurations.displayGamesUtils">
+                        <button
+                          class="btn btn-outline col"
+                          data-bs-toggle="offcanvas"
+                          data-bs-target="#displayBackdrop"
+                          aria-controls="displayBackdrop"
+                          @click="showGame(game.meta[0].uid)"
+                          type="button"
+                          title="show"
+                        >
+                          <icon-selector :selector="'eye'" />
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline col"
+                          title="delete"
+                          @click="deleteGame(game)"
+                        >
+                          <icon-selector :selector="'trash3'" />
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-2">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="input-group justify-content-md-center">
+                      <div @click="toggleFIFO">
+                        <icon-selector
+                          :selector="configurations.FIFO ? 'up' : 'down'"
+                        />
+                      </div>
+                    </div>
+                    <div class="input-group justify-content-md-center">
+                      <div @click="toggleDisplayDate">
+                        <icon-selector
+                          :selector="configurations.displayDate ? 'date-active' : 'date'"
+                        />
+                      </div>
+                    </div>
+                    <div class="input-group justify-content-md-center">
+                      <div @click="toggleDisplayGamesUtils">
+                        <icon-selector
+                          :selector="configurations.displayGamesUtils ? 'gear-active' : 'gear'"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -306,8 +345,8 @@
               </button>
             </div>
             <div class="row mt-2">
-              <div class="col">
-                <table class="table bg-white" id="playerTable">
+              <div class="col-md">
+                <table class="table table-responsive" id="playerTable">
                   <thead class="table-info">
                     <tr>
                       <th scope="col">#</th>
@@ -531,7 +570,7 @@
           ></button>
         </div>
         <div class="offcanvas-body">
-          <div v-if="_.isEqual(app.showType, 'game')" class="container">
+          <div v-if="_.isEqual(app?.showType, 'game')" class="container">
             <div class="row">
               <div class="col-4">
                 <div class="row">
@@ -607,15 +646,14 @@
           </div>
           <div v-else class="row">
             <div class="col-6">
-              <strong>Player: {{ app.name }}</strong>
+              <strong>Player: {{ app?.name }}</strong>
             </div>
             <div class="col-6">
-              <strong>Total Matches: {{ app.showData.length }}</strong>
+              <strong>Total Matches: {{ app?.showData.length }}</strong>
             </div>
           </div>
         </div>
       </div>
-
       <button
         class="btn btn-outline-info oasis"
         data-bs-toggle="offcanvas"
@@ -859,8 +897,8 @@
         <div v-if="configurations.isRunning">
           <button
             class="btn btn-info"
-            data-bs-toggle="modal"
-            data-bs-target="#pauseModal"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#pauseBackdrop"
             title="pause"
             @click="toggleStatus('pause')"
             type="button"
@@ -934,147 +972,163 @@
             switch (selector) {
               case "position": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+      			<path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+      		</svg>
+      	`;
               }
               case "play": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-play-fill" viewBox="0 0 16 16">
-									<path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-play-fill" viewBox="0 0 16 16">
+      			<path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+      		</svg>
+      	`;
               }
               case "pause": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-pause-fill" viewBox="0 0 16 16">
-									<path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-pause-fill" viewBox="0 0 16 16">
+      			<path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
+      		</svg>
+      	`;
               }
               case "edit": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="blue" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-									<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="blue" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+      			<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+      		</svg>
+      	`;
               }
               case "plus": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg"width="${size}" height="${size}" fill="${color}" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-									<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg"width="${size}" height="${size}" fill="${color}" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+      			<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
+      		</svg>
+      	`;
               }
               case "trash3": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="red" class="bi bi-trash3" viewBox="0 0 16 16">
-									<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="red" class="bi bi-trash3" viewBox="0 0 16 16">
+      			<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+      		</svg>
+      	`;
               }
               case "eye": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="green" class="bi bi-eye" viewBox="0 0 16 16">
-									<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-									<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="green" class="bi bi-eye" viewBox="0 0 16 16">
+      			<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+      			<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+      		</svg>
+      	`;
               }
               case "back": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down" viewBox="0 0 16 16">
+      			<path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+      		</svg>
+      	`;
               }
               case "front": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-up" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-up" viewBox="0 0 16 16">
+      			<path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+      		</svg>
+      	`;
               }
               case "gear": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-gear" viewBox="0 0 16 16">
-									<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
-									<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-gear" viewBox="0 0 16 16">
+      			<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+      			<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+      		</svg>
+      	`;
               }
               case "gear-active": {
                 return `<i class="fas fa-gear fa-spin align-self-center"></i>`;
               }
               case "meta": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-meta" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M8.217 5.243C9.145 3.988 10.171 3 11.483 3 13.96 3 16 6.153 16.001 9.907c0 2.29-.986 3.725-2.757 3.725-1.543 0-2.395-.866-3.924-3.424l-.667-1.123-.118-.197a55 55 0 0 0-.53-.877l-1.178 2.08c-1.673 2.925-2.615 3.541-3.923 3.541C1.086 13.632 0 12.217 0 9.973 0 6.388 1.995 3 4.598 3q.477-.001.924.122c.31.086.611.22.913.407.577.359 1.154.915 1.782 1.714m1.516 2.224q-.378-.614-.727-1.133L9 6.326c.845-1.305 1.543-1.954 2.372-1.954 1.723 0 3.102 2.537 3.102 5.653 0 1.188-.39 1.877-1.195 1.877-.773 0-1.142-.51-2.61-2.87zM4.846 4.756c.725.1 1.385.634 2.34 2.001A212 212 0 0 0 5.551 9.3c-1.357 2.126-1.826 2.603-2.581 2.603-.777 0-1.24-.682-1.24-1.9 0-2.602 1.298-5.264 2.846-5.264q.136 0 .27.018Z"/>
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-meta" viewBox="0 0 16 16">
+      			<path fill-rule="evenodd" d="M8.217 5.243C9.145 3.988 10.171 3 11.483 3 13.96 3 16 6.153 16.001 9.907c0 2.29-.986 3.725-2.757 3.725-1.543 0-2.395-.866-3.924-3.424l-.667-1.123-.118-.197a55 55 0 0 0-.53-.877l-1.178 2.08c-1.673 2.925-2.615 3.541-3.923 3.541C1.086 13.632 0 12.217 0 9.973 0 6.388 1.995 3 4.598 3q.477-.001.924.122c.31.086.611.22.913.407.577.359 1.154.915 1.782 1.714m1.516 2.224q-.378-.614-.727-1.133L9 6.326c.845-1.305 1.543-1.954 2.372-1.954 1.723 0 3.102 2.537 3.102 5.653 0 1.188-.39 1.877-1.195 1.877-.773 0-1.142-.51-2.61-2.87zM4.846 4.756c.725.1 1.385.634 2.34 2.001A212 212 0 0 0 5.551 9.3c-1.357 2.126-1.826 2.603-2.581 2.603-.777 0-1.24-.682-1.24-1.9 0-2.602 1.298-5.264 2.846-5.264q.136 0 .27.018Z"/>
                 </svg>
-							`;
+      	`;
               }
               case "settings": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-wrench-adjustable-circle" viewBox="0 0 16 16">
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-wrench-adjustable-circle" viewBox="0 0 16 16">
                   <path d="M12.496 8a4.5 4.5 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11q.04.3.04.61"/>
                   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-1 0a7 7 0 1 0-13.202 3.249l1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.5 4.5 0 0 1-1.592-.29L4.747 14.2A7 7 0 0 0 15 8m-8.295.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27z"/>
                 </svg>
-							`;
+      	`;
               }
               case "players": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-person-fill-gear" viewBox="0 0 16 16">                  
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
                   <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
                 </svg>
-							`;
+      	`;
               }
               case "games": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-controller" viewBox="0 0 16 16">
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-controller" viewBox="0 0 16 16">
                    <path d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1z"/>
                   <path d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729q.211.136.373.297c.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466s.34 1.78.364 2.606c.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527s-2.496.723-3.224 1.527c-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.3 2.3 0 0 1 .433-.335l-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a14 14 0 0 0-.748 2.295 12.4 12.4 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.504C4.861 9.969 5.978 9.027 8 9.027s3.139.942 3.965 1.855c.164.181.307.348.44.504.214.251.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.4 12.4 0 0 0-.339-2.406 14 14 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27s-2.063.091-2.913.27"/>
                 </svg>
-							`;
+      	`;
               }
               case "games-active": {
                 return `<i class="fas fa-gamepad"></i>`;
               }
               case "new-game": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-node-plus" viewBox="0 0 16 16">
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-node-plus" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M11 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8M6.025 7.5a5 5 0 1 1 0 1H4A1.5 1.5 0 0 1 2.5 10h-1A1.5 1.5 0 0 1 0 8.5v-1A1.5 1.5 0 0 1 1.5 6h1A1.5 1.5 0 0 1 4 7.5zM11 5a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 11 5M1.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
                 </svg>
-							`;
+      	`;
               }
               case "award": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-award" viewBox="0 0 16 16">
+      		      <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-award" viewBox="0 0 16 16">
                   <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
                   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
                 </svg>
-							`;
+      	        `;
               }
               case "award-active": {
                 return `<i class="fas fa-award"></i>`;
               }
               case "info": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-info-lg" viewBox="0 0 16 16">
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-info-lg" viewBox="0 0 16 16">
                   <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0"/>
                 </svg>
-							`;
+      	`;
               }
               case "sync": {
                 return `<i class="fas fa-sync fa-spin align-self-center"></i>`;
               }
+              case "up": {
+                return `<i class="fas fa-arrow-up-1-9"></i>`;
+              }
+              case "down": {
+                return `<i class="fas fa-arrow-down-1-9"></i>`;
+              }
+              case "date": {
+                return `<i class="far fa-calendar-days"></i>`;
+              }
+              case "date-active": {
+                return `
+                <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-calendar-x" viewBox="0 0 16 16">
+                  <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708"/>
+                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                </svg>`;
+              }
               default:
               case "side": {
                 return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
-								</svg>
-							`;
+      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+      			<path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+      		</svg>
+      	`;
               }
             }
           },
@@ -1112,6 +1166,9 @@
               clearPlayers: true,
               displayGoals: false,
               displayTotalMatchesPlayed: false,
+              FIFO: false,
+              displayDate: false,
+              displayGamesUtils: false,
             },
             timer: undefined,
             plyr2Update: {},
@@ -1290,16 +1347,18 @@
               const { front } = this.game[side];
               this.game[side].front = this.game[side].back;
               this.game[side].back = front;
-              this.game.meta.push({
-                changed: "position",
-                side,
-                timestamp: Date.now(),
-              });
+              this.configurations.isRunning &&
+                this.game.meta.push({
+                  changed: "position",
+                  side,
+                  timestamp: Date.now(),
+                });
             } else {
               const { red } = this.game;
               this.game.red = this.game.blue;
               this.game.blue = red;
-              this.game.meta.push({ changed: "side", timestamp: Date.now() });
+              this.configurations.isRunning &&
+                this.game.meta.push({ changed: "side", timestamp: Date.now() });
             }
           },
           goalCounter(player) {
@@ -1390,6 +1449,17 @@
           toggleDisplayTotalMatchesPlayed() {
             this.configurations.displayTotalMatchesPlayed =
               !this.configurations.displayTotalMatchesPlayed;
+          },
+          toggleFIFO() {
+            _.reverse(this.games);
+            this.configurations.FIFO = !this.configurations.FIFO;
+          },
+          toggleDisplayDate() {
+            this.configurations.displayDate = !this.configurations.displayDate;
+          },
+          toggleDisplayGamesUtils() {
+            this.configurations.displayGamesUtils =
+              !this.configurations.displayGamesUtils;
           },
         },
         computed: {
