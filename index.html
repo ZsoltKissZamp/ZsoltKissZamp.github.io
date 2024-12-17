@@ -47,6 +47,10 @@
         width: 85% !important;
       }
 
+      .popped {
+        height: 85% !important;
+      }
+
       .context {
         height: 80vh;
         width: 100%;
@@ -213,8 +217,8 @@
                     <button
                       class="btn btn-outline"
                       data-bs-toggle="offcanvas"
-                      data-bs-target="#configurationBackdrop"
-                      aria-controls="configurationBackdrop"
+                      data-bs-target="#displayBackdrop"
+                      aria-controls="displayBackdrop"
                       @click="showGame(game.meta[0].uid)"
                       type="button"
                       title="show"
@@ -325,8 +329,8 @@
                           title="show"
                           @click="showPlayer(player)"
                           data-bs-toggle="offcanvas"
-                          data-bs-target="#configurationBackdrop"
-                          aria-controls="configurationBackdrop"
+                          data-bs-target="#displayBackdrop"
+                          aria-controls="displayBackdrop"
                         >
                           <icon-selector :selector="'eye'" />
                         </button>
@@ -396,24 +400,125 @@
             class="btn-close bg-white"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
-            @click="resetShowDisplay()"
           ></button>
         </div>
         <div class="offcanvas-body">
           <div class="container">
-            <div v-if="_.isEqual(app.showType, 'game')" class="row">
+            <div class="bg-white row col-md-4">
+              <div class="mb-2 input-group">
+                <span class="input-group-text col-md-6" id="Clear Players"
+                  >Clear Players:</span
+                >
+                <div class="form-switch">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="clearPlayers"
+                    :checked="configurations.clearPlayers"
+                    placeholder=""
+                    aria-label="clearPlayers"
+                    @click="toggleclearPlayers"
+                  />
+                </div>
+              </div>
+              <div class="mb-2 input-group">
+                <span class="input-group-text col-md-6" id="addon-1v1"
+                  >1v1:</span
+                >
+                <div class="form-switch">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="is1v1"
+                    :checked="settings.is1v1"
+                    placeholder=""
+                    aria-label="is1v1"
+                    @click="toggleIs1v1"
+                  />
+                </div>
+              </div>
+              <div class="mb-2 input-group">
+                <span class="input-group-text col-md-6" id="addon-max-score"
+                  >Max Score:</span
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="maxScoreCount"
+                  aria-describedby="maxScore"
+                  :value="settings.maxScore"
+                  @input="incrementMaxScore"
+                  placeholder="0"
+                />
+              </div>
+              <div class="mb-2 input-group">
+                <span class="input-group-text col-md-6" id="addon-tide-brake"
+                  >Tie Break:</span
+                >
+                <div class="form-switch">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="isTieBreak"
+                    :checked="settings.isTieBreak"
+                    placeholder=""
+                    aria-label="isTieBreak"
+                    @click="toggleIsTieBreak"
+                  />
+                </div>
+              </div>
+              <div v-if="settings.isTieBreak" class="mb-2 input-group">
+                <span
+                  class="input-group-text col-md-6"
+                  id="addon-tide-brake-span"
+                  >TB Difference:</span
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="tieBreakSpan"
+                  aria-describedby="tieBreakSpan"
+                  :value="settings.tieBreakSpan"
+                  placeholder="2"
+                  @input="incrementTieBreakSpan"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="displayBackdrop"
+        class="offcanvas offcanvas-bottom popped"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="displayGameLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="displayGameLabel"></h5>
+          <button
+            type="button"
+            class="btn-close bg-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+            @click="resetShowDisplay(true)"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <div v-if="_.isEqual(app.showType, 'game')" class="container">
+            <div class="row">
               <div class="col-4">
                 <div class="row">
                   <div class="col-md-2">
                     <h3>Start</h3>
                     <span
                       >{{
-                      dayjs(app.showData.meta[0].timestamp).format('DD-MM-YYYY')
+                      dayjs(app.showData?.meta[0].timestamp).format('DD-MM-YYYY')
                       }}</span
                     >
                     <span
                       >{{
-                      dayjs(app.showData.meta[0].timestamp).format('HH:mm:ss')
+                      dayjs(app.showData?.meta[0].timestamp).format('HH:mm:ss')
                       }}</span
                     >
                   </div>
@@ -421,16 +526,16 @@
                     <span><strong>Id:</strong></span>
                     <span>{{ app.showId }}</span>
                     <span><strong>Duration:</strong></span>
-                    <span>{{ app.showData.meta[0].timeElapsed }}</span>
+                    <span>{{ app.showData?.meta[0].timeElapsed }}</span>
                     <span><strong>Pause Duration:</strong></span>
                     <span>
                       {{
-                      dayjs.duration(app.showData.meta[0].pauseDuration,'seconds').format('HH:mm:ss')
+                      dayjs.duration(app.showData?.meta[0].pauseDuration,'seconds').format('HH:mm:ss')
                       }}
                     </span>
                     <span><strong>Game Type:</strong></span>
                     <span>
-                      {{ app.showData.meta[0].is1v1 ? '1 vs 1' : '4 vs 4'}}
+                      {{ app.showData?.meta[0].is1v1 ? '1 vs 1' : '4 vs 4'}}
                     </span>
                   </div>
                 </div>
@@ -473,97 +578,13 @@
                 </ul>
               </div>
             </div>
-            <div v-else-if="_.isEqual(app.showType, 'player')">
-              <div class="row">
-                <div class="col-6">
-                  <strong>Player: {{ app.name }}</strong>
-                </div>
-                <div class="col-6">
-                  <strong>Total Matches: {{ app.showData.length }}</strong>
-                </div>
-              </div>
+          </div>
+          <div v-else class="row">
+            <div class="col-6">
+              <strong>Player: {{ app.name }}</strong>
             </div>
-            <div v-else>
-              <div class="bg-white row col-md-4">
-                <div class="mb-2 input-group">
-                  <span class="input-group-text col-md-6" id="Clear Players"
-                    >Clear Players:</span
-                  >
-                  <div class="form-switch">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="clearPlayers"
-                      :checked="configurations.clearPlayers"
-                      placeholder=""
-                      aria-label="clearPlayers"
-                      @click="toggleclearPlayers"
-                    />
-                  </div>
-                </div>
-                <div class="mb-2 input-group">
-                  <span class="input-group-text col-md-6" id="addon-1v1"
-                    >1v1:</span
-                  >
-                  <div class="form-switch">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="is1v1"
-                      :checked="settings.is1v1"
-                      placeholder=""
-                      aria-label="is1v1"
-                      @click="toggleIs1v1"
-                    />
-                  </div>
-                </div>
-                <div class="mb-2 input-group">
-                  <span class="input-group-text col-md-6" id="addon-max-score"
-                    >Max Score:</span
-                  >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="maxScoreCount"
-                    aria-describedby="maxScore"
-                    :value="settings.maxScore"
-                    @input="incrementMaxScore"
-                    placeholder="0"
-                  />
-                </div>
-                <div class="mb-2 input-group">
-                  <span class="input-group-text col-md-6" id="addon-tide-brake"
-                    >Tie Break:</span
-                  >
-                  <div class="form-switch">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="isTieBreak"
-                      :checked="settings.isTieBreak"
-                      placeholder=""
-                      aria-label="isTieBreak"
-                      @click="toggleIsTieBreak"
-                    />
-                  </div>
-                </div>
-                <div v-if="settings.isTieBreak" class="mb-2 input-group">
-                  <span
-                    class="input-group-text col-md-6"
-                    id="addon-tide-brake-span"
-                    >TB Difference:</span
-                  >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="tieBreakSpan"
-                    aria-describedby="tieBreakSpan"
-                    :value="settings.tieBreakSpan"
-                    placeholder="2"
-                    @input="incrementTieBreakSpan"
-                  />
-                </div>
-              </div>
+            <div class="col-6">
+              <strong>Total Matches: {{ app.showData.length }}</strong>
             </div>
           </div>
         </div>
@@ -1118,7 +1139,7 @@
                 )
               )
             );
-            console.log(showData, name);
+            // console.log(showData, name);
             this.app = {
               showId,
               showType: "player",
@@ -1306,13 +1327,18 @@
               }
             }, 1000);
           },
-          resetShowDisplay() {
+          resetShowDisplay(tricki) {
+            if (tricki) {
+              const offcanvasElement = new bootstrap.Offcanvas(
+                `#${this.app.showType}sStatsBackdrop`
+              );
+              offcanvasElement.show();
+            }
             this.app = {
               showId: undefined,
               showType: undefined,
               showData: [],
             };
-            this.plyr2Update = {};
           },
           toggleGoalsDisplay() {
             this.configurations.displayGoals =
