@@ -1,794 +1,1503 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palace Csocso Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.1.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <style>
+      .tets * {
+        outline: 1px solid red;
+      }
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Palace Csocso Tracker</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-	<style>
-		.tets * {
-			outline: 1px solid red;
-		}
+      .display {
+        height: 10.5em;
+        border-radius: 16px;
+      }
 
-		.display {
-			height: 10.5em;
-			border-radius: 16px;
-		}
+      .extra {
+        top: 0.8em;
+      }
 
-		.extra {
-			top: .8em
-		}
+      .stats {
+        width: 85% !important;
+      }
 
-		.stats {
-			--bs-offcanvas-width: 85%;
-		}
+      .popped {
+        height: 85% !important;
+      }
 
-		.context {
-			height: 80vh;
-			width: 100%;
-		}
+      .context {
+        height: 80vh;
+        width: 100%;
+      }
 
-		h1 {
-			font-size: 5em;
-		}
+      h1 {
+        font-size: 5em;
+      }
 
-		.player {
-			max-height: 60vh;
-			overflow-y: scroll;
-		}
+      .player {
+        max-height: 60vh;
+        overflow-y: scroll;
+      }
 
-		.table {
-			max-height: 50%;
-		}
+      .table {
+        max-height: 50%;
+      }
 
-		.form-switch {
-			align-content: center;
-		}
+      .form-switch {
+        align-content: center;
+      }
 
-		.orbitron-timer {
-			font-family: "Orbitron", serif;
-			font-optical-sizing: auto;
-			font-weight: 600;
-			font-style: normal;
-		}	
-	</style>
-</head>
+      .btn-info {
+        width: 100%;
+      }
 
-<body>
-	<div id="app" class="container text-center user-select-none">
-		<div class="modal fade" id="pauseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="pauseModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="toggleStatus('play')">
-							<icon-selector :selector="'play'"></icon-selector>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="newPlayerBackdrop"
-			aria-labelledby="newPlayerBackdropLabel">
-			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="newPlayerBackdropLabel">Add New Player</h5>
-				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-			</div>
-			<div class="offcanvas-body">
-				<div class="container">
-					<div class="form-group row">
-						<input type="text" id="new-nickname" class="form-control col" :value="newNickname"
-							placeholder="Enter a new nickname" @input="addNewNickname" @keyup.enter="addNickname">
-						<button class="btn btn-outline-success col-2" @click="addNickname" title="add">
-							<icon-selector :selector="'plus'"></icon-selector>
-						</button>
-					</div>
-					<div class="mt-3">
-						<ul class="list-group player">
-							<li v-for="player in nicknames" class="list-group-item">
-								<div class="row">
-									<div class="col">{{ player.name }}</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="offcanvas offcanvas-end text-bg-dark stats" data-bs-backdrop="static" tabindex="-1"
-			id="gamesStatsBackdrop" aria-labelledby="gamesStatsBackdropLabel">
-			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="gamesStatsBackdropLabel"></h5>
-				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
-					@click="toggelSelected()"></button>
-			</div>
-			<div class="offcanvas-body">
-				<div class="container">
-					<table class="table bg-white" id="gameTable">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col" class="text-danger">RF</th>
-								<th scope="col" class="text-danger">RB</th>
-								<th scope="col" class="text-danger">RS</th>
-								<th scope="col" class="text-danger">Meta</th>
-								<th scope="col" class="text-primary">BS</th>
-								<th scope="col" class="text-primary">BF</th>
-								<th scope="col" class="text-primary">BB</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="(game, index) in games" id="{{game.meta[0].uid}}">
-								<th scope="row" @click="toggelSelected({id: game.meta[0].uid, type: 'game'})">
-									<button class="btn btn--secondary col" data-bs-toggle="offcanvas"
-										data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">
-										{{ index + 1 }}
-									</button>
-								</th>
-								<td>{{ playerById(game.red.front) }}</td>
-								<td>{{ playerById(game.red.back) }}</td>
-								<td>{{ game.red.score }}</td>
-								<td>
-									<ul class="list-group list-group-horizontal justify-content-md-center">
-										<li v-for="meta in defaultChanges" class="list-group-item">
-											<icon-selector :selector="meta.changed" :size="16" :color="meta.side"></icon-selector>
-											<span class="badge bg-secondary">
-												{{ getMetaCount(game, meta) }}
-											</span>
-										</li>
-									</ul>
-								</td>
-								<td>{{ game.blue.score }}</td>
-								<td>{{ playerById(game.blue.front) }}</td>
-								<td>{{ playerById(game.blue.back) }}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="offcanvas offcanvas-end text-bg-dark stats" data-bs-backdrop="static" tabindex="-1"
-			id="playersStatsBackdrop" aria-labelledby="playersStatsBackdropLabel">
-			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="playersStatsBackdropLabel"></h5>
-				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
-					@click="toggelSelected()"></button>
-			</div>
-			<div class="offcanvas-body">
-				<div class="container">
-					<table class="table bg-white" id="playerTable">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Name</th>
-								<th scope="col">Goals</th>
-								<th scope="col">Edit</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="(player, index) in nicknames" :key="player.id">
-								<th scope="row" @click="toggelSelected({id: player.name, type: 'player'})">
-									<button class="btn btn--secondary col" data-bs-toggle="offcanvas"
-										data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">
-										{{ index + 1 }}
-									</button>
-								</th>
-								<td>
-									<input v-if="_.isEqual(updateId?.uid, player.uid)" type="text" id="update-nickname"
-										:value="updateId.name" placeholder="Update nickname" @keyup.enter="updatePlayerName"
-										class="form-control col-md-1" @input="updateName">
-									<h5 v-else>{{ player.name }}</h5>
-								</td>
-								<td>{{ goalCounter(player.uid) }}</td>
-								<td @click="updatePlayer(player)">
-									<icon-selector :selector="'edit'"></icon-selector>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="offcanvas offcanvas-start text-bg-dark stats" data-bs-backdrop="static" tabindex="-1"
-			id="configurationBackdrop" aria-labelledby="gameBackdropLabel">
-			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="gameBackdropLabel"></h5>
-				<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"
-					@click="toggelSelected()"></button>
-			</div>
-			<div class="offcanvas-body">
-				<div class="container">
-					<div v-if="_.isEqual(selected.type, 'game')">
-						Game: {{ selected.id }}
-						<ul class="list-group">
-							<li v-for="meta in selected.data.meta" class="list-group-item">
-								<div v-if="meta.uid">
-									<h3>Start</h3>
-								</div>
-								<div v-else>
-									<div v-if="_.has(meta, 'changed')">
-										<h3>Changed:
-											<icon-selector :selector="meta.changed" :size="32" :color="meta.side"></icon-selector>
-										</h3>
-									</div>
-									<div v-else>
-										<h3>Goal: {{ playerById(meta.player) }} {{ meta.position }} {{ meta.side }}</h3>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div v-else-if="_.isEqual(selected.type, 'player')">
-						Player: {{ selected.id }} {{ selected.data }}
-					</div>
-					<div v-else>
-						<div class="bg-white row col-md-4">
-							<div class="mb-2 input-group">
-								<span class="input-group-text col-md-6" id="Clear Players">Clear Players:</span>
-								<div class="form-switch">
-									<input type="checkbox" class="form-check-input" id="clearPlayers" :checked="settings.clearPlayers"
-										placeholder="" aria-label="clearPlayers" @click="toggleclearPlayers">
-								</div>
-							</div>
-							<div class="mb-2 input-group">
-								<span class="input-group-text col-md-6" id="addon-tide-brake">1v1:</span>
-								<div class="form-switch">
-									<input type="checkbox" class="form-check-input" id="singlePlayer" :checked="settings.is1v1"
-										placeholder="" aria-label="singlePlayer" @click="toggleSimplePlayer">
-								</div>
-							</div>
-							<div class="mb-2 input-group">
-								<span class="input-group-text col-md-6" id="addon-max-score">Max Score:</span>
-								<input type="number" class="form-control" id="maxScoreCount" aria-describedby="maxScore"
-									:value="settings.maxScore" @input="incrementScore" placeholder="0">
-							</div>
-							<div class="mb-2 input-group">
-								<span class="input-group-text col-md-6" id="addon-tide-brake">Tie Break:</span>
-								<div class="form-switch">
-									<input type="checkbox" class="form-check-input" id="tieBreak" :checked="settings.tieBreak"
-										placeholder="" aria-label="tieBreak" @click="toggletieBreak">
-								</div>
-							</div>
-							<div v-if="settings.tieBreak" class="mb-2 input-group">
-								<span class="input-group-text col-md-6" id="addon-tide-brake-span">TB Difference:</span>
-								<input type="number" class="form-control" id="tieBreakSpan" aria-describedby="tieBreakSpan"
-									:value="settings.tieBreakSpan" placeholder="2" @input="incrementtieBreakSpan">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="context row align-items-center flex-nowrap">
-			<div class="col-md-3">
-				<div v-if="settings.is1v1" class="row">
-					<div class="card text-danger">
-						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'red')">
-							<h3>{{ playerById(game.red.front) }}</h3>
-						</div>
-						<div v-else class="card-body">
-							<label for="redFront">Red</label>
-							<select class="form-control" id="redFront" v-model="game.red.front">
-								<option v-for="player in _.filter([game.red.front, ...suitablePlayers])" :key="player" :value="player">
-									{{ playerById(player) }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-				<div v-else class="row">
-					<div class="card text-danger">
-						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'red')">
-							<h3>{{ playerById(game.red.front) }}</h3>
-						</div>
-						<div v-else class="card-body">
-							<label for="redFront">Front</label>
-							<select class="form-control" id="redFront" v-model="game.red.front">
-								<option v-for="player in _.filter([game.red.front, ...suitablePlayers])" :key="player" :value="player">
-									{{ playerById(player) }}
-								</option>
-							</select>
-						</div>
-					</div>
-					<div @click="switchSides('red')" v-if="isGameRunning">
-						<icon-selector :selector="'position'" :size="32"></icon-selector>
-					</div>
-					<div class="card text-danger">
-						<div v-if="isGameRunning" class="card-body" @click="increment('back', 'red')">
-							<h3>{{ playerById(game.red.back) }}</h3>
-						</div>
-						<div v-else class="card-body">
-							<label for="redBack">Back</label>
-							<select class="form-control" id="redBack" v-model="game.red.back">
-								<option v-for="player in _.filter([game.red.back, ...suitablePlayers])" :key="player" :value="player">
-									{{ playerById(player) }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row col">
-				<div v-if="isGameRunning" @click="switchSides()">
-					<icon-selector :selector="'side'" :size="32"></icon-selector>
-				</div>
-				<div class="col-md bg-danger display" v-if="isGameRunning">
-					<div class="card extra">
-						<div class="card-body align-conten-md-center">
-							<h1>{{ game.red.score }}</h1>
-						</div>
-					</div>
-				</div>
-				<div class="col-md bg-primary display" v-if="isGameRunning">
-					<div class="card extra">
-						<div class="card-body align-conten-md-center">
-							<h1>{{ game.blue.score }}</h1>
-						</div>
-					</div>
-				</div>
-				<div v-else class="row justify-content-md-center">
-					<div class="card col-md-2">
-						VS
-					</div>
-				</div>
-				<div v-if="isGameRunning" class="row justify-content-lg-center">
-					<div class="col-md-auto orbitron-timer" >
-						{{ game.timeElapsed }}
-					</div>
-				</div>						
-			</div>
-			<div class="col-md-3">
-				<div v-if="settings.is1v1" class="row">
-					<div class="card text-primary">
-						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'blue')">
-							<h3>{{ playerById(game.blue.front) }}</h3>
-						</div>
-						<div v-else class="card-body">
-							<label for="blueFront">Blue</label>
-							<select class="form-control" id="blueFront" v-model="game.blue.front">
-								<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player" :value="player">
-									{{ playerById(player) }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-				<div v-else class="row">
-					<div class="card text-primary">
-						<div v-if="isGameRunning" class="card-body" @click="increment('front', 'blue')">
-							<h3>{{ playerById(game.blue.front) }}</h3>
-						</div>
-						<div v-else class="card-body">
-							<label for="blueFront">Front</label>
-							<select class="form-control" id="blueFront" v-model="game.blue.front">
-								<option v-for="player in _.filter([game.blue.front, ...suitablePlayers])" :key="player" :value="player">
-									{{ playerById(player) }}
-								</option>
-							</select>
-						</div>
-					</div>
-					<div @click="switchSides('blue')" v-if="isGameRunning">
-						<icon-selector :selector="'position'" :size="32"></icon-selector>
-					</div>
-					<div class="card text-primary">
-						<div v-if="isGameRunning" class="card-body" @click="increment('back', 'blue')">
-							<h3>{{ playerById(game.blue.back) }}</h3>
-						</div>
-						<div v-else class="card-body">
-							<label for="blueBack">Back</label>
-							<select class="form-control" id="blueBack" v-model="game.blue.back">
-								<option v-for="player in _.filter([game.blue.back, ...suitablePlayers])" :key="player" :value="player">
-									{{ playerById(player) }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row justify-content-md-between">
-			<div class="col-md-2">
-				<div v-if="isGameRunning" class="card">
-					<button class="btn btn-link col" data-bs-toggle="modal" data-bs-target="#pauseModal" title="add"
-						@click="toggleStatus('pause')">
-						<icon-selector :selector="'pause'"></icon-selector>
-					</button>
-				</div>
-			</div>
-			<div class="col-md-10">
-				<div class="card">
-					<div class="row justify-content-end">
-						<button v-if="!isGameRunning" class="btn btn-secondary col" data-bs-toggle="offcanvas"
-							data-bs-target="#configurationBackdrop" aria-controls="configurationBackdrop">Settings</button>
-						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#playersStatsBackdrop"
-							aria-controls="playersStatsBackdrop">Players</button>
-						<button class="btn btn-secondary col" data-bs-toggle="offcanvas" data-bs-target="#gamesStatsBackdrop"
-							aria-controls="gamesStatsBackdrop">Games</button>
-						<button class="btn btn-primary col" data-bs-toggle="offcanvas" data-bs-target="#newPlayerBackdrop"
-							aria-controls="newPlayerBackdrop">
-							New player
-						</button>
-						<button v-if="!isGameRunning" v-show="!isReady" class="btn btn-success col" @click="startGame">Start New
-							Game</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/duration.js"></script>	
-	<script type="module">
-		import { UUID } from "https://unpkg.com/uuidjs@^5";
-		dayjs.extend(window.dayjs_plugin_relativeTime)
-		dayjs.extend(dayjs_plugin_duration);
-		let timer
-		const defaultGame = {
-			red: {
-				score: 0,
-				front: '',
-				back: '',
-			},
-			blue: {
-				score: 0,
-				front: '',
-				back: '',
-			},
-			timeElapsed: '',
-			pauseDuration: 0,
-			meta: [],
-		}
-		const defaultSelected = {
-			type: null,
-			id: '',
-			data: [],
-		}
-		Vue.component('icon-selector', {
-			props: ['selector', 'size', 'color'],
-			methods: {
-				getIcon(selector, size, color = 'currentColor') {
-					switch (selector) {
-						case 'position': {
-							return `
+      .orbitron-timer {
+        font-family: "Orbitron", serif;
+        font-optical-sizing: auto;
+        font-weight: 600;
+        font-style: normal;
+      }
+      .oasis {
+        position: absolute;
+        right: 20%;
+        top: 5%;
+        font-size: 30px;
+        border: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" class="container text-center user-select-none">
+      <div
+        class="modal"
+        id="pauseModal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="pauseModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                @click="toggleStatus('play')"
+              >
+                <icon-selector :selector="'play'" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="infoBackdrop"
+        class="offcanvas offcanvas-top"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="infoBackdropLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="infoBackdropLabel"></h5>
+          <button
+            type="button"
+            class="btn-close bg-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          Comming soon .... <i class="fas fa-spinner fa-pulse"></i>
+        </div>
+      </div>
+      <div
+        id="gamesStatsBackdrop"
+        class="offcanvas offcanvas-end stats"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="gamesStatsBackdropLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="gamesStatsBackdropLabel"></h5>
+          <button
+            type="button"
+            class="btn-close bg-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="container">
+            <table class="table bg-white" id="gameTable">
+              <thead class="table-info">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col" class="text-danger">
+                    <icon-selector
+                      :selector="'front'"
+                      :color="'red'"
+                      :size="24"
+                    />
+                  </th>
+                  <th scope="col" class="text-danger">
+                    <icon-selector
+                      :selector="'back'"
+                      :color="'red'"
+                      :size="24"
+                    />
+                  </th>
+                  <th scope="col" class="text-danger">
+                    <icon-selector
+                      :selector="'award'"
+                      :color="'red'"
+                      :size="24"
+                    />
+                  </th>
+                  <th scope="col" class="text-secondary">
+                    <icon-selector :selector="'meta'" :size="24" />
+                  </th>
+                  <th scope="col" class="text-primary">
+                    <icon-selector
+                      :selector="'award'"
+                      :color="'blue'"
+                      :size="24"
+                    />
+                  </th>
+                  <th scope="col" class="text-primary">
+                    <icon-selector
+                      :selector="'front'"
+                      :color="'blue'"
+                      :size="24"
+                    />
+                  </th>
+                  <th scope="col" class="text-primary">
+                    <icon-selector
+                      :selector="'back'"
+                      :color="'blue'"
+                      :size="24"
+                    />
+                  </th>
+                  <th scope="col" class="text-secondary">
+                    <icon-selector :selector="'gear'" :size="24" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(game, index) in games" :id="game.meta[0].uid">
+                  <th scope="row">{{ index + 1 }}</th>
+                  <td>{{ playerById(game.red.front) }}</td>
+                  <td>{{ playerById(game.red.back) }}</td>
+                  <td>{{ game.red.score }}</td>
+                  <td>
+                    <ul
+                      class="list-group list-group-horizontal justify-content-md-center"
+                    >
+                      <li
+                        v-for="meta in defaultChanges"
+                        class="list-group-item"
+                      >
+                        <icon-selector
+                          :selector="meta.changed"
+                          :size="16"
+                          :color="meta.side"
+                        ></icon-selector>
+                        <span class="badge bg-secondary">
+                          {{ getMetaCount(game, meta) }}
+                        </span>
+                      </li>
+                    </ul>
+                  </td>
+                  <td>{{ game.blue.score }}</td>
+                  <td>{{ playerById(game.blue.front) }}</td>
+                  <td>{{ playerById(game.blue.back) }}</td>
+                  <td>
+                    <button
+                      class="btn btn-outline"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#displayBackdrop"
+                      aria-controls="displayBackdrop"
+                      @click="showGame(game.meta[0].uid)"
+                      type="button"
+                      title="show"
+                    >
+                      <icon-selector :selector="'eye'" />
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline"
+                      title="delete"
+                      @click="deleteGame(game)"
+                    >
+                      <icon-selector :selector="'trash3'" />
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        id="playersStatsBackdrop"
+        class="offcanvas offcanvas-end stats"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="playersStatsBackdropLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="playersStatsBackdropLabel"></h5>
+          <button
+            type="button"
+            class="btn-close bg-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+            @click="plyr2Update = {}"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="container">
+            <div class="row">
+              <h4 class="col-md-4"><strong>Add New User:</strong></h4>
+              <input
+                type="text"
+                id="new-nickname"
+                class="form-control col-md"
+                :value="newNickname"
+                placeholder="Enter a new nickname"
+                @input="addNewNickname"
+                @keyup.enter="addNickname"
+              />
+              <button
+                class="btn btn-success col-md-1"
+                @click="addNickname"
+                title="add"
+                type="button"
+              >
+                <icon-selector :selector="'plus'" />
+              </button>
+            </div>
+            <div class="row mt-2">
+              <div class="col">
+                <table class="table bg-white" id="playerTable">
+                  <thead class="table-info">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col" v-if="configurations.displayGoals">
+                        <icon-selector :selector="'award'" />
+                      </th>
+                      <th
+                        scope="col"
+                        v-if="configurations.displayTotalMatchesPlayed"
+                      >
+                        <icon-selector :selector="'games'" />
+                      </th>
+                      <th scope="col" v-if="configurations.displayUtils">
+                        <icon-selector :selector="'gear'" />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(player, index) in nicknames" :key="player.id">
+                      <th scope="row">{{ index + 1 }}</th>
+                      <td>
+                        <input
+                          v-if="_.isEqual(plyr2Update.uid, player.uid)"
+                          type="text"
+                          id="update-nickname"
+                          :value="plyr2Update.name"
+                          placeholder="Update nickname"
+                          @keyup.enter="updatePlayerName"
+                          class="form-control col-md-1"
+                          @input="updateName"
+                        />
+                        <h5 v-else>{{ player.name }}</h5>
+                      </td>
+                      <td v-if="configurations.displayGoals">
+                        {{ goalCounter(player.uid) }}
+                      </td>
+                      <td v-if="configurations.displayTotalMatchesPlayed">
+                        {{ matchCounter(player.uid) }}
+                      </td>
+                      <td v-if="configurations.displayUtils">
+                        <button
+                          type="button"
+                          class="btn btn-outline"
+                          title="show"
+                          @click="showPlayer(player)"
+                          data-bs-toggle="offcanvas"
+                          data-bs-target="#displayBackdrop"
+                          aria-controls="displayBackdrop"
+                        >
+                          <icon-selector :selector="'eye'" />
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline"
+                          title="edit"
+                          @click="updatePlayer(player)"
+                        >
+                          <icon-selector :selector="'edit'" />
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline"
+                          title="delete"
+                          @click="deletePlayer(player)"
+                        >
+                          <icon-selector :selector="'trash3'" />
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-2">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="mb-2 input-group justify-content-md-center">
+                      <div @click="toggleGoalsDisplay">
+                        <icon-selector
+                          :selector="configurations.displayGoals ? 'award-active' : 'award'"
+                        />
+                      </div>
+                    </div>
+                    <div class="mb-2 input-group justify-content-md-center">
+                      <div @click="toggleDisplayUtils">
+                        <icon-selector
+                          :selector="configurations.displayUtils ? 'gear-active' : 'gear'"
+                        />
+                      </div>
+                    </div>
+                    <div class="mb-2 input-group justify-content-md-center">
+                      <div @click="toggleDisplayTotalMatchesPlayed">
+                        <icon-selector
+                          :selector="configurations.displayTotalMatchesPlayed ? 'games-active' : 'games'"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="configurationBackdrop"
+        class="offcanvas offcanvas-start stats"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="gameBackdropLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="gameBackdropLabel"></h5>
+          <button
+            type="button"
+            class="btn-close bg-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="container">
+            <div class="bg-white row col-md-4">
+              <div class="mb-2 input-group">
+                <span class="input-group-text col-md-6" id="Clear Players"
+                  >Clear Players:</span
+                >
+                <div class="form-switch">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="clearPlayers"
+                    :checked="configurations.clearPlayers"
+                    placeholder=""
+                    aria-label="clearPlayers"
+                    @click="toggleclearPlayers"
+                  />
+                </div>
+              </div>
+              <div class="mb-2 input-group">
+                <span class="input-group-text col-md-6" id="addon-1v1"
+                  >1v1:</span
+                >
+                <div class="form-switch">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="is1v1"
+                    :checked="settings.is1v1"
+                    placeholder=""
+                    aria-label="is1v1"
+                    @click="toggleIs1v1"
+                  />
+                </div>
+              </div>
+              <div class="mb-2 input-group">
+                <span class="input-group-text col-md-6" id="addon-max-score"
+                  >Max Score:</span
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="maxScoreCount"
+                  aria-describedby="maxScore"
+                  :value="settings.maxScore"
+                  @input="incrementMaxScore"
+                  placeholder="0"
+                />
+              </div>
+              <div class="mb-2 input-group">
+                <span class="input-group-text col-md-6" id="addon-tide-brake"
+                  >Tie Break:</span
+                >
+                <div class="form-switch">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="isTieBreak"
+                    :checked="settings.isTieBreak"
+                    placeholder=""
+                    aria-label="isTieBreak"
+                    @click="toggleIsTieBreak"
+                  />
+                </div>
+              </div>
+              <div v-if="settings.isTieBreak" class="mb-2 input-group">
+                <span
+                  class="input-group-text col-md-6"
+                  id="addon-tide-brake-span"
+                  >TB Difference:</span
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="tieBreakSpan"
+                  aria-describedby="tieBreakSpan"
+                  :value="settings.tieBreakSpan"
+                  placeholder="2"
+                  @input="incrementTieBreakSpan"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="displayBackdrop"
+        class="offcanvas offcanvas-bottom popped"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="displayGameLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="displayGameLabel"></h5>
+          <button
+            type="button"
+            class="btn-close bg-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+            @click="resetShowDisplay(true)"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <div v-if="_.isEqual(app.showType, 'game')" class="container">
+            <div class="row">
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-md-2">
+                    <h3>Start</h3>
+                    <span
+                      >{{
+                      dayjs(app.showData?.meta[0].timestamp).format('DD-MM-YYYY')
+                      }}</span
+                    >
+                    <span
+                      >{{
+                      dayjs(app.showData?.meta[0].timestamp).format('HH:mm:ss')
+                      }}</span
+                    >
+                  </div>
+                  <div class="col-md">
+                    <span><strong>Id:</strong></span>
+                    <span>{{ app.showId }}</span>
+                    <span><strong>Duration:</strong></span>
+                    <span>{{ app.showData?.meta[0].timeElapsed }}</span>
+                    <span><strong>Pause Duration:</strong></span>
+                    <span>
+                      {{
+                      dayjs.duration(app.showData?.meta[0].pauseDuration,'seconds').format('HH:mm:ss')
+                      }}
+                    </span>
+                    <span><strong>Game Type:</strong></span>
+                    <span>
+                      {{ app.showData?.meta[0].is1v1 ? '1 vs 1' : '4 vs 4'}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md">
+                <ul class="list-group">
+                  <li
+                    v-for="meta in _.drop(app.showData.meta)"
+                    class="list-group-item"
+                    :key="meta.timestamp"
+                  >
+                    <div class="row">
+                      <div class="col-md-2">
+                        {{ dayjs.duration(meta.timestamp -
+                        app.showData.meta[0].timestamp,'ms').format('HH:mm:ss')
+                        }}
+                      </div>
+                      <div class="col-md-4 row justify-content-md-between">
+                        <div class="col-md-2">
+                          <icon-selector
+                            :selector="_.has(meta, 'changed') ? 'sync' :'award'"
+                            :size="32"
+                          />
+                        </div>
+                        <div class="col-md row justify-content-md">
+                          <div class="col-md-2">
+                            <icon-selector
+                              :selector="_.has(meta, 'changed') ? meta.changed : meta.position"
+                              :size="32"
+                              :color="meta.side"
+                            />
+                          </div>
+                          <div class="col-md-4">
+                            {{ playerById(meta.player) }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div v-else class="row">
+            <div class="col-6">
+              <strong>Player: {{ app.name }}</strong>
+            </div>
+            <div class="col-6">
+              <strong>Total Matches: {{ app.showData.length }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="btn btn-outline-info oasis"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#infoBackdrop"
+        aria-controls="infoBackdrop"
+        title="info"
+        type="button"
+      >
+        <i class="fas fa-circle-info"></i>
+      </button>
+      <div class="context row align-items-center flex-nowrap">
+        <div class="col-md-3">
+          <div v-if="settings.is1v1" class="row">
+            <div class="card text-danger">
+              <div
+                v-if="configurations.isRunning"
+                class="card-body"
+                @click="incrementScore('front', 'red')"
+              >
+                <h3>{{ playerById(game.red.front) }}</h3>
+              </div>
+              <div v-else class="card-body row">
+                <label for="redFront" class="col-md-2 align-conten-md-center"
+                  >Red</label
+                >
+                <select
+                  class="form-control col"
+                  id="redFront"
+                  v-model="game.red.front"
+                >
+                  <option
+                    v-for="player in _.filter([game.red.front, ...suitablePlayers])"
+                    :key="player"
+                    :value="player"
+                  >
+                    {{ playerById(player) }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div v-else class="row">
+            <div class="card text-danger">
+              <div
+                v-if="configurations.isRunning"
+                class="card-body"
+                @click="incrementScore('front', 'red')"
+              >
+                <h3>{{ playerById(game.red.front) }}</h3>
+              </div>
+              <div v-else class="card-body row">
+                <label for="redFront" class="col-md-2 align-conten-md-center">
+                  <icon-selector :selector="'front'" />
+                </label>
+                <select
+                  class="form-control col"
+                  id="redFront"
+                  v-model="game.red.front"
+                  title="front"
+                >
+                  <option
+                    v-for="player in _.filter([game.red.front, ...suitablePlayers])"
+                    :key="player"
+                    :value="player"
+                  >
+                    {{ playerById(player) }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              @click="switchSides('red')"
+              v-if="configurations.isRunning || !configurations.clearPlayers"
+            >
+              <icon-selector :selector="'position'" :size="32" />
+            </div>
+            <div class="card text-danger">
+              <div
+                v-if="configurations.isRunning"
+                class="card-body"
+                @click="incrementScore('back', 'red')"
+              >
+                <h3>{{ playerById(game.red.back) }}</h3>
+              </div>
+              <div v-else class="card-body row">
+                <label for="redBack" class="col-md-2 align-conten-md-center">
+                  <icon-selector :selector="'back'" />
+                </label>
+                <select
+                  class="form-control col"
+                  id="redBack"
+                  v-model="game.red.back"
+                  title="back"
+                >
+                  <option
+                    v-for="player in _.filter([game.red.back, ...suitablePlayers])"
+                    :key="player"
+                    :value="player"
+                  >
+                    {{ playerById(player) }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row col">
+          <div
+            v-if="configurations.isRunning || !configurations.clearPlayers"
+            @click="switchSides()"
+          >
+            <icon-selector :selector="'side'" :size="32" />
+          </div>
+          <div class="col-md bg-danger display" v-if="configurations.isRunning">
+            <div class="card extra">
+              <div class="card-body align-conten-md-center">
+                <h1>{{ game.red.score }}</h1>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md bg-primary display"
+            v-if="configurations.isRunning"
+          >
+            <div class="card extra">
+              <div class="card-body align-conten-md-center">
+                <h1>{{ game.blue.score }}</h1>
+              </div>
+            </div>
+          </div>
+          <div v-else class="row justify-content-md-center">
+            <div class="card col-md-2">VS</div>
+          </div>
+          <div
+            v-if="configurations.isRunning"
+            class="row justify-content-lg-center"
+          >
+            <div class="col-md-auto orbitron-timer">
+              {{ dayjs.duration(settings.timeElapsed,
+              'seconds').format('HH:mm:ss') }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div v-if="settings.is1v1" class="row">
+            <div class="card text-primary">
+              <div
+                v-if="configurations.isRunning"
+                class="card-body"
+                @click="incrementScore('front', 'blue')"
+              >
+                <h3>{{ playerById(game.blue.front) }}</h3>
+              </div>
+              <div v-else class="card-body row">
+                <label for="blueFront" class="col-md-2 align-conten-md-center"
+                  >Blue</label
+                >
+                <select
+                  class="form-control col"
+                  id="blueFront"
+                  v-model="game.blue.front"
+                >
+                  <option
+                    v-for="player in _.filter([game.blue.front, ...suitablePlayers])"
+                    :key="player"
+                    :value="player"
+                  >
+                    {{ playerById(player) }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div v-else class="row">
+            <div class="card text-primary">
+              <div
+                v-if="configurations.isRunning"
+                class="card-body"
+                @click="incrementScore('front', 'blue')"
+              >
+                <h3>{{ playerById(game.blue.front) }}</h3>
+              </div>
+              <div v-else class="card-body row">
+                <label for="blueFront" class="col-md-2 align-conten-md-center">
+                  <icon-selector :selector="'front'" />
+                </label>
+                <select
+                  class="form-control col"
+                  id="blueFront"
+                  v-model="game.blue.front"
+                  title="front"
+                >
+                  <option
+                    v-for="player in _.filter([game.blue.front, ...suitablePlayers])"
+                    :key="player"
+                    :value="player"
+                  >
+                    {{ playerById(player) }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              @click="switchSides('blue')"
+              v-if="configurations.isRunning || !configurations.clearPlayers"
+            >
+              <icon-selector :selector="'position'" :size="32" />
+            </div>
+            <div class="card text-primary">
+              <div
+                v-if="configurations.isRunning"
+                class="card-body"
+                @click="incrementScore('back', 'blue')"
+              >
+                <h3>{{ playerById(game.blue.back) }}</h3>
+              </div>
+              <div v-else class="card-body row">
+                <label for="blueBack" class="col-md-2 align-conten-md-center">
+                  <icon-selector :selector="'back'" />
+                </label>
+                <select
+                  class="form-control col"
+                  id="blueBack"
+                  v-model="game.blue.back"
+                  title="back"
+                >
+                  <option
+                    v-for="player in _.filter([game.blue.back, ...suitablePlayers])"
+                    :key="player"
+                    :value="player"
+                  >
+                    {{ playerById(player) }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div v-if="configurations.isRunning">
+          <button
+            class="btn btn-info"
+            data-bs-toggle="modal"
+            data-bs-target="#pauseModal"
+            title="pause"
+            @click="toggleStatus('pause')"
+            type="button"
+          >
+            <icon-selector :selector="'pause'" />
+          </button>
+        </div>
+        <div v-else class="row justify-content-end gap-2">
+          <button
+            v-if="!configurations.isRunning"
+            class="btn btn-secondary col"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#configurationBackdrop"
+            aria-controls="configurationBackdrop"
+            title="settings"
+            type="button"
+          >
+            <icon-selector :selector="'settings'" :size="32" />
+          </button>
+          <button
+            class="btn btn-secondary col"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#playersStatsBackdrop"
+            aria-controls="playersStatsBackdrop"
+            title="players"
+            type="button"
+          >
+            <icon-selector :selector="'players'" :size="32" />
+          </button>
+          <button
+            class="btn btn-secondary col"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#gamesStatsBackdrop"
+            aria-controls="gamesStatsBackdrop"
+            title="games"
+            type="button"
+          >
+            <icon-selector :selector="'games'" :size="32" />
+          </button>
+          <button
+            v-if="!configurations.isRunning"
+            v-show="!!_.isEqual(playersCount.length, settings.is1v1 ? 2 : 4)"
+            class="btn btn-success col"
+            @click="startGame"
+            title="New Game"
+            type="button"
+          >
+            <icon-selector :selector="'new-game'" :size="32" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/duration.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.1.0/mdb.umd.min.js"
+    ></script>
+    <script type="module">
+      import { UUID } from "https://unpkg.com/uuidjs@^5";
+      dayjs.extend(window.dayjs_plugin_relativeTime);
+      dayjs.extend(dayjs_plugin_duration);
+      Vue.component("icon-selector", {
+        props: ["selector", "size", "color"],
+        methods: {
+          getIcon(selector, size = 16, color = "currentColor") {
+            switch (selector) {
+              case "position": {
+                return `
 								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
 									<path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
 								</svg>
 							`;
-						}
-						case 'play': {
-							return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+              }
+              case "play": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-play-fill" viewBox="0 0 16 16">
 									<path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
 								</svg>
-							`
-						}
-						case 'pause': {
-							return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+							`;
+              }
+              case "pause": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-pause-fill" viewBox="0 0 16 16">
 									<path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
 								</svg>
-							`
-						}
-						case 'edit': {
-							return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+							`;
+              }
+              case "edit": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="blue" class="bi bi-pencil-fill" viewBox="0 0 16 16">
 									<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
 								</svg>
-							`
-						}
-						case 'plus': {
-							return `
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+							`;
+              }
+              case "plus": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg"width="${size}" height="${size}" fill="${color}" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
 									<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
 								</svg>
-							`
-						}
-						default:
-						case 'side': {
-							return `
+							`;
+              }
+              case "trash3": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="red" class="bi bi-trash3" viewBox="0 0 16 16">
+									<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+								</svg>
+							`;
+              }
+              case "eye": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="green" class="bi bi-eye" viewBox="0 0 16 16">
+									<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+									<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+								</svg>
+							`;
+              }
+              case "back": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+								</svg>
+							`;
+              }
+              case "front": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-up" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+								</svg>
+							`;
+              }
+              case "gear": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-gear" viewBox="0 0 16 16">
+									<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+									<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+								</svg>
+							`;
+              }
+              case "gear-active": {
+                return `<i class="fas fa-gear fa-spin align-self-center"></i>`;
+              }
+              case "meta": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-meta" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M8.217 5.243C9.145 3.988 10.171 3 11.483 3 13.96 3 16 6.153 16.001 9.907c0 2.29-.986 3.725-2.757 3.725-1.543 0-2.395-.866-3.924-3.424l-.667-1.123-.118-.197a55 55 0 0 0-.53-.877l-1.178 2.08c-1.673 2.925-2.615 3.541-3.923 3.541C1.086 13.632 0 12.217 0 9.973 0 6.388 1.995 3 4.598 3q.477-.001.924.122c.31.086.611.22.913.407.577.359 1.154.915 1.782 1.714m1.516 2.224q-.378-.614-.727-1.133L9 6.326c.845-1.305 1.543-1.954 2.372-1.954 1.723 0 3.102 2.537 3.102 5.653 0 1.188-.39 1.877-1.195 1.877-.773 0-1.142-.51-2.61-2.87zM4.846 4.756c.725.1 1.385.634 2.34 2.001A212 212 0 0 0 5.551 9.3c-1.357 2.126-1.826 2.603-2.581 2.603-.777 0-1.24-.682-1.24-1.9 0-2.602 1.298-5.264 2.846-5.264q.136 0 .27.018Z"/>
+                </svg>
+							`;
+              }
+              case "settings": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-wrench-adjustable-circle" viewBox="0 0 16 16">
+                  <path d="M12.496 8a4.5 4.5 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11q.04.3.04.61"/>
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-1 0a7 7 0 1 0-13.202 3.249l1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.5 4.5 0 0 1-1.592-.29L4.747 14.2A7 7 0 0 0 15 8m-8.295.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27z"/>
+                </svg>
+							`;
+              }
+              case "players": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-person-fill-gear" viewBox="0 0 16 16">                  
+                  <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+                </svg>
+							`;
+              }
+              case "games": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-controller" viewBox="0 0 16 16">
+                   <path d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1z"/>
+                  <path d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729q.211.136.373.297c.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466s.34 1.78.364 2.606c.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527s-2.496.723-3.224 1.527c-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.3 2.3 0 0 1 .433-.335l-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a14 14 0 0 0-.748 2.295 12.4 12.4 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.504C4.861 9.969 5.978 9.027 8 9.027s3.139.942 3.965 1.855c.164.181.307.348.44.504.214.251.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.4 12.4 0 0 0-.339-2.406 14 14 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27s-2.063.091-2.913.27"/>
+                </svg>
+							`;
+              }
+              case "games-active": {
+                return `<i class="fas fa-gamepad"></i>`;
+              }
+              case "new-game": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-node-plus" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M11 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8M6.025 7.5a5 5 0 1 1 0 1H4A1.5 1.5 0 0 1 2.5 10h-1A1.5 1.5 0 0 1 0 8.5v-1A1.5 1.5 0 0 1 1.5 6h1A1.5 1.5 0 0 1 4 7.5zM11 5a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 11 5M1.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                </svg>
+							`;
+              }
+              case "award": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-award" viewBox="0 0 16 16">
+                  <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
+                  <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
+                </svg>
+							`;
+              }
+              case "award-active": {
+                return `<i class="fas fa-award"></i>`;
+              }
+              case "info": {
+                return `
+								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-info-lg" viewBox="0 0 16 16">
+                  <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0"/>
+                </svg>
+							`;
+              }
+              case "sync": {
+                return `<i class="fas fa-sync fa-spin align-self-center"></i>`;
+              }
+              default:
+              case "side": {
+                return `
 								<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
 									<path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
 								</svg>
-							`
-						}
-					}
-				}
-			},
-			template: `<div v-html="getIcon(selector, size, color)"></div>`
-		});
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					game: {
-						red: {
-							score: 0,
-							front: '',
-							back: '',
-						},
-						blue: {
-							score: 0,
-							front: '',
-							back: '',
-						},
-						timeElapsed: '00:00:00',
-						pauseDuration: 0,					
-						meta: []
-					},
-					games: [],
-					newNickname: '',
-					nicknames: [],
-					selected: {
-						type: null,
-						id: '',
-						data: [],
-					},
-					updateId: undefined,
-					settings: {
-						maxScore: 5,
-						tieBreak: false,
-						tieBreakSpan: 2,
-						is1v1: false,
-						isPlaying: false,
-						isRunning: false,
-						clearPlayers: true
-					}
-				}
-			},
-			methods: {
-				playerById(uid) {
-					return _.find(this.nicknames, { uid })?.name
-				},
-				addNewNickname({ target: { value } }) {
-					this.newNickname = value
-				},
-				addNickname() {
-					if (!_.isEmpty(_.slice(this.newNickname).filter(r => !_.isEqual(r, ' ')).join('')) && !_.find(this.nicknames, { name: this.newNickname })) {
-						this.nicknames.push({ name: this.newNickname, uid: UUID.generate() })
-						this.newNickname = ''
-					} else {
-						alert('Nickname already exists or input is empty.')
-					}
-				},
-				updatePlayer(id) {
-					this.updateId = id
-				},
-				updateName({ target: { value } }) {
-					this.updateId.name = value
-				},
-				updatePlayerName(e) {
-					if (_.isEmpty(_.slice(this.updateId.name).filter(r => !_.isEqual(r, ' ')).join('')) || _.find(this.nicknames, ({ name, uid }) => _.isEqual(name, this.updateId.name) && !_.isEqual(uid, this.updateId.uid))) {
-						e.preventDefault()
-						alert('Nickname already exists or input is empty.')
-						return
-					}
-					this.nicknames = _.map(this.nicknames, nick => _.isEqual(nick.uid, this.updateId.uid) ? this.updateId : nick)
-					this.updateId = undefined
-				},
-				startGame() {
-					this.settings.isPlaying = true
-					this.settings.isRunning = true
-					this.game.timeElapsed = '00:00:00'
-					this.game.meta.push({ timestamp: Date.now(), uid: UUID.generate(), is1v1: this.settings.is1v1 })
-					this.updateTimer()
-				},
-				resetGame() {
-					this.games.push(this.game)
-					this.game = clearPlayers ? defaultGame : { 
-						...defaultGame,
-						red: {
-							score: 0,
-							front: this.game.red.front,
-							back: this.game.red.back,
-						},
-						blue: {
-							score: 0,
-							front: this.game.blue.front,
-							back: this.game.blue.back,
-						}
-					}
-					this.settings.isRunning = false
-					this.settings.isPlaying = false
-					clearInterval(timer)
-				},
-				toggleStatus(changed) {
-					this.settings.isPlaying = _.isEqual(changed, 'play')
-					this.game.meta.push({
-						changed,
-						timestamp: Date.now(),
-					})
-				},
-				increment(position, side) {
-					this.game[side].score++
-					this.game.meta.push({
-						position,
-						side,
-						timestamp: Date.now(),
-						player: this.game[side][position],
-						isOwn: false
-					})
-					if (_.isEqual(this.game[side].score, Number(this.settings.maxScore))) {
-						this.resetGame()
-					}
-				},
-				switchSides(side) {
-					if (side) {
-						const { front } = this.game[side]
-						this.game[side].front = this.game[side].back
-						this.game[side].back = front
-						this.game.meta.push({ changed: 'position', side, timestamp: Date.now() })
-					} else {
-						const { red } = this.game
-						this.game.red = this.game.blue
-						this.game.blue = red
-						this.game.meta.push({ changed: 'side', timestamp: Date.now() })
-					}
-				},
-				toggelSelected(selected = defaultSelected) {
-					const localSelected = {
-						...selected,
-					}
-					if (selected.type) {
-						const player = selected.id
-						if (_.isEqual(selected.type, 'game')) {
-							_.assignIn(localSelected, { data: _.find(this.games, ({ meta }) => _.isEqual(meta[0].uid, player)) })
-						}
-						else {
-							_.assignIn(localSelected, {
-								data:
-									_.filter(this.games, ({ red, blue }) => {
-										const isRedFront = _.isEqual(red.front, player)
-										const isRedBack = _.isEqual(red.back, player)
-										const isBlueFront = _.isEqual(blue.front, player)
-										const isBlueBack = _.isEqual(blue.back, player)
-										return _.some([isRedFront, isRedBack, isBlueFront, isBlueBack])
-									})
-							})
-						}
-					}
-					this.selected = localSelected
-					this.updateId = undefined
-				},
-				goalCounter(player) {
-					return _.reduce(_.map(this.games, (game, gameIndex) =>
-						_.filter(game.meta, meta => _.isEqual(player, meta.player)).length
-					), ((t, c) => (t + c)))
-				},
-				getMetaCount: (game, meta) => _.get(_.groupBy(_.get(_.groupBy(_.filter(game.meta, 'changed'), 'changed'), meta.changed), 'side'), meta.side)?.length || 0,
-				incrementScore({ target: { value } }) {
-					this.settings.maxScore = value
-				},
-				toggletieBreak() {
-					this.settings.tieBreak = !this.settings.tieBreak
-				},
-				incrementtieBreakSpan({ target: { value } }) {
-					this.settings.tieBreakSpan = value
-				},
-				toggleSimplePlayer() {
-					this.settings.is1v1 = !this.settings.is1v1
-				},
-				toggleclearPlayers() {
-					this.settings.clearPlayers = !this.settings.clearPlayers
-				},
-				updateTimer() {
-					timer = setInterval(() => {
-							if (this.settings.isRunning && this.game.meta.length > 0 && this.game.meta[0].timestamp) {
-							const startTime = dayjs(this.game.meta[0].timestamp)
-							const now = dayjs();
-							const elapsedSeconds = now.diff(startTime, 'seconds') - this.game.pauseDuration;
-							if (this.settings.isPlaying) {
-								this.game.timeElapsed = dayjs.duration(elapsedSeconds, 'seconds').format('HH:mm:ss');
-							}
-							else {
-								this.game.pauseDuration++;
-							}
-						}
-					}, 1000);
-				},			
-			},
-			computed: {
-				defaultChanges: {
-					get() {
-						return [
-							{
-								changed: 'position',
-								side: 'red'
-							},
-							{
-								changed: 'position',
-								side: 'blue'
-							},
-							{
-								changed: 'side'
-							},
-							{
-								changed: 'pause'
-							}
-						]
-					}
-				},
-				playersCount: {
-					get() {
-						return _.uniq(
-							_.filter([
-								this.game.red.front,
-								this.game.red.back,
-								this.game.blue.front,
-								this.game.blue.back
-							])
-						)
-					}
-				},
-				isReady: {
-					get() {
-						return !_.isEqual(this.playersCount.length, this.settings.is1v1 ? 2 : 4)
-					}
-				},
-				suitablePlayers: {
-					get() {
-						return _.map((_.filter(this.nicknames, ({ uid }) => !_.includes(this.playersCount, uid))), 'uid')
-					}
-				},
-				isGameRunning: {
-					get() {
-						return this.settings.isRunning
-					}
-				},
-			},
-			mounted() {
-				 const gameState = localStorage.getItem('gameState');
-				 if (gameState) {
-				 	this.game = JSON.parse(gameState)
-				 }
-				 const gamesState = localStorage.getItem('gamesState');
-				 if (gamesState) {
-				 	this.games = JSON.parse(gamesState)
-				}
-				const nicknamesState = localStorage.getItem('nicknamesState');
-				if (nicknamesState) {
-					this.nicknames = JSON.parse(nicknamesState)
-				}
-				const settingsState = localStorage.getItem('settingsState');
-				if (settingsState) {
-					this.settings = JSON.parse(settingsState)
-				}
-			},
-			watch: {
-				game: {
-					handler() {
-						localStorage.setItem('gameState', JSON.stringify(this.$data.game))
-					},
-					deep: true
-				},
-				games: {
-					handler() {
-						localStorage.setItem('gamesState', JSON.stringify(this.$data.games))
-					},
-					deep: true
-				},
-				nicknames: {
-					handler() {
-						localStorage.setItem('nicknamesState', JSON.stringify(this.$data.nicknames))
-					},
-					deep: true
-				},
-				settings: {
-					handler() {
-						localStorage.setItem('settingsState', JSON.stringify(this.$data.settings))
-					},
-					deep: true
-				},
-			}
-		})
-	</script>
-</body>
-
+							`;
+              }
+            }
+          },
+        },
+        template: `<div v-html="getIcon(selector, size, color)"></div>`,
+      });
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            defaultChanges: [
+              {
+                changed: "position",
+                side: "red",
+              },
+              {
+                changed: "position",
+                side: "blue",
+              },
+              {
+                changed: "side",
+              },
+              {
+                changed: "pause",
+              },
+            ],
+            app: {
+              showId: undefined,
+              showType: undefined,
+              showData: [],
+            },
+            configurations: {
+              isPlaying: false,
+              isRunning: false,
+              clearPlayers: true,
+              displayGoals: false,
+              displayTotalMatchesPlayed: false,
+            },
+            timer: undefined,
+            plyr2Update: {},
+            game: {
+              red: {
+                score: 0,
+                front: "",
+                back: "",
+              },
+              blue: {
+                score: 0,
+                front: "",
+                back: "",
+              },
+              meta: [],
+            },
+            games: [],
+            newNickname: "",
+            nicknames: [],
+            settings: {
+              maxScore: 5,
+              isTieBreak: false,
+              tieBreakSpan: 2,
+              is1v1: false,
+              timeElapsed: 0,
+              pauseDuration: 0,
+            },
+          };
+        },
+        methods: {
+          playerById(uid) {
+            return _.find(this.nicknames, { uid })?.name;
+          },
+          addNewNickname({ target: { value } }) {
+            this.newNickname = value;
+          },
+          addNickname() {
+            if (
+              !_.isEmpty(
+                _.slice(this.newNickname)
+                  .filter((r) => !_.isEqual(r, " "))
+                  .join("")
+              ) &&
+              !_.find(this.nicknames, { name: this.newNickname })
+            ) {
+              this.nicknames.push({
+                name: this.newNickname,
+                uid: UUID.generate(),
+              });
+              this.newNickname = "";
+            } else {
+              alert("Nickname already exists or input is empty.");
+            }
+          },
+          updatePlayer(id) {
+            this.plyr2Update = id;
+          },
+          deletePlayer(player) {
+            console.log("delete", player);
+          },
+          showPlayer({ uid: showId, name }) {
+            const showData = _.filter(this.games, ({ red, blue }) =>
+              _.some(
+                _.map([red.front, red.back, blue.front, blue.back], (p) =>
+                  _.isEqual(p, showId)
+                )
+              )
+            );
+            // console.log(showData, name);
+            this.app = {
+              showId,
+              showType: "player",
+              showData,
+              name,
+            };
+          },
+          updateName({ target: { value } }) {
+            this.plyr2Update.name = value;
+          },
+          updatePlayerName(e) {
+            if (
+              _.isEmpty(
+                _.slice(this.plyr2Update.name)
+                  .filter((r) => !_.isEqual(r, " "))
+                  .join("")
+              ) ||
+              _.find(
+                this.nicknames,
+                ({ name, uid }) =>
+                  _.isEqual(name, this.plyr2Update.name) &&
+                  !_.isEqual(uid, this.plyr2Update.uid)
+              )
+            ) {
+              e.preventDefault();
+              alert("Nickname already exists or input is empty.");
+              return;
+            }
+            this.nicknames = _.map(this.nicknames, (nick) =>
+              _.isEqual(nick.uid, this.plyr2Update.uid)
+                ? this.plyr2Update
+                : nick
+            );
+            this.plyr2Update = {};
+          },
+          startGame() {
+            this.configurations.isPlaying = true;
+            this.configurations.isRunning = true;
+            this.settings.timeElapsed = 0;
+            this.settings.pauseDuration = 0;
+            this.game.meta.push({
+              timestamp: Date.now(),
+              uid: UUID.generate(),
+            });
+            this.startTimer();
+          },
+          resetGame() {
+            _.assignIn(this.game.meta[0], this.settings);
+            this.games.push(this.game);
+            const {
+              red: { front, back },
+              blue: { front: Front, back: Back },
+            } = this.game;
+            this.game = {
+              red: {
+                score: 0,
+                front: this.configurations.clearPlayers ? "" : front,
+                back: this.configurations.clearPlayers ? "" : back,
+              },
+              blue: {
+                score: 0,
+                front: this.configurations.clearPlayers ? "" : Front,
+                back: this.configurations.clearPlayers ? "" : Back,
+              },
+              meta: [],
+            };
+            this.configurations.isRunning = false;
+            this.configurations.isPlaying = false;
+            clearInterval(this.timer);
+          },
+          showGame(showId) {
+            this.app = {
+              showId,
+              showType: "game",
+              showData: _.find(this.games, ({ meta }) =>
+                _.isEqual(meta[0].uid, showId)
+              ),
+            };
+          },
+          deleteGame(game) {
+            this.games = _.filter(this.games, (g) => !_.isEqual(game, g));
+          },
+          toggleStatus(changed) {
+            this.configurations.isPlaying = _.isEqual(changed, "play");
+            this.game.meta.push({
+              changed,
+              timestamp: Date.now(),
+            });
+          },
+          incrementScore(position, side) {
+            this.game[side].score++;
+            this.game.meta.push({
+              position,
+              side,
+              timestamp: Date.now(),
+              player: this.game[side][position],
+              isOwn: false,
+            });
+            if (
+              _.isEqual(this.game[side].score, Number(this.settings.maxScore))
+            ) {
+              this.resetGame();
+            }
+          },
+          switchSides(side) {
+            if (side) {
+              const { front } = this.game[side];
+              this.game[side].front = this.game[side].back;
+              this.game[side].back = front;
+              this.game.meta.push({
+                changed: "position",
+                side,
+                timestamp: Date.now(),
+              });
+            } else {
+              const { red } = this.game;
+              this.game.red = this.game.blue;
+              this.game.blue = red;
+              this.game.meta.push({ changed: "side", timestamp: Date.now() });
+            }
+          },
+          goalCounter(player) {
+            return _.reduce(
+              _.map(
+                this.games,
+                (game, gameIndex) =>
+                  _.filter(game.meta, (meta) => _.isEqual(player, meta.player))
+                    .length
+              ),
+              (t, c) => t + c
+            );
+          },
+          matchCounter(playerId) {
+            return _.filter(this.games, ({ red, blue }) =>
+              _.some(
+                _.map([red.front, red.back, blue.front, blue.back], (p) =>
+                  _.isEqual(p, playerId)
+                )
+              )
+            ).length;
+          },
+          getMetaCount: (game, meta) =>
+            _.get(
+              _.groupBy(
+                _.get(
+                  _.groupBy(_.filter(game.meta, "changed"), "changed"),
+                  meta.changed
+                ),
+                "side"
+              ),
+              meta.side
+            )?.length || 0,
+          incrementMaxScore({ target: { value } }) {
+            this.settings.maxScore = value;
+          },
+          toggleIsTieBreak() {
+            this.settings.isTieBreak = !this.settings.isTieBreak;
+          },
+          incrementTieBreakSpan({ target: { value } }) {
+            this.settings.tieBreakSpan = value;
+          },
+          toggleIs1v1() {
+            this.settings.is1v1 = !this.settings.is1v1;
+          },
+          toggleclearPlayers() {
+            this.configurations.clearPlayers =
+              !this.configurations.clearPlayers;
+          },
+          startTimer() {
+            this.timer = setInterval(() => {
+              if (
+                this.configurations.isRunning &&
+                this.game.meta.length > 0 &&
+                this.game.meta[0].timestamp
+              ) {
+                if (this.configurations.isPlaying) {
+                  const startTime = dayjs(this.game.meta[0].timestamp);
+                  const now = dayjs();
+                  this.settings.timeElapsed =
+                    now.diff(startTime, "seconds") -
+                    this.settings.pauseDuration;
+                } else {
+                  this.settings.pauseDuration++;
+                }
+              }
+            }, 1000);
+          },
+          resetShowDisplay() {
+            const offcanvasElement = new bootstrap.Offcanvas(
+              `#${this.app.showType}sStatsBackdrop`
+            );
+            offcanvasElement?.show();
+            this.app = {
+              showId: undefined,
+              showType: undefined,
+              showData: [],
+            };
+          },
+          toggleGoalsDisplay() {
+            this.configurations.displayGoals =
+              !this.configurations.displayGoals;
+          },
+          toggleDisplayUtils() {
+            this.configurations.displayUtils =
+              !this.configurations.displayUtils;
+          },
+          toggleDisplayTotalMatchesPlayed() {
+            this.configurations.displayTotalMatchesPlayed =
+              !this.configurations.displayTotalMatchesPlayed;
+          },
+        },
+        computed: {
+          playersCount: {
+            get() {
+              return _.uniq(
+                _.filter([
+                  this.game.red.front,
+                  this.game.red.back,
+                  this.game.blue.front,
+                  this.game.blue.back,
+                ])
+              );
+            },
+          },
+          suitablePlayers: {
+            get() {
+              return _.map(
+                _.filter(
+                  this.nicknames,
+                  ({ uid }) => !_.includes(this.playersCount, uid)
+                ),
+                "uid"
+              );
+            },
+          },
+        },
+        mounted() {
+          // console.log("cookie", document.cookie);
+          const gameState = localStorage.getItem("gameState");
+          if (gameState) {
+            this.game = JSON.parse(gameState);
+          }
+          const gamesState = localStorage.getItem("gamesState");
+          if (gamesState) {
+            this.games = JSON.parse(gamesState);
+          }
+          const nicknamesState = localStorage.getItem("nicknamesState");
+          if (nicknamesState) {
+            this.nicknames = JSON.parse(nicknamesState);
+          }
+          const settingsState = localStorage.getItem("settingsState");
+          if (settingsState) {
+            this.settings = JSON.parse(settingsState);
+          }
+          const configsState = localStorage.getItem("configurationsState");
+          if (configsState) {
+            this.configurations = JSON.parse(configsState);
+          }
+          const appState = localStorage.getItem("appState");
+          if (configsState) {
+            this.app = JSON.parse(appState);
+          }
+        },
+        watch: {
+          game: {
+            handler() {
+              localStorage.setItem(
+                "gameState",
+                JSON.stringify(this.$data.game)
+              );
+            },
+            deep: true,
+          },
+          games: {
+            handler() {
+              localStorage.setItem(
+                "gamesState",
+                JSON.stringify(this.$data.games)
+              );
+            },
+            deep: true,
+          },
+          nicknames: {
+            handler() {
+              localStorage.setItem(
+                "nicknamesState",
+                JSON.stringify(this.$data.nicknames)
+              );
+            },
+            deep: true,
+          },
+          settings: {
+            handler() {
+              localStorage.setItem(
+                "settingsState",
+                JSON.stringify(this.$data.settings)
+              );
+            },
+            deep: true,
+          },
+          configurations: {
+            handler() {
+              localStorage.setItem(
+                "configurationsState",
+                JSON.stringify(this.$data.configurations)
+              );
+            },
+            deep: true,
+          },
+          app: {
+            handler() {
+              localStorage.setItem("appState", JSON.stringify(this.$data.app));
+            },
+            deep: true,
+          },
+        },
+      });
+    </script>
+  </body>
 </html>
