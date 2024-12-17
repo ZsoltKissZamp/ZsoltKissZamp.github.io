@@ -83,6 +83,13 @@
         font-weight: 600;
         font-style: normal;
       }
+      .oasis {
+        position: absolute;
+        right: 20%;
+        top: 5%;
+        font-size: 30px;
+        border: 0;
+      }
     </style>
   </head>
 
@@ -113,6 +120,26 @@
         </div>
       </div>
       <div
+        id="infoBackdrop"
+        class="offcanvas offcanvas-top"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="infoBackdropLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="infoBackdropLabel"></h5>
+          <button
+            type="button"
+            class="btn-close bg-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          Comming soon .... <i class="fas fa-spinner fa-pulse"></i>
+        </div>
+      </div>
+      <div
         id="gamesStatsBackdrop"
         class="offcanvas offcanvas-end stats"
         data-bs-backdrop="static"
@@ -126,7 +153,6 @@
             class="btn-close bg-white"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
-            @click="resetShowDisplay()"
           ></button>
         </div>
         <div class="offcanvas-body">
@@ -254,7 +280,7 @@
             class="btn-close bg-white"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
-            @click="resetShowDisplay()"
+            @click="plyr2Update = {}"
           ></button>
         </div>
         <div class="offcanvas-body">
@@ -589,6 +615,17 @@
           </div>
         </div>
       </div>
+
+      <button
+        class="btn btn-outline-info oasis"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#infoBackdrop"
+        aria-controls="infoBackdrop"
+        title="info"
+        type="button"
+      >
+        <i class="fas fa-circle-info"></i>
+      </button>
       <div class="context row align-items-center flex-nowrap">
         <div class="col-md-3">
           <div v-if="settings.is1v1" class="row">
@@ -839,6 +876,7 @@
             data-bs-target="#configurationBackdrop"
             aria-controls="configurationBackdrop"
             title="settings"
+            type="button"
           >
             <icon-selector :selector="'settings'" :size="32" />
           </button>
@@ -848,6 +886,7 @@
             data-bs-target="#playersStatsBackdrop"
             aria-controls="playersStatsBackdrop"
             title="players"
+            type="button"
           >
             <icon-selector :selector="'players'" :size="32" />
           </button>
@@ -857,6 +896,7 @@
             data-bs-target="#gamesStatsBackdrop"
             aria-controls="gamesStatsBackdrop"
             title="games"
+            type="button"
           >
             <icon-selector :selector="'games'" :size="32" />
           </button>
@@ -866,6 +906,7 @@
             class="btn btn-success col"
             @click="startGame"
             title="New Game"
+            type="button"
           >
             <icon-selector :selector="'new-game'" :size="32" />
           </button>
@@ -1327,10 +1368,10 @@
               }
             }, 1000);
           },
-          resetShowDisplay(tricki) {
-            const offcanvasElement =
-              this.app.showType &&
-              new bootstrap.Offcanvas(`#${this.app.showType}sStatsBackdrop`);
+          resetShowDisplay() {
+            const offcanvasElement = new bootstrap.Offcanvas(
+              `#${this.app.showType}sStatsBackdrop`
+            );
             offcanvasElement?.show();
             this.app = {
               showId: undefined,
