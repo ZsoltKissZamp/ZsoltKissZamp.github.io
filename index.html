@@ -605,8 +605,18 @@
                     <tr
                       v-for="(meta, key) in _.omit(display.showData.meta[0], ['uid'], display.showData.meta[0].isTieBreak ? 'isTieBreak' : 'tieBreakSpan')"
                     >
-                      <td>{{ translateKey(key) }}</td>
-                      <td>{{ translateMetaWithKey(key, meta) }}</td>
+                      <td v-if="_.includes(defaultPostions, key)">
+                        <icon-selector
+                          :selector="_.split(key, '-')[1]"
+                          :color="_.split(key, '-')[0]"
+                          :size="26"
+                        />
+                      </td>
+                      <td v-else>{{ translateKey(key) }}</td>
+                      <td v-if="_.includes(defaultPostions, key)">
+                        {{ playerById(meta) }}
+                      </td>
+                      <td v-else>{{ translateMetaWithKey(key, meta) }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -627,9 +637,6 @@
                       <th scope="col">
                         <icon-selector :selector="'activity'" :size="26" />
                       </th>
-                      <th scope="col">
-                        <icon-selector :selector="'ideges'" :size="26" />
-                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -643,13 +650,15 @@
                         }}
                       </td>
                       <td>
-                        <icon-selector
-                          :selector="_.has(meta, 'changed') ? meta.changed : meta.position"
-                          :size="22"
-                          :color="meta.side"
-                        />
+                        <div v-if="_.has(meta, 'changed')">
+                          <icon-selector
+                            :selector="meta.changed"
+                            :size="22"
+                            :color="meta.side"
+                          />
+                        </div>
+                        <div v-else>{{ playerById(meta.player) }}</div>
                       </td>
-                      <td>{{ playerById(meta.player) }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1230,6 +1239,12 @@
         el: "#app",
         data() {
           return {
+            defaultPostions: [
+              "red-front",
+              "red-back",
+              "blue-front",
+              "blue-back",
+            ],
             defaultChanges: [
               {
                 changed: "position",
@@ -1597,18 +1612,6 @@
               }
               case "pauseDuration": {
                 return dayjs.duration(meta, "seconds").format("HH:mm:ss");
-              }
-              case "red-front": {
-                return this.playerById(meta);
-              }
-              case "red-back": {
-                return this.playerById(meta);
-              }
-              case "blue-front": {
-                return this.playerById(meta);
-              }
-              case "blue-back": {
-                return this.playerById(meta);
               }
               default: {
                 return meta;
