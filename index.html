@@ -95,6 +95,7 @@
 
   <body>
     <div id="app" class="container text-center user-select-none">
+      <!-- pauseBackdrop -->
       <div
         class="offcanvas offcanvas-top"
         id="pauseBackdrop"
@@ -111,12 +112,13 @@
             class="btn btn-secondary"
             data-bs-dismiss="offcanvas"
             @click="toggleStatus('play')"
-            aria-label="Close"
+            title="Close"
           >
             <icon-selector :selector="'play'" />
           </button>
         </div>
       </div>
+      <!-- infoBackdrop -->
       <div
         id="infoBackdrop"
         class="offcanvas offcanvas-top"
@@ -130,327 +132,335 @@
             type="button"
             class="btn-close bg-white"
             data-bs-dismiss="offcanvas"
-            aria-label="Close"
+            title="Close"
           ></button>
         </div>
         <div class="offcanvas-body">
           Comming soon .... <i class="fas fa-spinner fa-pulse"></i>
         </div>
       </div>
+      <!-- gamesBackdrop -->
       <div
-        id="gamesStatsBackdrop"
+        id="gamesBackdrop"
         class="offcanvas offcanvas-end stats"
         data-bs-backdrop="static"
         tabindex="-1"
-        aria-labelledby="gamesStatsBackdropLabel"
+        aria-labelledby="gamesBackdropLabel"
       >
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="gamesStatsBackdropLabel"></h5>
+          <h5 class="offcanvas-title" id="gamesBackdropLabel"></h5>
           <button
             type="button"
             class="btn-close bg-white"
             data-bs-dismiss="offcanvas"
-            aria-label="Close"
+            title="Close"
           ></button>
         </div>
         <div class="offcanvas-body">
           <div class="container">
-            <div class="row justify-content-md-between">
-              <div class="col-md-9">
-                <table class="table table-responsive" id="gameTable">
-                  <thead class="table-info">
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col" v-if="configurations.displayDate">
-                        <icon-selector :selector="'date'" />
-                      </th>
-                      <th scope="col" class="text-danger">
-                        <icon-selector
-                          :selector="'front'"
-                          :color="'red'"
-                          :size="24"
-                        />
-                      </th>
-                      <th scope="col" class="text-danger">
-                        <icon-selector
-                          :selector="'back'"
-                          :color="'red'"
-                          :size="24"
-                        />
-                      </th>
-                      <th scope="col" class="text-danger">
-                        <icon-selector
-                          :selector="'award'"
-                          :color="'red'"
-                          :size="24"
-                        />
-                      </th>
-                      <th scope="col" class="text-secondary">
-                        <icon-selector :selector="'meta'" :size="24" />
-                      </th>
-                      <th scope="col" class="text-primary">
-                        <icon-selector
-                          :selector="'award'"
-                          :color="'blue'"
-                          :size="24"
-                        />
-                      </th>
-                      <th scope="col" class="text-primary">
-                        <icon-selector
-                          :selector="'front'"
-                          :color="'blue'"
-                          :size="24"
-                        />
-                      </th>
-                      <th scope="col" class="text-primary">
-                        <icon-selector
-                          :selector="'back'"
-                          :color="'blue'"
-                          :size="24"
-                        />
-                      </th>
-                      <th
-                        scope="col"
-                        class="text-secondary"
-                        v-if="configurations.displayGamesUtils"
-                      >
-                        <icon-selector :selector="'gear'" :size="24" />
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(game, index) in games" :id="game.meta[0].uid">
-                      <th scope="row">{{ index + 1 }}</th>
-                      <td v-if="configurations.displayDate">
-                        {{dayjs(game.meta[0].timestamp).format('DD-MM-YYYY')}}/{{dayjs(game.meta[0].timestamp).format('HH:mm:ss')}}
-                      </td>
-                      <td>{{ playerById(game.red.front) }}</td>
-                      <td>{{ playerById(game.red.back) }}</td>
-                      <td>{{ game.red.score }}</td>
-                      <td>
-                        <ul
-                          class="list-group list-group-horizontal justify-content-md-center"
-                        >
-                          <li
-                            v-for="meta in defaultChanges"
-                            class="list-group-item"
-                          >
-                            <icon-selector
-                              :selector="meta.changed"
-                              :size="16"
-                              :color="meta.side"
-                            ></icon-selector>
-                            <span class="badge bg-secondary">
-                              {{ getMetaCount(game, meta) }}
-                            </span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>{{ game.blue.score }}</td>
-                      <td>{{ playerById(game.blue.front) }}</td>
-                      <td>{{ playerById(game.blue.back) }}</td>
-                      <td class="row" v-if="configurations.displayGamesUtils">
-                        <button
-                          class="btn btn-outline col"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#displayBackdrop"
-                          aria-controls="displayBackdrop"
-                          @click="showGame(game.meta[0].uid)"
-                          type="button"
-                          title="show"
-                        >
-                          <icon-selector :selector="'eye'" />
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-outline col"
-                          title="delete"
-                          @click="deleteGame(game)"
-                        >
-                          <icon-selector :selector="'trash3'" />
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-md-2">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="input-group justify-content-md-center">
-                      <div @click="toggleFIFO">
-                        <icon-selector
-                          :selector="configurations.FIFO ? 'up' : 'down'"
-                        />
-                      </div>
+            <div class="row">
+              <div class="card">
+                <div class="row justify-content-md-end">
+                  <div class="justify-content-md-center col-md-1">
+                    <div @click="toggleFIFO">
+                      <icon-selector
+                        :selector="configurations.FIFO ? 'up' : 'down'"
+                      />
                     </div>
-                    <div class="input-group justify-content-md-center">
-                      <div @click="toggleDisplayDate">
-                        <icon-selector
-                          :selector="configurations.displayDate ? 'date-active' : 'date'"
-                        />
-                      </div>
+                  </div>
+                  <div class="justify-content-md-center col-md-1">
+                    <div @click="toggleDisplayDate">
+                      <icon-selector
+                        :selector="configurations.displayDate ? 'date-active' : 'date'"
+                      />
                     </div>
-                    <div class="input-group justify-content-md-center">
-                      <div @click="toggleDisplayGamesUtils">
-                        <icon-selector
-                          :selector="configurations.displayGamesUtils ? 'gear-active' : 'gear'"
-                        />
-                      </div>
+                  </div>
+                  <div class="justify-content-md-center col-md-1">
+                    <div @click="toggleDisplayMetaData">
+                      <icon-selector
+                        :selector="configurations.displayMetaData ? 'meta-active' : 'meta'"
+                      />
+                    </div>
+                  </div>
+                  <div class="justify-content-md-center col-md-1">
+                    <div @click="toggleDisplayGamesUtils">
+                      <icon-selector
+                        :selector="configurations.displayGamesUtils ? 'gear-active' : 'gear'"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="row mt-2">
+              <table class="table table-responsive" id="gamesTable">
+                <thead class="table-info">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" v-if="configurations.displayDate">
+                      <icon-selector :selector="'date'" />
+                    </th>
+                    <th scope="col" class="text-danger">
+                      <icon-selector
+                        :selector="'front'"
+                        :color="'red'"
+                        :size="24"
+                      />
+                    </th>
+                    <th scope="col" class="text-danger">
+                      <icon-selector
+                        :selector="'back'"
+                        :color="'red'"
+                        :size="24"
+                      />
+                    </th>
+                    <th scope="col" class="text-danger">
+                      <icon-selector
+                        :selector="'award'"
+                        :color="'red'"
+                        :size="24"
+                      />
+                    </th>
+                    <th
+                      v-for="meta in defaultChanges"
+                      scope="col"
+                      v-if="configurations.displayMetaData"
+                    >
+                      <icon-selector
+                        :selector="meta.changed"
+                        :size="24"
+                        :color="meta.side"
+                      />
+                    </th>
+                    <th scope="col" class="text-primary">
+                      <icon-selector
+                        :selector="'award'"
+                        :color="'blue'"
+                        :size="24"
+                      />
+                    </th>
+                    <th scope="col" class="text-primary">
+                      <icon-selector
+                        :selector="'front'"
+                        :color="'blue'"
+                        :size="24"
+                      />
+                    </th>
+                    <th scope="col" class="text-primary">
+                      <icon-selector
+                        :selector="'back'"
+                        :color="'blue'"
+                        :size="24"
+                      />
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary"
+                      v-if="configurations.displayGamesUtils"
+                    >
+                      <icon-selector :selector="'gear'" :size="24" />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(game, index) in games" :id="game.meta[0].uid">
+                    <th scope="row">{{ index + 1 }}</th>
+                    <td v-if="configurations.displayDate">
+                      {{ dayjs(game.meta[0].timestamp).format(`YY-M-D HH:mm:ss`)
+                      }}
+                    </td>
+                    <td>{{ playerById(game.red.front) }}</td>
+                    <td>{{ playerById(game.red.back) }}</td>
+                    <td>{{ game.red.score }}</td>
+                    <td
+                      v-if="configurations.displayMetaData"
+                      v-for="meta in defaultChanges"
+                    >
+                      {{ getMetaCount(game, meta) }}
+                    </td>
+                    <td>{{ game.blue.score }}</td>
+                    <td>{{ playerById(game.blue.front) }}</td>
+                    <td>{{ playerById(game.blue.back) }}</td>
+                    <td class="row" v-if="configurations.displayGamesUtils">
+                      <button
+                        class="btn btn-outline col"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#displayBackdrop"
+                        aria-controls="displayBackdrop"
+                        @click="showGame(game.meta[0].uid)"
+                        type="button"
+                        title="show"
+                      >
+                        <icon-selector :selector="'eye'" />
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline col"
+                        title="delete"
+                        @click="deleteGame(game)"
+                      >
+                        <icon-selector :selector="'trash3'" />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
+      <!-- playersBackdrop -->
       <div
-        id="playersStatsBackdrop"
+        id="playersBackdrop"
         class="offcanvas offcanvas-end stats"
         data-bs-backdrop="static"
         tabindex="-1"
-        aria-labelledby="playersStatsBackdropLabel"
+        aria-labelledby="playersBackdropLabel"
       >
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="playersStatsBackdropLabel"></h5>
+          <h5 class="offcanvas-title" id="playersBackdropLabel"></h5>
           <button
             type="button"
             class="btn-close bg-white"
             data-bs-dismiss="offcanvas"
-            aria-label="Close"
+            title="Close"
             @click="plyr2Update = {}"
           ></button>
         </div>
         <div class="offcanvas-body">
           <div class="container">
             <div class="row">
-              <h4 class="col-md-4"><strong>Add New User:</strong></h4>
-              <input
-                type="text"
-                id="new-nickname"
-                class="form-control col-md"
-                :value="newNickname"
-                placeholder="Enter a new nickname"
-                @input="addNewNickname"
-                @keyup.enter="addNickname"
-              />
-              <button
-                class="btn btn-success col-md-1"
-                @click="addNickname"
-                title="add"
-                type="button"
-              >
-                <icon-selector :selector="'plus'" />
-              </button>
+              <div class="col-md-3">
+                <h4>Add New User</h4>
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  id="new-nickname"
+                  class="form-control"
+                  :value="newNickname"
+                  placeholder="Enter a new nickname"
+                  @input="addNewNickname"
+                  @keyup.enter="addNickname"
+                />
+              </div>
+              <div class="col-md-1">
+                <button
+                  class="btn btn-success"
+                  @click="addNickname"
+                  title="add"
+                  type="button"
+                >
+                  <icon-selector :selector="'plus'" />
+                </button>
+              </div>
             </div>
             <div class="row mt-2">
-              <div class="col-md">
-                <table class="table table-responsive" id="playerTable">
-                  <thead class="table-info">
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col" v-if="configurations.displayGoals">
-                        <icon-selector :selector="'award'" />
-                      </th>
-                      <th
-                        scope="col"
-                        v-if="configurations.displayTotalMatchesPlayed"
-                      >
-                        <icon-selector :selector="'games'" />
-                      </th>
-                      <th scope="col" v-if="configurations.displayUtils">
-                        <icon-selector :selector="'gear'" />
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(player, index) in nicknames" :key="player.id">
-                      <th scope="row">{{ index + 1 }}</th>
-                      <td>
-                        <input
-                          v-if="_.isEqual(plyr2Update.uid, player.uid)"
-                          type="text"
-                          id="update-nickname"
-                          :value="plyr2Update.name"
-                          placeholder="Update nickname"
-                          @keyup.enter="updatePlayerName"
-                          class="form-control col-md-1"
-                          @input="updateName"
-                        />
-                        <h5 v-else>{{ player.name }}</h5>
-                      </td>
-                      <td v-if="configurations.displayGoals">
-                        {{ goalCounter(player.uid) }}
-                      </td>
-                      <td v-if="configurations.displayTotalMatchesPlayed">
-                        {{ matchCounter(player.uid) }}
-                      </td>
-                      <td v-if="configurations.displayUtils">
-                        <button
-                          type="button"
-                          class="btn btn-outline"
-                          title="show"
-                          @click="showPlayer(player)"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#displayBackdrop"
-                          aria-controls="displayBackdrop"
-                        >
-                          <icon-selector :selector="'eye'" />
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-outline"
-                          title="edit"
-                          @click="updatePlayer(player)"
-                        >
-                          <icon-selector :selector="'edit'" />
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-outline"
-                          title="delete"
-                          @click="deletePlayer(player)"
-                        >
-                          <icon-selector :selector="'trash3'" />
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-md-2">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="mb-2 input-group justify-content-md-center">
-                      <div @click="toggleGoalsDisplay">
-                        <icon-selector
-                          :selector="configurations.displayGoals ? 'award-active' : 'award'"
-                        />
-                      </div>
+              <div class="crad">
+                <div class="row justify-content-md-end">
+                  <div class="justify-content-md-center col-md-1">
+                    <div @click="toggleGoalsDisplay">
+                      <icon-selector
+                        :selector="configurations.displayGoals ? 'award-active' : 'award'"
+                      />
                     </div>
-                    <div class="mb-2 input-group justify-content-md-center">
-                      <div @click="toggleDisplayUtils">
-                        <icon-selector
-                          :selector="configurations.displayUtils ? 'gear-active' : 'gear'"
-                        />
-                      </div>
+                  </div>
+                  <div class="justify-content-md-center col-md-1">
+                    <div @click="toggleDisplayTotalMatchesPlayed">
+                      <icon-selector
+                        :selector="configurations.displayTotalMatchesPlayed ? 'games-active' : 'games'"
+                      />
                     </div>
-                    <div class="mb-2 input-group justify-content-md-center">
-                      <div @click="toggleDisplayTotalMatchesPlayed">
-                        <icon-selector
-                          :selector="configurations.displayTotalMatchesPlayed ? 'games-active' : 'games'"
-                        />
-                      </div>
+                  </div>
+                  <div class="justify-content-md-center col-md-1">
+                    <div @click="toggleDisplayUtils">
+                      <icon-selector
+                        :selector="configurations.displayUtils ? 'gear-active' : 'gear'"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="row mt-2">
+              <table class="table table-responsive" id="playerTable">
+                <thead class="table-info">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" v-if="configurations.displayGoals">
+                      <icon-selector :selector="'award'" />
+                    </th>
+                    <th
+                      scope="col"
+                      v-if="configurations.displayTotalMatchesPlayed"
+                    >
+                      <icon-selector :selector="'games'" />
+                    </th>
+                    <th scope="col" v-if="configurations.displayUtils">
+                      <icon-selector :selector="'gear'" />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(player, index) in nicknames" :key="player.id">
+                    <th scope="row">{{ index + 1 }}</th>
+                    <td>
+                      <input
+                        v-if="_.isEqual(plyr2Update.uid, player.uid)"
+                        type="text"
+                        id="update-nickname"
+                        :value="plyr2Update.name"
+                        placeholder="Update nickname"
+                        @keyup.enter="updatePlayerName"
+                        class="form-control col-md-1"
+                        @input="updateName"
+                      />
+                      <h5 v-else>{{ player.name }}</h5>
+                    </td>
+                    <td v-if="configurations.displayGoals">
+                      {{ goalCounter(player.uid) }}
+                    </td>
+                    <td v-if="configurations.displayTotalMatchesPlayed">
+                      {{ matchCounter(player.uid) }}
+                    </td>
+                    <td v-if="configurations.displayUtils">
+                      <button
+                        type="button"
+                        class="btn btn-outline"
+                        title="show"
+                        @click="showPlayer(player)"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#displayBackdrop"
+                        aria-controls="displayBackdrop"
+                      >
+                        <icon-selector :selector="'eye'" />
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline"
+                        title="edit"
+                        @click="updatePlayer(player)"
+                      >
+                        <icon-selector :selector="'edit'" />
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline"
+                        title="delete"
+                        @click="deletePlayer(player)"
+                      >
+                        <icon-selector :selector="'trash3'" />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
+      <!-- configurationBackdrop -->
       <div
         id="configurationBackdrop"
         class="offcanvas offcanvas-start stats"
@@ -464,7 +474,7 @@
             type="button"
             class="btn-close bg-white"
             data-bs-dismiss="offcanvas"
-            aria-label="Close"
+            title="Close"
           ></button>
         </div>
         <div class="offcanvas-body">
@@ -481,7 +491,7 @@
                     id="clearPlayers"
                     :checked="configurations.clearPlayers"
                     placeholder=""
-                    aria-label="clearPlayers"
+                    title="clearPlayers"
                     @click="toggleclearPlayers"
                   />
                 </div>
@@ -497,7 +507,7 @@
                     id="is1v1"
                     :checked="settings.is1v1"
                     placeholder=""
-                    aria-label="is1v1"
+                    title="1v1"
                     @click="toggleIs1v1"
                   />
                 </div>
@@ -527,7 +537,7 @@
                     id="isTieBreak"
                     :checked="settings.isTieBreak"
                     placeholder=""
-                    aria-label="isTieBreak"
+                    title="TieBreak"
                     @click="toggleIsTieBreak"
                   />
                 </div>
@@ -552,6 +562,7 @@
           </div>
         </div>
       </div>
+      <!-- displayBackdrop -->
       <div
         id="displayBackdrop"
         class="offcanvas offcanvas-bottom popped"
@@ -565,95 +576,90 @@
             type="button"
             class="btn-close bg-white"
             data-bs-dismiss="offcanvas"
-            aria-label="Close"
+            title="Close"
             @click="resetShowDisplay(true)"
           ></button>
         </div>
         <div class="offcanvas-body">
-          <div v-if="_.isEqual(app?.showType, 'game')" class="container">
+          <div v-if="_.isEqual(display?.showType, 'games')" class="container">
             <div class="row">
-              <div class="col-4">
-                <div class="row">
-                  <div class="col-md-2">
-                    <h3>Start</h3>
-                    <span
-                      >{{
-                      dayjs(app.showData?.meta[0].timestamp).format('DD-MM-YYYY')
-                      }}</span
+              <div class="col-md-6">
+                <table class="table table-responsive" id="gameStatTable">
+                  <thead class="table-info">
+                    <tr>
+                      <th scope="col"><icon-selector :selector="'key'" /></th>
+                      <th scope="col">#</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(meta, key) in _.omit(display.showData.meta[0], ['uid'], display.showData.meta[0].isTieBreak ? 'isTieBreak' : 'tieBreakSpan')"
                     >
-                    <span
-                      >{{
-                      dayjs(app.showData?.meta[0].timestamp).format('HH:mm:ss')
-                      }}</span
-                    >
-                  </div>
-                  <div class="col-md">
-                    <span><strong>Id:</strong></span>
-                    <span>{{ app.showId }}</span>
-                    <span><strong>Duration:</strong></span>
-                    <span>{{ app.showData?.meta[0].timeElapsed }}</span>
-                    <span><strong>Pause Duration:</strong></span>
-                    <span>
-                      {{
-                      dayjs.duration(app.showData?.meta[0].pauseDuration,'seconds').format('HH:mm:ss')
-                      }}
-                    </span>
-                    <span><strong>Game Type:</strong></span>
-                    <span>
-                      {{ app.showData?.meta[0].is1v1 ? '1 vs 1' : '4 vs 4'}}
-                    </span>
-                  </div>
-                </div>
+                      <td>{{ translateKey(key) }}</td>
+                      <td>{{ translateMetaWithKey(key, meta) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="col-md">
-                <ul class="list-group">
-                  <li
-                    v-for="meta in _.drop(app.showData.meta)"
-                    class="list-group-item"
-                    :key="meta.timestamp"
-                  >
-                    <div class="row">
-                      <div class="col-md-2">
+              <div class="col-md-6">
+                <table class="table table-responsive" id="gameMetaStatTable">
+                  <thead class="table-info">
+                    <tr>
+                      <th scope="col">
+                        <icon-selector :selector="'stopwatch'" :size="32" />
+                      </th>
+                      <th scope="col">
+                        <icon-selector :selector="'event'" :size="32" />
+                      </th>
+                      <th scope="col">
+                        <icon-selector :selector="'type'" :size="32" />
+                      </th>
+                      <th scope="col">
+                        <icon-selector :selector="'players'" :size="32" />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="meta in _.drop(display.showData.meta)"
+                      :id="meta.timestamp"
+                    >
+                      <td>
                         {{ dayjs.duration(meta.timestamp -
-                        app.showData.meta[0].timestamp,'ms').format('HH:mm:ss')
+                        display.showData.meta[0].timestamp,'ms').format('HH:mm:ss')
                         }}
-                      </div>
-                      <div class="col-md-4 row justify-content-md-between">
-                        <div class="col-md-2">
-                          <icon-selector
-                            :selector="_.has(meta, 'changed') ? 'sync' :'award'"
-                            :size="32"
-                          />
-                        </div>
-                        <div class="col-md row justify-content-md">
-                          <div class="col-md-2">
-                            <icon-selector
-                              :selector="_.has(meta, 'changed') ? meta.changed : meta.position"
-                              :size="32"
-                              :color="meta.side"
-                            />
-                          </div>
-                          <div class="col-md-4">
-                            {{ playerById(meta.player) }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                      </td>
+                      <td>
+                        <icon-selector
+                          :selector="_.has(meta, 'changed') ? 'sync' :'award'"
+                          :size="32"
+                        />
+                      </td>
+                      <td>
+                        <icon-selector
+                          :selector="_.has(meta, 'changed') ? meta.changed : meta.position"
+                          :size="32"
+                          :color="meta.side"
+                        />
+                      </td>
+                      <td>{{ playerById(meta.player) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
           <div v-else class="row">
             <div class="col-6">
-              <strong>Player: {{ app?.name }}</strong>
+              <strong>Player: {{ display?.name }}</strong>
             </div>
             <div class="col-6">
-              <strong>Total Matches: {{ app?.showData.length }}</strong>
+              <strong>Total Matches: {{ display?.showData.length }}</strong>
             </div>
           </div>
         </div>
       </div>
+      <!-- info-button -->
       <button
         class="btn btn-outline-info oasis"
         data-bs-toggle="offcanvas"
@@ -664,6 +670,7 @@
       >
         <i class="fas fa-circle-info"></i>
       </button>
+      <!-- context -->
       <div class="context row align-items-center flex-nowrap">
         <div class="col-md-3">
           <div v-if="settings.is1v1" class="row">
@@ -893,6 +900,7 @@
           </div>
         </div>
       </div>
+      <!-- footer -->
       <div class="card">
         <div v-if="configurations.isRunning">
           <button
@@ -921,8 +929,8 @@
           <button
             class="btn btn-secondary col"
             data-bs-toggle="offcanvas"
-            data-bs-target="#playersStatsBackdrop"
-            aria-controls="playersStatsBackdrop"
+            data-bs-target="#playersBackdrop"
+            aria-controls="playersBackdrop"
             title="players"
             type="button"
           >
@@ -931,8 +939,8 @@
           <button
             class="btn btn-secondary col"
             data-bs-toggle="offcanvas"
-            data-bs-target="#gamesStatsBackdrop"
-            aria-controls="gamesStatsBackdrop"
+            data-bs-target="#gamesBackdrop"
+            aria-controls="gamesBackdrop"
             title="games"
             type="button"
           >
@@ -968,7 +976,7 @@
       Vue.component("icon-selector", {
         props: ["selector", "size", "color"],
         methods: {
-          getIcon(selector, size = 16, color = "currentColor") {
+          getIcon(selector, size = 20, color = "currentColor") {
             switch (selector) {
               case "position": {
                 return `
@@ -1047,10 +1055,13 @@
               }
               case "meta": {
                 return `
-      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-meta" viewBox="0 0 16 16">
-      			<path fill-rule="evenodd" d="M8.217 5.243C9.145 3.988 10.171 3 11.483 3 13.96 3 16 6.153 16.001 9.907c0 2.29-.986 3.725-2.757 3.725-1.543 0-2.395-.866-3.924-3.424l-.667-1.123-.118-.197a55 55 0 0 0-.53-.877l-1.178 2.08c-1.673 2.925-2.615 3.541-3.923 3.541C1.086 13.632 0 12.217 0 9.973 0 6.388 1.995 3 4.598 3q.477-.001.924.122c.31.086.611.22.913.407.577.359 1.154.915 1.782 1.714m1.516 2.224q-.378-.614-.727-1.133L9 6.326c.845-1.305 1.543-1.954 2.372-1.954 1.723 0 3.102 2.537 3.102 5.653 0 1.188-.39 1.877-1.195 1.877-.773 0-1.142-.51-2.61-2.87zM4.846 4.756c.725.1 1.385.634 2.34 2.001A212 212 0 0 0 5.551 9.3c-1.357 2.126-1.826 2.603-2.581 2.603-.777 0-1.24-.682-1.24-1.9 0-2.602 1.298-5.264 2.846-5.264q.136 0 .27.018Z"/>
-                </svg>
-      	`;
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-meta" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8.217 5.243C9.145 3.988 10.171 3 11.483 3 13.96 3 16 6.153 16.001 9.907c0 2.29-.986 3.725-2.757 3.725-1.543 0-2.395-.866-3.924-3.424l-.667-1.123-.118-.197a55 55 0 0 0-.53-.877l-1.178 2.08c-1.673 2.925-2.615 3.541-3.923 3.541C1.086 13.632 0 12.217 0 9.973 0 6.388 1.995 3 4.598 3q.477-.001.924.122c.31.086.611.22.913.407.577.359 1.154.915 1.782 1.714m1.516 2.224q-.378-.614-.727-1.133L9 6.326c.845-1.305 1.543-1.954 2.372-1.954 1.723 0 3.102 2.537 3.102 5.653 0 1.188-.39 1.877-1.195 1.877-.773 0-1.142-.51-2.61-2.87zM4.846 4.756c.725.1 1.385.634 2.34 2.001A212 212 0 0 0 5.551 9.3c-1.357 2.126-1.826 2.603-2.581 2.603-.777 0-1.24-.682-1.24-1.9 0-2.602 1.298-5.264 2.846-5.264q.136 0 .27.018Z"/>
+                        </svg>
+                `;
+              }
+              case "meta-active": {
+                return `<i class="fas fa-square-root-variable"></i>`;
               }
               case "settings": {
                 return `
@@ -1122,13 +1133,22 @@
                   <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                 </svg>`;
               }
+              case "event": {
+                return `<i class="fas fa-arrows-rotate fa-pulse align-self-center"></i>`;
+              }
+              case "stopwatch": {
+                return `<i class="fas fa-stopwatch"></i>`;
+              }
+              case "key": {
+                return `<i class="fas fa-key"></i>`;
+              }
               default:
               case "side": {
                 return `
-      		<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
-      			<path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
-      		</svg>
-      	`;
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+                  </svg>
+                `;
               }
             }
           },
@@ -1144,18 +1164,19 @@
                 changed: "position",
                 side: "red",
               },
-              {
-                changed: "position",
-                side: "blue",
-              },
+
               {
                 changed: "side",
               },
               {
                 changed: "pause",
               },
+              {
+                changed: "position",
+                side: "blue",
+              },
             ],
-            app: {
+            display: {
               showId: undefined,
               showType: undefined,
               showData: [],
@@ -1169,6 +1190,7 @@
               FIFO: false,
               displayDate: false,
               displayGamesUtils: false,
+              displayMetaData: false,
             },
             timer: undefined,
             plyr2Update: {},
@@ -1189,10 +1211,10 @@
             newNickname: "",
             nicknames: [],
             settings: {
+              is1v1: false,
               maxScore: 5,
               isTieBreak: false,
               tieBreakSpan: 2,
-              is1v1: false,
               timeElapsed: 0,
               pauseDuration: 0,
             },
@@ -1237,10 +1259,10 @@
                 )
               )
             );
-            // console.log(showData, name);
-            this.app = {
+            console.log(showData);
+            this.display = {
               showId,
-              showType: "player",
+              showType: "players",
               showData,
               name,
             };
@@ -1309,9 +1331,9 @@
             clearInterval(this.timer);
           },
           showGame(showId) {
-            this.app = {
+            this.display = {
               showId,
-              showType: "game",
+              showType: "games",
               showData: _.find(this.games, ({ meta }) =>
                 _.isEqual(meta[0].uid, showId)
               ),
@@ -1429,10 +1451,10 @@
           },
           resetShowDisplay() {
             const offcanvasElement = new bootstrap.Offcanvas(
-              `#${this.app.showType}sStatsBackdrop`
+              `#${this.display.showType}Backdrop`
             );
             offcanvasElement?.show();
-            this.app = {
+            this.display = {
               showId: undefined,
               showType: undefined,
               showData: [],
@@ -1460,6 +1482,48 @@
           toggleDisplayGamesUtils() {
             this.configurations.displayGamesUtils =
               !this.configurations.displayGamesUtils;
+          },
+          toggleDisplayMetaData() {
+            this.configurations.displayMetaData =
+              !this.configurations.displayMetaData;
+          },
+          translateKey(key) {
+            switch (key) {
+              case "timestamp": {
+                return "Start";
+              }
+              case "is1v1": {
+                return "Game Type";
+              }
+              case "isTieBreak": {
+                return "Tie Break";
+              }
+              case "tieBreakSpan": {
+                return "Tie Break";
+              }
+              default: {
+                return _.startCase(key);
+              }
+            }
+          },
+          translateMetaWithKey(key, meta) {
+            switch (key) {
+              case "timestamp": {
+                return dayjs(meta).format(`YY-M-D HH:mm:ss`);
+              }
+              case "is1v1": {
+                return meta ? "1 vs 1" : "4 vs 4";
+              }
+              case "timeElapsed": {
+                return dayjs.duration(meta, "seconds").format("HH:mm:ss");
+              }
+              case "pauseDuration": {
+                return dayjs.duration(meta, "seconds").format("HH:mm:ss");
+              }
+              default: {
+                return meta;
+              }
+            }
           },
         },
         computed: {
@@ -1509,9 +1573,9 @@
           if (configsState) {
             this.configurations = JSON.parse(configsState);
           }
-          const appState = localStorage.getItem("appState");
+          const displayState = localStorage.getItem("displayState");
           if (configsState) {
-            this.app = JSON.parse(appState);
+            this.display = JSON.parse(displayState);
           }
         },
         watch: {
@@ -1560,9 +1624,12 @@
             },
             deep: true,
           },
-          app: {
+          display: {
             handler() {
-              localStorage.setItem("appState", JSON.stringify(this.$data.app));
+              localStorage.setItem(
+                "displayState",
+                JSON.stringify(this.$data.display)
+              );
             },
             deep: true,
           },
