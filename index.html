@@ -1303,6 +1303,10 @@
             this.game.meta.push({
               timestamp: Date.now(),
               uid: UUID.generate(),
+              "red-front": this.game.red.front,
+              "red-back": this.game.red.back,
+              "blue-front": this.game.blue.front,
+              "blue-back": this.game.blue.back,
             });
             this.startTimer();
           },
@@ -1519,6 +1523,18 @@
               }
               case "pauseDuration": {
                 return dayjs.duration(meta, "seconds").format("HH:mm:ss");
+              }
+              case "red-front": {
+                return this.playerById(meta);
+              }
+              case "red-back": {
+                return this.playerById(meta);
+              }
+              case "blue-front": {
+                return this.playerById(meta);
+              }
+              case "blue-back": {
+                return this.playerById(meta);
               }
               default: {
                 return meta;
