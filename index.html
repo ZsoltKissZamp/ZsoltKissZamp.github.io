@@ -419,7 +419,7 @@
                       <h5 v-else>{{ player.name }}</h5>
                     </td>
                     <td v-if="configurations.displayGoals">
-                      {{ goalCounter(player.uid) }}
+                      {{ _.flatten(getPlayerMetadatas(player.uid)).length }}
                     </td>
                     <td v-if="configurations.displayTotalMatchesPlayed">
                       {{ matchCounter(player.uid) }}
@@ -667,7 +667,7 @@
           </div>
           <div v-else class="row">
             <div class="col-6">
-              <strong>Player: {{ display?.name }}</strong>
+              <strong>Player: {{ playerById(display?.showId) }}</strong>
             </div>
             <div class="col-6">
               <strong>Total Matches: {{ display?.showData.length }}</strong>
@@ -1346,9 +1346,10 @@
               )
             );
             const allMetaDatas = _.map(showData, "meta");
-            const justFirstMetas = _.map(showData, ({ meta }) => meta[0]);
+            const gameSetups = _.map(allMetaDatas, (metas) => metas[0]);
+            const metas = this.getPlayerMetadatas(showId);
 
-            console.log(allMetaDatas, justFirstMetas);
+            console.log(_.compact(metas), gameSetups);
             this.display = {
               showId,
               showType: "players",
@@ -1476,15 +1477,9 @@
                 this.game.meta.push({ changed: "side", timestamp: Date.now() });
             }
           },
-          goalCounter(player) {
-            return _.reduce(
-              _.map(
-                this.games,
-                (game, gameIndex) =>
-                  _.filter(game.meta, (meta) => _.isEqual(player, meta.player))
-                    .length
-              ),
-              (t, c) => t + c
+          getPlayerMetadatas(player) {
+            return _.map(_.map(this.games, "meta"), (metas) =>
+              _.filter(_.drop(metas), (meta) => _.isEqual(player, meta.player))
             );
           },
           matchCounter(playerId) {
