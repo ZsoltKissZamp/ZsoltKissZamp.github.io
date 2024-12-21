@@ -173,13 +173,6 @@
               <div class="card">
                 <div class="row justify-content-md-end">
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleFIFO">
-                      <icon-selector
-                        :selector="configurations.FIFO ? 'up' : 'down'"
-                      />
-                    </div>
-                  </div>
-                  <div class="justify-content-md-center col-md-1">
                     <div @click="toggleDisplayDate">
                       <icon-selector
                         :selector="configurations.displayDate ? 'date-active' : 'date'"
@@ -459,7 +452,7 @@
                       {{ getGotGoals(player.uid) }}
                     </td>
                     <td v-if="configurations.toggleDisplayWinrate">
-                      {{ getWinrateByPlayer(player.uid) }}
+                      {{ getWinrateByPlayer(player.uid) }} %
                     </td>
                     <td v-if="configurations.displayUtils">
                       <button
@@ -629,16 +622,6 @@
                   <caption>
                     <icon-selector :selector="'games'" :size="36" />
                   </caption>
-                  <thead class="table-info">
-                    <tr>
-                      <th scope="col">
-                        <icon-selector :selector="'key'" :size="26" />
-                      </th>
-                      <th scope="col">
-                        <icon-selector :selector="'arrow-repeat'" :size="26" />
-                      </th>
-                    </tr>
-                  </thead>
                   <tbody>
                     <tr
                       v-for="(meta, key) in _.omit(display.showData.meta[0], ['uid'], display.showData.meta[0].isTieBreak ? 'isTieBreak' : 'tieBreakSpan')"
@@ -770,7 +753,7 @@
           <div v-if="settings.is1v1" class="row">
             <div class="card text-danger">
               <div
-                v-if="configurations.isRunning"
+                v-if="app.isRunning"
                 class="card-body"
                 @click="incrementScore('front', 'red')"
               >
@@ -799,7 +782,7 @@
           <div v-else class="row">
             <div class="card text-danger">
               <div
-                v-if="configurations.isRunning"
+                v-if="app.isRunning"
                 class="card-body"
                 @click="incrementScore('front', 'red')"
               >
@@ -827,13 +810,13 @@
             </div>
             <div
               @click="switchSides('red')"
-              v-if="configurations.isRunning || !configurations.clearPlayers"
+              v-if="app.isRunning || !configurations.clearPlayers"
             >
               <icon-selector :selector="'position'" :size="32" />
             </div>
             <div class="card text-danger">
               <div
-                v-if="configurations.isRunning"
+                v-if="app.isRunning"
                 class="card-body"
                 @click="incrementScore('back', 'red')"
               >
@@ -863,22 +846,19 @@
         </div>
         <div class="row col">
           <div
-            v-if="configurations.isRunning || !configurations.clearPlayers"
+            v-if="app.isRunning || !configurations.clearPlayers"
             @click="switchSides()"
           >
             <icon-selector :selector="'side'" :size="32" />
           </div>
-          <div class="col-md bg-danger display" v-if="configurations.isRunning">
+          <div class="col-md bg-danger display" v-if="app.isRunning">
             <div class="card extra">
               <div class="card-body align-conten-md-center">
                 <h1>{{ game.red.score }}</h1>
               </div>
             </div>
           </div>
-          <div
-            class="col-md bg-primary display"
-            v-if="configurations.isRunning"
-          >
+          <div class="col-md bg-primary display" v-if="app.isRunning">
             <div class="card extra">
               <div class="card-body align-conten-md-center">
                 <h1>{{ game.blue.score }}</h1>
@@ -888,10 +868,7 @@
           <div v-else class="row justify-content-md-center">
             <div class="card col-md-2">VS</div>
           </div>
-          <div
-            v-if="configurations.isRunning"
-            class="row justify-content-lg-center"
-          >
+          <div v-if="app.isRunning" class="row justify-content-lg-center">
             <div class="col-md-auto orbitron-timer">
               {{ dayjs.duration(settings.timeElapsed,
               'seconds').format('HH:mm:ss') }}
@@ -902,7 +879,7 @@
           <div v-if="settings.is1v1" class="row">
             <div class="card text-primary">
               <div
-                v-if="configurations.isRunning"
+                v-if="app.isRunning"
                 class="card-body"
                 @click="incrementScore('front', 'blue')"
               >
@@ -931,7 +908,7 @@
           <div v-else class="row">
             <div class="card text-primary">
               <div
-                v-if="configurations.isRunning"
+                v-if="app.isRunning"
                 class="card-body"
                 @click="incrementScore('front', 'blue')"
               >
@@ -959,13 +936,13 @@
             </div>
             <div
               @click="switchSides('blue')"
-              v-if="configurations.isRunning || !configurations.clearPlayers"
+              v-if="app.isRunning || !configurations.clearPlayers"
             >
               <icon-selector :selector="'position'" :size="32" />
             </div>
             <div class="card text-primary">
               <div
-                v-if="configurations.isRunning"
+                v-if="app.isRunning"
                 class="card-body"
                 @click="incrementScore('back', 'blue')"
               >
@@ -996,7 +973,7 @@
       </div>
       <!-- footer -->
       <div class="card">
-        <div v-if="configurations.isRunning">
+        <div v-if="app.isRunning">
           <button
             class="btn btn-info"
             data-bs-toggle="offcanvas"
@@ -1010,7 +987,7 @@
         </div>
         <div v-else class="row justify-content-end gap-2">
           <button
-            v-if="!configurations.isRunning"
+            v-if="!app.isRunning"
             class="btn btn-secondary col"
             data-bs-toggle="offcanvas"
             data-bs-target="#configurationBackdrop"
@@ -1041,7 +1018,7 @@
             <icon-selector :selector="'games'" :size="32" />
           </button>
           <button
-            v-if="!configurations.isRunning"
+            v-if="!app.isRunning"
             v-show="!!_.isEqual(playersCount.length, settings.is1v1 ? 2 : 4)"
             class="btn btn-success col"
             @click="startGame"
@@ -1367,17 +1344,19 @@
               showData: [],
             },
             configurations: {
-              isPlaying: false,
-              isRunning: false,
               clearPlayers: true,
               displayGoals: false,
               displayTotalMatchesPlayed: false,
-              FIFO: false,
               displayDate: false,
               displayGamesUtils: false,
               displayMetaData: false,
               displayTotalGG: false,
               toggleDisplayWinrate: false,
+            },
+            app: {
+              isPlaying: false,
+              isRunning: false,
+              timer: undefined,
             },
             timer: undefined,
             plyr2Update: {},
@@ -1474,8 +1453,8 @@
             this.plyr2Update = {};
           },
           startGame() {
-            this.configurations.isPlaying = true;
-            this.configurations.isRunning = true;
+            this.app.isPlaying = true;
+            this.app.isRunning = true;
             this.settings.timeElapsed = 0;
             this.settings.pauseDuration = 0;
             this.game.meta.push({
@@ -1508,8 +1487,8 @@
               },
               meta: [],
             };
-            this.configurations.isRunning = false;
-            this.configurations.isPlaying = false;
+            this.app.isRunning = false;
+            this.app.isPlaying = false;
             clearInterval(this.timer);
           },
           showGame(showId) {
@@ -1525,7 +1504,7 @@
             this.games = _.filter(this.games, (g) => !_.isEqual(game, g));
           },
           toggleStatus(changed) {
-            this.configurations.isPlaying = _.isEqual(changed, "play");
+            this.app.isPlaying = _.isEqual(changed, "play");
             this.game.meta.push({
               changed,
               timestamp: Date.now(),
@@ -1551,7 +1530,7 @@
               const { front } = this.game[side];
               this.game[side].front = this.game[side].back;
               this.game[side].back = front;
-              this.configurations.isRunning &&
+              this.app.isRunning &&
                 this.game.meta.push({
                   changed: "position",
                   side,
@@ -1561,7 +1540,7 @@
               const { red } = this.game;
               this.game.red = this.game.blue;
               this.game.blue = red;
-              this.configurations.isRunning &&
+              this.app.isRunning &&
                 this.game.meta.push({ changed: "side", timestamp: Date.now() });
             }
           },
@@ -1630,20 +1609,24 @@
           },
           getWinrateByPlayer(player) {
             const data = this.getGamesByPlayer(player);
-            return _.divide(
-              _.sum(
-                _.map(_.map(data, "meta"), (metas) =>
-                  _.multiply(
-                    _.divide(
-                      _.filter(metas, (meta) => _.isEqual(player, meta.player))
-                        .length,
-                      metas[0].maxScore
-                    ),
-                    100
+            return _.ceil(
+              _.divide(
+                _.sum(
+                  _.map(_.map(data, "meta"), (metas) =>
+                    _.multiply(
+                      _.divide(
+                        _.filter(metas, (meta) =>
+                          _.isEqual(player, meta.player)
+                        ).length,
+                        metas[0].maxScore
+                      ),
+                      100
+                    )
                   )
-                )
+                ),
+                data.length
               ),
-              data.length
+              2
             );
           },
           getMetaCount: (game, meta) =>
@@ -1674,13 +1657,13 @@
               !this.configurations.clearPlayers;
           },
           startTimer() {
-            this.timer = setInterval(() => {
+            this.app.timer = setInterval(() => {
               if (
-                this.configurations.isRunning &&
+                this.app.isRunning &&
                 this.game.meta.length > 0 &&
                 this.game.meta[0].timestamp
               ) {
-                if (this.configurations.isPlaying) {
+                if (this.app.isPlaying) {
                   const startTime = dayjs(this.game.meta[0].timestamp);
                   const now = dayjs();
                   this.settings.timeElapsed =
@@ -1714,10 +1697,6 @@
           toggleDisplayTotalMatchesPlayed() {
             this.configurations.displayTotalMatchesPlayed =
               !this.configurations.displayTotalMatchesPlayed;
-          },
-          toggleFIFO() {
-            _.reverse(this.games);
-            this.configurations.FIFO = !this.configurations.FIFO;
           },
           toggleDisplayWinrate() {
             this.configurations.toggleDisplayWinrate =
@@ -1803,7 +1782,6 @@
           },
         },
         mounted() {
-          // console.log("cookie", document.cookie);
           const gameState = localStorage.getItem("gameState");
           if (gameState) {
             this.game = JSON.parse(gameState);
@@ -1825,8 +1803,19 @@
             this.configurations = JSON.parse(configsState);
           }
           const displayState = localStorage.getItem("displayState");
-          if (configsState) {
+          if (displayState) {
             this.display = JSON.parse(displayState);
+          }
+          const appState = localStorage.getItem("appState");
+          if (appState) {
+            this.app = JSON.parse(appState);
+            this.startTimer();
+            if (!this.app.isPlaying && this.app.isRunning) {
+              const offcanvasElement = new bootstrap.Offcanvas(
+                "#pauseBackdrop"
+              );
+              offcanvasElement?.show();
+            }
           }
         },
         watch: {
@@ -1881,6 +1870,12 @@
                 "displayState",
                 JSON.stringify(this.$data.display)
               );
+            },
+            deep: true,
+          },
+          app: {
+            handler() {
+              localStorage.setItem("appState", JSON.stringify(this.$data.app));
             },
             deep: true,
           },
