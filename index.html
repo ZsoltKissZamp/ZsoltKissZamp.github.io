@@ -1461,9 +1461,9 @@
               timestamp: Date.now(),
               uid: UUID.generate(),
               "red-front": this.game.red.front,
-              "red-back": this.game.red.back,
+              "red-back": this.settings.is1v1 ? this.game.red.front : this.game.red.back,
               "blue-front": this.game.blue.front,
-              "blue-back": this.game.blue.back,
+              "blue-back": this.settings.is1v1 ? this.game.blue.front : this.game.blue.back,
             });
             this.startTimer();
           },
