@@ -136,7 +136,18 @@
           ></button>
         </div>
         <div class="offcanvas-body">
-          Comming soon .... <i class="fas fa-spinner fa-pulse"></i>
+          <h3>Hy there!</h3>
+          <div>
+            This a page's reason to exists is to track locally played Table
+            Soccer games.
+          </div>
+          <div>
+            This is a single file web-app using only CDN's and it's under heavy
+            development!
+          </div>
+          <div>Datas are stored in localStorage!</div>
+          More Info will follow soon ....
+          <i class="fas fa-spinner fa-pulse"></i>
         </div>
       </div>
       <!-- gamesBackdrop -->
@@ -380,6 +391,13 @@
                     </div>
                   </div>
                   <div class="justify-content-md-center col-md-1">
+                    <div @click="toggleDisplayWinrate">
+                      <icon-selector
+                        :selector="configurations.toggleDisplayWinrate ? 'winrate-active' : 'winrate'"
+                      />
+                    </div>
+                  </div>
+                  <div class="justify-content-md-center col-md-1">
                     <div @click="toggleDisplayUtils">
                       <icon-selector
                         :selector="configurations.displayUtils ? 'gear-active' : 'gear'"
@@ -407,6 +425,9 @@
                     <th scope="col" v-if="configurations.displayTotalGG">
                       <icon-selector :selector="'ideges'" :size="24" />
                     </th>
+                    <th scope="col" v-if="configurations.toggleDisplayWinrate">
+                      <icon-selector :selector="'winrate'" :size="24" />
+                    </th>
                     <th scope="col" v-if="configurations.displayUtils">
                       <icon-selector :selector="'gear'" :size="24" />
                     </th>
@@ -432,10 +453,13 @@
                       {{ _.flatten(getPlayerMetadatas(player.uid)).length }}
                     </td>
                     <td v-if="configurations.displayTotalMatchesPlayed">
-                      {{ matchCounter(player.uid) }}
+                      {{ getGamesByPlayer(player.uid).length }}
                     </td>
                     <td v-if="configurations.displayTotalGG">
-                      {{ matchCounter(player.uid) }}
+                      {{ getGotGoals(player.uid) }}
+                    </td>
+                    <td v-if="configurations.toggleDisplayWinrate">
+                      {{ getWinrateByPlayer(player.uid) }}
                     </td>
                     <td v-if="configurations.displayUtils">
                       <button
@@ -462,6 +486,7 @@
                         class="btn btn-outline"
                         title="delete"
                         @click="deletePlayer(player)"
+                        v-show="false"
                       >
                         <icon-selector :selector="'trash3'" />
                       </button>
@@ -690,7 +715,7 @@
                 <tbody>
                   <tr>
                     <td><icon-selector :selector="'games'" /></td>
-                    <td>{{ display?.showData.length }}</td>
+                    <td>{{ getGamesByPlayer(display?.showId).length }}</td>
                   </tr>
                   <tr>
                     <td><icon-selector :selector="'award'" /></td>
@@ -706,19 +731,21 @@
                         :color="_.split(key, '-')[0]"
                       />
                     </td>
-                    <td>{{ _.get(display?.setups, key) || 0 }}</td>
+                    <td>
+                      {{ _.get(getGameSetupByPlayer(display?.showId), key)}}
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <icon-selector :selector="'ideges'" />
                     </td>
-                    <td>{{ display?.goalGot || 0 }}</td>
+                    <td>{{ getGotGoals(display?.showId) }}</td>
                   </tr>
                   <tr>
                     <td>
                       <icon-selector :selector="'winrate'" />
                     </td>
-                    <td>{{ display?.winrate || 0 }}</td>
+                    <td>{{ getWinrateByPlayer(display?.showId) }} %</td>
                   </tr>
                 </tbody>
               </table>
@@ -1047,8 +1074,15 @@
             switch (selector) {
               case "winrate": {
                 return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi trophy" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-trophy" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
                     <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935M3.504 1q.01.775.056 1.469c.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.5.5 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667q.045-.694.056-1.469z"/>
+                  </svg>
+                `;
+              }
+              case "winrate-active": {
+                return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-trophy-fill" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935"/>
                   </svg>
                 `;
               }
@@ -1343,6 +1377,7 @@
               displayGamesUtils: false,
               displayMetaData: false,
               displayTotalGG: false,
+              toggleDisplayWinrate: false,
             },
             timer: undefined,
             plyr2Update: {},
@@ -1404,61 +1439,10 @@
           deletePlayer(player) {
             console.log("delete", player);
           },
-          showPlayer({ uid: showId, name }) {
-            const showData = _.filter(this.games, ({ red, blue }) =>
-              _.some(
-                _.map([red.front, red.back, blue.front, blue.back], (p) =>
-                  _.isEqual(p, showId)
-                )
-              )
-            );
-            const allMetaDatas = _.map(showData, "meta");
-            const gameSetups = _.map(allMetaDatas, (metas) => metas[0]);
-            const winrate = 0;
-            // console.log(w);
+          showPlayer({ uid: showId }) {
             this.display = {
               showId,
               showType: "players",
-              showData,
-              setups: _.countBy(
-                _.map(gameSetups, (meta) =>
-                  _.compact(
-                    _.map(
-                      this.defaultPostions,
-                      (pos) => _.isEqual(_.get(meta, pos), showId) && pos
-                    )
-                  )
-                )
-              ),
-              goalGot: _.reduce(
-                _.map(allMetaDatas, ([s, ...rest]) => {
-                  let [defSide, defPos] = _.findKey(s, (e) =>
-                    _.isEqual(showId, e)
-                  ).split("-");
-                  return _.size(
-                    _.filter(rest, (obj) => {
-                      if (!_.has(obj, "changed")) {
-                        if (
-                          !_.isEqual(obj.side, defSide) &&
-                          _.isEqual(defPos, "back")
-                        ) {
-                          return true;
-                        }
-                      }
-                      if (_.isEqual(obj.changed, "position")) {
-                        defPos = _.isEqual(defPos, "back") ? "front" : "back";
-                      }
-                      if (_.isEqual(obj.changed, "side")) {
-                        defSide = _.isEqual(defSide, "blue") ? "red" : "blue";
-                      }
-                      return false;
-                    })
-                  );
-                }),
-                (t, n) => t + n,
-                0
-              ),
-              winrate,
             };
           },
           updateName({ target: { value } }) {
@@ -1583,17 +1567,84 @@
           },
           getPlayerMetadatas(player) {
             return _.map(_.map(this.games, "meta"), (metas) =>
-              _.filter(_.drop(metas), (meta) => _.isEqual(player, meta.player))
+              _.filter(metas, (meta) => _.isEqual(player, meta.player))
             );
           },
-          matchCounter(playerId) {
+          getGamesByPlayer(player) {
             return _.filter(this.games, ({ red, blue }) =>
               _.some(
                 _.map([red.front, red.back, blue.front, blue.back], (p) =>
-                  _.isEqual(p, playerId)
+                  _.isEqual(p, player)
                 )
               )
-            ).length;
+            );
+          },
+          getGotGoals(player) {
+            return _.reduce(
+              _.map(
+                _.map(this.getGamesByPlayer(player), "meta"),
+                ([s, ...rest]) => {
+                  let [defSide, defPos] = _.findKey(s, (e) =>
+                    _.isEqual(player, e)
+                  ).split("-");
+                  return _.size(
+                    _.filter(rest, (obj) => {
+                      if (!_.has(obj, "changed")) {
+                        if (
+                          !_.isEqual(obj.side, defSide) &&
+                          _.isEqual(defPos, "back")
+                        ) {
+                          return true;
+                        }
+                      }
+                      if (_.isEqual(obj.changed, "position")) {
+                        defPos = _.isEqual(defPos, "back") ? "front" : "back";
+                      }
+                      if (_.isEqual(obj.changed, "side")) {
+                        defSide = _.isEqual(defSide, "blue") ? "red" : "blue";
+                      }
+                      return false;
+                    })
+                  );
+                }
+              ),
+              (t, n) => t + n,
+              0
+            );
+          },
+          getGameSetupByPlayer(player) {
+            return _.countBy(
+              _.map(
+                _.map(_.map(this.getGamesByPlayer(player), "meta"), (metas) =>
+                  _.head(metas)
+                ),
+                (meta) =>
+                  _.compact(
+                    _.map(
+                      this.defaultPostions,
+                      (pos) => _.isEqual(_.get(meta, pos), player) && pos
+                    )
+                  )
+              )
+            );
+          },
+          getWinrateByPlayer(player) {
+            const data = this.getGamesByPlayer(player);
+            return _.divide(
+              _.sum(
+                _.map(_.map(data, "meta"), (metas) =>
+                  _.multiply(
+                    _.divide(
+                      _.filter(metas, (meta) => _.isEqual(player, meta.player))
+                        .length,
+                      metas[0].maxScore
+                    ),
+                    100
+                  )
+                )
+              ),
+              data.length
+            );
           },
           getMetaCount: (game, meta) =>
             _.get(
@@ -1667,6 +1718,10 @@
           toggleFIFO() {
             _.reverse(this.games);
             this.configurations.FIFO = !this.configurations.FIFO;
+          },
+          toggleDisplayWinrate() {
+            this.configurations.toggleDisplayWinrate =
+              !this.configurations.toggleDisplayWinrate;
           },
           toggleDisplayDate() {
             this.configurations.displayDate = !this.configurations.displayDate;
