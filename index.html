@@ -1518,10 +1518,14 @@
               timestamp: Date.now(),
               uid: UUID.generate(),
               "red-front": this.game.red.front,
-              "red-back": this.game.red.back,
+              "red-back": this.settings.is1v1 ? this.game.red.front : this.game.red.back,
               "blue-front": this.game.blue.front,
+<<<<<<< HEAD
               "blue-back": this.game.blue.back,
               startBall: this.game.ball,
+=======
+              "blue-back": this.settings.is1v1 ? this.game.blue.front : this.game.blue.back,
+>>>>>>> 548a2d3d826be1604606b7eedb3f9e1e5c4324b8
             });
             this.startTimer();
           },
