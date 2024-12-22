@@ -34,6 +34,10 @@
         outline: 1px solid red;
       }
 
+      .centered {
+        align-content: center !important;
+        justify-items: center !important;
+      }
       .display {
         height: 10.5em;
         border-radius: 16px;
@@ -754,19 +758,22 @@
             <div class="card text-danger">
               <div
                 v-if="app.isRunning"
-                class="card-body"
+                class="card-body row"
                 @click="incrementScore('front', 'red')"
               >
-                <h3>{{ playerById(game.red.front) }}</h3>
+                <h3 class="col-md">{{ playerById(game.red.front) }}</h3>
+                <label class="col-md-1 centered"
+                  ><icon-selector
+                    :selector="'ball-active'"
+                    v-if="_.isEqual(game.ball, 'red')"
+                /></label>
               </div>
               <div v-else class="card-body row">
-                <label for="redFront" class="col-md-2 align-conten-md-center"
-                  >Red</label
-                >
                 <select
                   class="form-control col"
-                  id="redFront"
+                  id="red"
                   v-model="game.red.front"
+                  title="red"
                 >
                   <option
                     v-for="player in _.filter([game.red.front, ...suitablePlayers])"
@@ -776,70 +783,90 @@
                     {{ playerById(player) }}
                   </option>
                 </select>
+                <label
+                  for="red"
+                  class="col-md-1 centered"
+                  @click="selectBall('red')"
+                  ><icon-selector
+                    :selector="'ball'"
+                    v-if="_.isEqual(game.ball, 'red')"
+                /></label>
               </div>
             </div>
           </div>
           <div v-else class="row">
-            <div class="card text-danger">
-              <div
-                v-if="app.isRunning"
-                class="card-body"
-                @click="incrementScore('front', 'red')"
-              >
-                <h3>{{ playerById(game.red.front) }}</h3>
-              </div>
-              <div v-else class="card-body row">
-                <label for="redFront" class="col-md-2 align-conten-md-center">
-                  <icon-selector :selector="'front'" />
-                </label>
-                <select
-                  class="form-control col"
-                  id="redFront"
-                  v-model="game.red.front"
-                  title="front"
+            <div class="col-md">
+              <div class="card text-danger">
+                <div
+                  v-if="app.isRunning"
+                  class="card-body"
+                  @click="incrementScore('front', 'red')"
                 >
-                  <option
-                    v-for="player in _.filter([game.red.front, ...suitablePlayers])"
-                    :key="player"
-                    :value="player"
+                  <h3>{{ playerById(game.red.front) }}</h3>
+                </div>
+                <div v-else class="card-body row">
+                  <label for="redFront" class="col-md-2 align-conten-md-center">
+                    <icon-selector :selector="'front'" />
+                  </label>
+                  <select
+                    class="form-control col"
+                    id="redFront"
+                    v-model="game.red.front"
+                    title="front"
                   >
-                    {{ playerById(player) }}
-                  </option>
-                </select>
+                    <option
+                      v-for="player in _.filter([game.red.front, ...suitablePlayers])"
+                      :key="player"
+                      :value="player"
+                    >
+                      {{ playerById(player) }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                @click="switchSides('red')"
+                v-if="app.isRunning || !configurations.clearPlayers"
+              >
+                <icon-selector :selector="'position'" :size="32" />
+              </div>
+              <div class="card text-danger">
+                <div
+                  v-if="app.isRunning"
+                  class="card-body"
+                  @click="incrementScore('back', 'red')"
+                >
+                  <h3>{{ playerById(game.red.back) }}</h3>
+                </div>
+                <div v-else class="card-body row">
+                  <label for="redBack" class="col-md-2 align-conten-md-center">
+                    <icon-selector :selector="'back'" />
+                  </label>
+                  <select
+                    class="form-control col"
+                    id="redBack"
+                    v-model="game.red.back"
+                    title="back"
+                  >
+                    <option
+                      v-for="player in _.filter([game.red.back, ...suitablePlayers])"
+                      :key="player"
+                      :value="player"
+                    >
+                      {{ playerById(player) }}
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
             <div
-              @click="switchSides('red')"
-              v-if="app.isRunning || !configurations.clearPlayers"
+              class="col-md-1 centered"
+              @click="!app.isRunning && selectBall('red')"
             >
-              <icon-selector :selector="'position'" :size="32" />
-            </div>
-            <div class="card text-danger">
-              <div
-                v-if="app.isRunning"
-                class="card-body"
-                @click="incrementScore('back', 'red')"
-              >
-                <h3>{{ playerById(game.red.back) }}</h3>
-              </div>
-              <div v-else class="card-body row">
-                <label for="redBack" class="col-md-2 align-conten-md-center">
-                  <icon-selector :selector="'back'" />
-                </label>
-                <select
-                  class="form-control col"
-                  id="redBack"
-                  v-model="game.red.back"
-                  title="back"
-                >
-                  <option
-                    v-for="player in _.filter([game.red.back, ...suitablePlayers])"
-                    :key="player"
-                    :value="player"
-                  >
-                    {{ playerById(player) }}
-                  </option>
-                </select>
+              <div v-if="_.isEqual(game.ball, 'red')">
+                <icon-selector
+                  :selector="`ball${app.isRunning ?'-active': ''}`"
+                />
               </div>
             </div>
           </div>
@@ -880,19 +907,30 @@
             <div class="card text-primary">
               <div
                 v-if="app.isRunning"
-                class="card-body"
+                class="card-body row"
                 @click="incrementScore('front', 'blue')"
               >
-                <h3>{{ playerById(game.blue.front) }}</h3>
+                <label class="col-md-1 centered"
+                  ><icon-selector
+                    :selector="'ball-active'"
+                    v-if="_.isEqual(game.ball, 'blue')"
+                /></label>
+                <h3 class="col-md">{{ playerById(game.blue.front) }}</h3>
               </div>
               <div v-else class="card-body row">
-                <label for="blueFront" class="col-md-2 align-conten-md-center"
-                  >Blue</label
-                >
+                <label
+                  for="blue"
+                  class="col-md-1 centered"
+                  @click="selectBall('blue')"
+                  ><icon-selector
+                    :selector="'ball'"
+                    v-if="_.isEqual(game.ball, 'blue')"
+                /></label>
                 <select
                   class="form-control col"
-                  id="blueFront"
+                  id="blue"
                   v-model="game.blue.front"
+                  title="blue"
                 >
                   <option
                     v-for="player in _.filter([game.blue.front, ...suitablePlayers])"
@@ -906,66 +944,78 @@
             </div>
           </div>
           <div v-else class="row">
-            <div class="card text-primary">
-              <div
-                v-if="app.isRunning"
-                class="card-body"
-                @click="incrementScore('front', 'blue')"
-              >
-                <h3>{{ playerById(game.blue.front) }}</h3>
-              </div>
-              <div v-else class="card-body row">
-                <label for="blueFront" class="col-md-2 align-conten-md-center">
-                  <icon-selector :selector="'front'" />
-                </label>
-                <select
-                  class="form-control col"
-                  id="blueFront"
-                  v-model="game.blue.front"
-                  title="front"
-                >
-                  <option
-                    v-for="player in _.filter([game.blue.front, ...suitablePlayers])"
-                    :key="player"
-                    :value="player"
-                  >
-                    {{ playerById(player) }}
-                  </option>
-                </select>
+            <div class="col-md-1 centered" @click="selectBall('blue')">
+              <div v-if="_.isEqual(game.ball, 'blue')">
+                <icon-selector
+                  :selector="`ball${app.isRunning ?'-active': ''}`"
+                />
               </div>
             </div>
-            <div
-              @click="switchSides('blue')"
-              v-if="app.isRunning || !configurations.clearPlayers"
-            >
-              <icon-selector :selector="'position'" :size="32" />
-            </div>
-            <div class="card text-primary">
-              <div
-                v-if="app.isRunning"
-                class="card-body"
-                @click="incrementScore('back', 'blue')"
-              >
-                <h3>{{ playerById(game.blue.back) }}</h3>
-              </div>
-              <div v-else class="card-body row">
-                <label for="blueBack" class="col-md-2 align-conten-md-center">
-                  <icon-selector :selector="'back'" />
-                </label>
-                <select
-                  class="form-control col"
-                  id="blueBack"
-                  v-model="game.blue.back"
-                  title="back"
+            <div class="col-md">
+              <div class="card text-primary">
+                <div
+                  v-if="app.isRunning"
+                  class="card-body"
+                  @click="incrementScore('front', 'blue')"
                 >
-                  <option
-                    v-for="player in _.filter([game.blue.back, ...suitablePlayers])"
-                    :key="player"
-                    :value="player"
+                  <h3>{{ playerById(game.blue.front) }}</h3>
+                </div>
+                <div v-else class="card-body row">
+                  <label
+                    for="blueFront"
+                    class="col-md-2 align-conten-md-center"
                   >
-                    {{ playerById(player) }}
-                  </option>
-                </select>
+                    <icon-selector :selector="'front'" />
+                  </label>
+                  <select
+                    class="form-control col"
+                    id="blueFront"
+                    v-model="game.blue.front"
+                    title="front"
+                  >
+                    <option
+                      v-for="player in _.filter([game.blue.front, ...suitablePlayers])"
+                      :key="player"
+                      :value="player"
+                    >
+                      {{ playerById(player) }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                @click="switchSides('blue')"
+                v-if="app.isRunning || !configurations.clearPlayers"
+              >
+                <icon-selector :selector="'position'" :size="32" />
+              </div>
+              <div class="card text-primary">
+                <div
+                  v-if="app.isRunning"
+                  class="card-body"
+                  @click="incrementScore('back', 'blue')"
+                >
+                  <h3>{{ playerById(game.blue.back) }}</h3>
+                </div>
+                <div v-else class="card-body row">
+                  <label for="blueBack" class="col-md-2 align-conten-md-center">
+                    <icon-selector :selector="'back'" />
+                  </label>
+                  <select
+                    class="form-control col"
+                    id="blueBack"
+                    v-model="game.blue.back"
+                    title="back"
+                  >
+                    <option
+                      v-for="player in _.filter([game.blue.back, ...suitablePlayers])"
+                      :key="player"
+                      :value="player"
+                    >
+                      {{ playerById(player) }}
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -1019,7 +1069,7 @@
           </button>
           <button
             v-if="!app.isRunning"
-            v-show="!!_.isEqual(playersCount.length, settings.is1v1 ? 2 : 4)"
+            v-show="_.isEqual(playersCount.length, settings.is1v1 ? 2 : 4)"
             class="btn btn-success col"
             @click="startGame"
             title="New Game"
@@ -1151,6 +1201,12 @@
               }
               case "meta-active": {
                 return `<i class="fas fa-square-root-variable"></i>`;
+              }
+              case "ball": {
+                return `<i class="fas fa-volleyball"></i>`;
+              }
+              case "ball-active": {
+                return `<i class="fas fa-volleyball fa-spin"></i>`;
               }
               case "settings": {
                 return `
@@ -1372,6 +1428,7 @@
                 back: "",
               },
               meta: [],
+              ball: "red",
             },
             games: [],
             newNickname: "",
@@ -1464,6 +1521,7 @@
               "red-back": this.game.red.back,
               "blue-front": this.game.blue.front,
               "blue-back": this.game.blue.back,
+              startBall: this.game.ball,
             });
             this.startTimer();
           },
@@ -1473,6 +1531,7 @@
             const {
               red: { front, back },
               blue: { front: Front, back: Back },
+              ball,
             } = this.game;
             this.game = {
               red: {
@@ -1486,6 +1545,7 @@
                 back: this.configurations.clearPlayers ? "" : Back,
               },
               meta: [],
+              ball,
             };
             this.app.isRunning = false;
             this.app.isPlaying = false;
@@ -1503,15 +1563,9 @@
           deleteGame(game) {
             this.games = _.filter(this.games, (g) => !_.isEqual(game, g));
           },
-          toggleStatus(changed) {
-            this.app.isPlaying = _.isEqual(changed, "play");
-            this.game.meta.push({
-              changed,
-              timestamp: Date.now(),
-            });
-          },
           incrementScore(position, side) {
             this.game[side].score++;
+            this.game.ball = this.changeSide(side);
             this.game.meta.push({
               position,
               side,
@@ -1577,10 +1631,10 @@
                         }
                       }
                       if (_.isEqual(obj.changed, "position")) {
-                        defPos = _.isEqual(defPos, "back") ? "front" : "back";
+                        defPos = this.changePosition(defPos);
                       }
                       if (_.isEqual(obj.changed, "side")) {
-                        defSide = _.isEqual(defSide, "blue") ? "red" : "blue";
+                        defSide = this.changeSide(defSide);
                       }
                       return false;
                     })
@@ -1591,6 +1645,8 @@
               0
             );
           },
+          changePosition: (pos) => (_.isEqual(pos, "back") ? "front" : "back"),
+          changeSide: (side) => (_.isEqual(side, "blue") ? "red" : "blue"),
           getGameSetupByPlayer(player) {
             return _.countBy(
               _.map(
@@ -1609,25 +1665,21 @@
           },
           getWinrateByPlayer(player) {
             const data = this.getGamesByPlayer(player);
-            return _.ceil(
-              _.divide(
-                _.sum(
-                  _.map(_.map(data, "meta"), (metas) =>
-                    _.multiply(
-                      _.divide(
-                        _.filter(metas, (meta) =>
-                          _.isEqual(player, meta.player)
-                        ).length,
-                        metas[0].maxScore
-                      ),
-                      100
-                    )
-                  )
-                ),
-                data.length
-              ),
-              2
-            );
+            const e = _.filter(_.map(data, "meta"), ([first, ...others]) => {
+              const last = _.last(others);
+              let [defSide, defPos] = _.findKey(first, (e) =>
+                _.isEqual(player, e)
+              ).split("-");
+              _.map(others, (o) => {
+                if (_.isEqual(o.changed, "side")) {
+                  defSide = this.changeSide(defSide);
+                }
+              });
+              if (_.isEqual(last.side, defSide)) {
+                return true;
+              }
+            });
+            return _.ceil(_.multiply(_.divide(e.length, data.length), 100), 2);
           },
           getMetaCount: (game, meta) =>
             _.get(
@@ -1643,18 +1695,8 @@
           incrementMaxScore({ target: { value } }) {
             this.settings.maxScore = value;
           },
-          toggleIsTieBreak() {
-            this.settings.isTieBreak = !this.settings.isTieBreak;
-          },
           incrementTieBreakSpan({ target: { value } }) {
             this.settings.tieBreakSpan = value;
-          },
-          toggleIs1v1() {
-            this.settings.is1v1 = !this.settings.is1v1;
-          },
-          toggleclearPlayers() {
-            this.configurations.clearPlayers =
-              !this.configurations.clearPlayers;
           },
           startTimer() {
             this.app.timer = setInterval(() => {
@@ -1685,6 +1727,33 @@
               showType: undefined,
               showData: [],
             };
+          },
+          selectBall(side) {
+            this.game.ball = side;
+          },
+          toggleStatus(changed) {
+            this.app.isPlaying = _.isEqual(changed, "play");
+            this.game.meta.push({
+              changed,
+              timestamp: Date.now(),
+            });
+          },
+          toggleIsTieBreak() {
+            this.settings.isTieBreak = !this.settings.isTieBreak;
+          },
+          toggleIs1v1() {
+            this.settings.is1v1 = !this.settings.is1v1;
+            const o = {
+              score: 0,
+              front: "",
+              back: "",
+            };
+            this.game.red = o;
+            this.game.blue = o;
+          },
+          toggleclearPlayers() {
+            this.configurations.clearPlayers =
+              !this.configurations.clearPlayers;
           },
           toggleGoalsDisplay() {
             this.configurations.displayGoals =
@@ -1878,6 +1947,20 @@
               localStorage.setItem("appState", JSON.stringify(this.$data.app));
             },
             deep: true,
+          },
+          "game.red.front": {
+            handler(value) {
+              if (this.$data.settings.is1v1) {
+                this.$data.game.red.back = value;
+              }
+            },
+          },
+          "game.blue.front": {
+            handler(value) {
+              if (this.$data.settings.is1v1) {
+                this.$data.game.blue.back = value;
+              }
+            },
           },
         },
       });
