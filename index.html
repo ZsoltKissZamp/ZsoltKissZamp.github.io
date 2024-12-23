@@ -70,6 +70,7 @@
 
       .form-switch {
         align-content: center;
+        margin-left: 1em !important;
       }
 
       .orbitron-timer {
@@ -85,6 +86,10 @@
       }
       .totalLength {
         width: 100%;
+      }
+      .input-container {
+        margin-left: 1em !important;
+        width: 65px;
       }
     </style>
   </head>
@@ -165,7 +170,7 @@
         </div>
         <div class="offcanvas-body">
           <div class="container">
-            <div class="row">
+            <div class="row mt-0">
               <div class="card">
                 <div class="row justify-content-md-end">
                   <div class="justify-content-md-center col-md-1">
@@ -331,7 +336,7 @@
           <div class="container">
             <div class="row">
               <div class="col-md-3">
-                <h4>Add New User</h4>
+                <h4 class="pt-1">Add New User</h4>
               </div>
               <div class="col-md-4">
                 <input
@@ -490,7 +495,7 @@
       <!-- configurationBackdrop -->
       <div
         id="configurationBackdrop"
-        class="offcanvas offcanvas-start stats"
+        class="offcanvas offcanvas-start"
         data-bs-backdrop="static"
         tabindex="-1"
         aria-labelledby="gameBackdropLabel"
@@ -506,12 +511,12 @@
         </div>
         <div class="offcanvas-body">
           <div class="container">
-            <div class="bg-white row col-md-4">
+            <div class="bg-white row">
               <div class="mb-2 input-group">
                 <span class="input-group-text col-md-6" id="Clear Players"
                   >Clear Players:</span
                 >
-                <div class="form-switch">
+                <div class="form-switch border rounded">
                   <input
                     type="checkbox"
                     class="form-check-input"
@@ -527,7 +532,7 @@
                 <span class="input-group-text col-md-6" id="addon-1v1"
                   >1v1:</span
                 >
-                <div class="form-switch">
+                <div class="form-switch border rounded">
                   <input
                     type="checkbox"
                     class="form-check-input"
@@ -543,21 +548,24 @@
                 <span class="input-group-text col-md-6" id="addon-max-score"
                   >Max Score:</span
                 >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="maxScoreCount"
-                  aria-describedby="maxScore"
-                  :value="settings.maxScore"
-                  @input="incrementMaxScore"
-                  placeholder="0"
-                />
+                <div class="input-container">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="maxScoreCount"
+                    aria-describedby="maxScore"
+                    :value="settings.maxScore"
+                    @input="incrementMaxScore"
+                    placeholder="1"
+                    min="1"
+                  />
+                </div>
               </div>
               <div class="mb-2 input-group">
                 <span class="input-group-text col-md-6" id="addon-tide-brake"
                   >Tie Break:</span
                 >
-                <div class="form-switch">
+                <div class="form-switch border rounded">
                   <input
                     type="checkbox"
                     class="form-check-input"
@@ -754,6 +762,7 @@
               aria-controls="infoBackdrop"
               title="Info"
               type="button"
+              v-show="false"
             >
               <icon-selector :selector="'info'" :size="32" />
             </button>
@@ -934,23 +943,21 @@
             >
               <icon-selector :selector="'side'" :size="32" />
             </div>
-            <div class="col-md bg-danger display mr-4" v-if="app.isRunning">
+            <div v-if="app.isRunning" class="col-md bg-danger display mr-4">
               <div class="card extra">
                 <div class="card-body align-conten-md-center">
                   <h1>{{ game.red.score }}</h1>
                 </div>
               </div>
             </div>
-            <div class="col-md bg-primary display ml-4" v-if="app.isRunning">
+            <div v-if="app.isRunning" class="col-md bg-primary display ml-4">
               <div class="card extra">
                 <div class="card-body align-conten-md-center">
                   <h1>{{ game.blue.score }}</h1>
                 </div>
               </div>
             </div>
-            <div v-else v-show="settings.is1v1 || !settings.clearPlayers">
-              VS
-            </div>
+            <div v-else v-show="configurations.clearPlayers ">VS</div>
             <div v-if="app.isRunning" class="row justify-content-md-center">
               <div class="col-md-auto orbitron-timer">
                 {{ dayjs.duration(settings.timeElapsed,
