@@ -84,41 +84,21 @@
         background-color: mintcream;
         min-height: 14em;
       }
-      .totalLength {
-        width: 100%;
-      }
       .input-container {
         margin-left: 1em !important;
         width: 65px;
+      }
+      .red {
+        margin-right: 1em !important;
+      }
+      .blue {
+        margin-left: 1em !important;
       }
     </style>
   </head>
 
   <body>
     <div id="app" class="container text-center user-select-none">
-      <!-- pauseBackdrop -->
-      <div
-        class="offcanvas offcanvas-top"
-        id="pauseBackdrop"
-        data-bs-backdrop="static"
-        tabindex="-1"
-        aria-labelledby="pauseBackdropLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="pauseBackdropLabel"></h5>
-        </div>
-        <div class="offcanvas-body">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="offcanvas"
-            @click="toggleStatus('play')"
-            title="Close"
-          >
-            <icon-selector :selector="'play'" />
-          </button>
-        </div>
-      </div>
       <!-- infoBackdrop -->
       <div
         id="infoBackdrop"
@@ -149,6 +129,30 @@
           <div>Datas are stored in localStorage!</div>
           More Info will follow soon ....
           <i class="fas fa-spinner fa-pulse"></i>
+          BUG's : timer,
+        </div>
+      </div>
+      <!-- pauseBackdrop -->
+      <div
+        class="offcanvas offcanvas-top"
+        id="pauseBackdrop"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="pauseBackdropLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="pauseBackdropLabel"></h5>
+        </div>
+        <div class="offcanvas-body">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="offcanvas"
+            @click="toggleStatus('play')"
+            title="Close"
+          >
+            <icon-selector :selector="'play'" />
+          </button>
         </div>
       </div>
       <!-- gamesBackdrop -->
@@ -480,7 +484,6 @@
                         class="btn btn-outline"
                         title="Delete"
                         @click="deletePlayer(player)"
-                        v-show="false"
                       >
                         <icon-selector :selector="'trash3'" />
                       </button>
@@ -740,11 +743,15 @@
           </div>
         </div>
       </div>
+      <!-- content -->
       <div class="mt-3">
         <div class="card row mt-3">
-          <div v-if="app.isRunning" class="p-0">
+          <div
+            v-if="app.isRunning"
+            class="row justify-content-end gap-2 p-0 m-0"
+          >
             <button
-              class="btn btn-info totalLength"
+              class="btn btn-info col"
               data-bs-toggle="offcanvas"
               data-bs-target="#pauseBackdrop"
               title="Pause Game"
@@ -752,6 +759,15 @@
               type="button"
             >
               <icon-selector :selector="'pause'" />
+            </button>
+            <button
+              class="btn btn-warning col"
+              title="Undo"
+              @click="undoGame"
+              type="button"
+              v-if="!_.lte(_.size(game.meta), 1) && _.has(_.last(game.meta), 'player')"
+            >
+              <icon-selector :selector="'undo'" />
             </button>
           </div>
           <div v-else class="row justify-content-end gap-2 p-0 m-0">
@@ -815,20 +831,20 @@
               <div class="card text-danger">
                 <div
                   v-if="app.isRunning"
-                  class="card-body row"
+                  class="card-body row p-2"
                   @click="incrementScore('front', 'red')"
                 >
                   <h3 class="col-md">{{ playerById(game.red.front) }}</h3>
-                  <label class="col-md-1 centered border border-success"
+                  <label class="col-md-1 centered border border-success red"
                     ><icon-selector
                       :selector="'ball-active'"
                       :size="32"
                       v-if="_.isEqual(game.ball, 'red')"
                   /></label>
                 </div>
-                <div v-else class="card-body row">
+                <div v-else class="card-body row p-2">
                   <select
-                    class="form-control col"
+                    class="form-control col red"
                     id="red"
                     v-model="game.red.front"
                     title="Red"
@@ -843,7 +859,7 @@
                   </select>
                   <label
                     for="red"
-                    class="col-md-1 centered border border-success"
+                    class="col-md-1 centered border border-success red"
                     @click="!app.isRunning && selectBall('red')"
                     ><icon-selector
                       :selector="'ball'"
@@ -863,7 +879,7 @@
                   >
                     <h3>{{ playerById(game.red.front) }}</h3>
                   </div>
-                  <div v-else class="card-body row">
+                  <div v-else class="card-body row p-2">
                     <label
                       for="redFront"
                       class="col-md-2 align-conten-md-center"
@@ -871,7 +887,7 @@
                       <icon-selector :selector="'front'" />
                     </label>
                     <select
-                      class="form-control col"
+                      class="form-control col red"
                       id="redFront"
                       v-model="game.red.front"
                       title="Red Front"
@@ -900,7 +916,7 @@
                   >
                     <h3>{{ playerById(game.red.back) }}</h3>
                   </div>
-                  <div v-else class="card-body row">
+                  <div v-else class="card-body row p-2">
                     <label
                       for="redBack"
                       class="col-md-2 align-conten-md-center"
@@ -908,7 +924,7 @@
                       <icon-selector :selector="'back'" />
                     </label>
                     <select
-                      class="form-control col"
+                      class="form-control col red"
                       id="redBack"
                       v-model="game.red.back"
                       title="Red Back"
@@ -925,7 +941,7 @@
                 </div>
               </div>
               <div
-                class="col-md-1 centered border border-success"
+                class="col-md-1 centered border border-success red"
                 @click="!app.isRunning && selectBall('red')"
               >
                 <div v-if="_.isEqual(game.ball, 'red')">
@@ -970,10 +986,10 @@
               <div class="card text-primary">
                 <div
                   v-if="app.isRunning"
-                  class="card-body row"
+                  class="card-body row p-2"
                   @click="incrementScore('front', 'blue')"
                 >
-                  <label class="col-md-1 centered border border-success"
+                  <label class="col-md-1 centered border border-success blue"
                     ><icon-selector
                       :selector="'ball-active'"
                       :size="32"
@@ -981,10 +997,10 @@
                   /></label>
                   <h3 class="col-md">{{ playerById(game.blue.front) }}</h3>
                 </div>
-                <div v-else class="card-body row">
+                <div v-else class="card-body row p-2">
                   <label
                     for="blue"
-                    class="col-md-1 centered border border-success"
+                    class="col-md-1 centered border border-success blue"
                     @click="!app.isRunning && selectBall('blue')"
                     ><icon-selector
                       :selector="'ball'"
@@ -992,7 +1008,7 @@
                       v-if="_.isEqual(game.ball, 'blue')"
                   /></label>
                   <select
-                    class="form-control col"
+                    class="form-control col blue"
                     id="blue"
                     v-model="game.blue.front"
                     title="Blue"
@@ -1010,7 +1026,7 @@
             </div>
             <div v-else class="row">
               <div
-                class="col-md-1 centered border border-success"
+                class="col-md-1 centered border border-success blue"
                 @click="!app.isRunning && selectBall('blue')"
               >
                 <div v-if="_.isEqual(game.ball, 'blue')">
@@ -1028,7 +1044,7 @@
                   >
                     <h3>{{ playerById(game.blue.front) }}</h3>
                   </div>
-                  <div v-else class="card-body row">
+                  <div v-else class="card-body row p-2">
                     <label
                       for="blueFront"
                       class="col-md-2 align-conten-md-center"
@@ -1036,7 +1052,7 @@
                       <icon-selector :selector="'front'" />
                     </label>
                     <select
-                      class="form-control col"
+                      class="form-control col blue"
                       id="blueFront"
                       v-model="game.blue.front"
                       title="Blue Front"
@@ -1065,7 +1081,7 @@
                   >
                     <h3>{{ playerById(game.blue.back) }}</h3>
                   </div>
-                  <div v-else class="card-body row">
+                  <div v-else class="card-body row p-2">
                     <label
                       for="blueBack"
                       class="col-md-2 align-conten-md-center"
@@ -1073,7 +1089,7 @@
                       <icon-selector :selector="'back'" />
                     </label>
                     <select
-                      class="form-control col"
+                      class="form-control col blue"
                       id="blueBack"
                       v-model="game.blue.back"
                       title="Blue Back"
@@ -1092,21 +1108,7 @@
             </div>
           </div>
         </div>
-        <div class="card row mb-3" v-show="app.isRunning">
-          <div class="p-0">
-            <button
-              class="btn btn-warning totalLength"
-              title="Undo"
-              @click="undoGame"
-              type="button"
-              :disabled="_.lte(_.size(game.meta), 1)"
-            >
-              <icon-selector :selector="'undo'" />
-            </button>
-          </div>
-        </div>
       </div>
-      <!-- footer -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
@@ -1499,7 +1501,10 @@
             this.plyr2Update = id;
           },
           deletePlayer(player) {
-            console.log("delete", player);
+            this.nicknames = _.filter(
+              this.nicknames,
+              (p) => !_.isEqual(p, player)
+            );
           },
           showPlayer({ uid: showId }) {
             this.display = {
