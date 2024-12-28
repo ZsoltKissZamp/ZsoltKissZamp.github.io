@@ -391,7 +391,7 @@
                   <div class="justify-content-md-center col-md-1">
                     <div @click="toggleDisplayWinrate">
                       <icon-selector
-                        :selector="configurations.toggleDisplayWinrate ? 'winrate-active' : 'winrate'"
+                        :selector="configurations.displayWinrate ? 'winrate-active' : 'winrate'"
                       />
                     </div>
                   </div>
@@ -423,7 +423,7 @@
                     <th scope="col" v-if="configurations.displayTotalGG">
                       <icon-selector :selector="'ideges'" :size="24" />
                     </th>
-                    <th scope="col" v-if="configurations.toggleDisplayWinrate">
+                    <th scope="col" v-if="configurations.displayWinrate">
                       <icon-selector :selector="'winrate'" :size="24" />
                     </th>
                     <th scope="col" v-if="configurations.displayUtils">
@@ -456,7 +456,7 @@
                     <td v-if="configurations.displayTotalGG">
                       {{ getGotGoals(player.uid) }}
                     </td>
-                    <td v-if="configurations.toggleDisplayWinrate">
+                    <td v-if="configurations.displayWinrate">
                       {{ getWinrateByPlayer(player.uid) }} %
                     </td>
                     <td v-if="configurations.displayUtils">
@@ -1336,13 +1336,14 @@
             },
             configurations: {
               clearPlayers: true,
+              displayUtils: false,
               displayGoals: false,
               displayTotalMatchesPlayed: false,
               displayDate: false,
               displayGamesUtils: false,
               displayMetaData: false,
               displayTotalGG: false,
-              toggleDisplayWinrate: false,
+              displayWinrate: false,
             },
             app: {
               isPlaying: false,
@@ -1710,8 +1711,8 @@
               !this.configurations.displayTotalMatchesPlayed;
           },
           toggleDisplayWinrate() {
-            this.configurations.toggleDisplayWinrate =
-              !this.configurations.toggleDisplayWinrate;
+            this.configurations.displayWinrate =
+              !this.configurations.displayWinrate;
           },
           toggleDisplayDate() {
             this.configurations.displayDate = !this.configurations.displayDate;
