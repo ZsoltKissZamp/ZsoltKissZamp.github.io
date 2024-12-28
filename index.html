@@ -391,7 +391,7 @@
                   <div class="justify-content-md-center col-md-1">
                     <div @click="toggleDisplayWinrate">
                       <icon-selector
-                        :selector="configurations.toggleDisplayWinrate ? 'winrate-active' : 'winrate'"
+                        :selector="configurations.displayWinrate ? 'winrate-active' : 'winrate'"
                       />
                     </div>
                   </div>
@@ -1029,6 +1029,95 @@
       import { UUID } from "https://unpkg.com/uuidjs@^5";
       dayjs.extend(window.dayjs_plugin_relativeTime);
       dayjs.extend(dayjs_plugin_duration);
+      Vue.component("table-component", {
+        props: ["tableData", "columns", "tType"],
+        data() {
+          return {
+            display: {
+              utils: false,
+            },
+          };
+        },
+        methods: {
+          toggleColumn(column) {
+            this.display[column] = !this.display[column];
+          },
+          displayData(tData) {},
+          updateData(tData) {},
+          deleteData(game) {},
+        },
+        template: `
+          <div>
+            <div class="row mt-2">
+              <div class="crad">
+                <div v-for="colum in columns" class="justify-content-md-center col-md-1">
+                  <div @click="toggleColumn(colum)">
+                    <icon-selector
+                      :selector="display[column] ? '{{ column }}-active' : '{{ column }}'"
+                    />
+                  </div>
+                </idv>
+              </div>
+            </div>
+            <table class="table table-responsive" id="gamesTable">
+              <thead class="table-info">
+                <tr>
+                  <th scope="col">#</th>
+                  <th
+                      v-for="column in columns"
+                      scope="col"
+                      v-if="display[column]"
+                    >
+                      <icon-selector :selector="column" :size="24" :color="column" />
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary"
+                      v-if="display.utils"
+                    >
+                      <icon-selector :selector="'gear'" :size="24" />
+                    </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(tData, index) in tableData">
+                  <th scope="row">{{ index + 1 }}</th>
+                  ideeeeee
+                  <td class="row" v-if="display.utils">
+                    <button
+                      class="btn btn-outline col"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#displayBackdrop"
+                      aria-controls="displayBackdrop"
+                      @click="displayData(tData)"
+                      type="button"
+                      title="Show"
+                    >
+                      <icon-selector :selector="'eye'" />
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline col"
+                      title="Edit"
+                      @click="updateData(tData)"
+                    >
+                      <icon-selector :selector="'edit'" />
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline col"
+                      title="Delete"
+                      @click="deleteData(game)"
+                    >
+                      <icon-selector :selector="'trash3'" />
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+      });
       Vue.component("icon-selector", {
         props: ["selector", "size", "color"],
         methods: {
