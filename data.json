@@ -1,0 +1,3969 @@
+{
+  "games": [
+    {
+      "red": {
+        "score": 5,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 4,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 90,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487710,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487729,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487755,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487775,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487799,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487809,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487824,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487837,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487864,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 1,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 60,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487707,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487727,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487747,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487772,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487784,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487806,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 0,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 50,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487715,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487731,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487754,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487781,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487808,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 2,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 70,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487705,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487725,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487742,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487759,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487780,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487807,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487823,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 3,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487717,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487746,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487774,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487785,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487808,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487833,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487855,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487872,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 2,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 70,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487705,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487720,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487746,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487766,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487791,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487819,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487839,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 3,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487701,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487722,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487747,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487766,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487782,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487804,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487829,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487839,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 2,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 70,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487712,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487726,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487746,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487764,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487782,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487794,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487816,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "blue": {
+        "score": 3,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487708,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487735,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487747,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487762,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487786,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487807,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487818,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487834,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 3,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "eb8adfbd-7440-4edb-b279-c6458795635e"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-back": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487701,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487731,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487752,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487762,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487782,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487797,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487822,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487833,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "blue": {
+        "score": 1,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "blue-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 60,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487713,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487743,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487760,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487785,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487801,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487829,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 2,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "blue": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "eb8adfbd-7440-4edb-b279-c6458795635e"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 70,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487705,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487716,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487733,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487746,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487765,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487792,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487802,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "blue": {
+        "score": 2,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "eb8adfbd-7440-4edb-b279-c6458795635e"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 70,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487719,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487741,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487764,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487779,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487794,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487807,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487829,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 3,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487701,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487722,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487746,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487756,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487768,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487797,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487822,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487843,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 3,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487713,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487723,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487750,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487765,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487793,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487804,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487821,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487833,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 1,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 60,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487713,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487729,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487756,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487782,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487793,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487816,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 4,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "red-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 90,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487713,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487723,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487739,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487755,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487774,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487794,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487814,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487839,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487864,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 1,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "blue": {
+        "score": 5,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "red-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 60,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487709,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487735,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487755,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487785,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487803,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487820,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "eb8adfbd-7440-4edb-b279-c6458795635e"
+      },
+      "blue": {
+        "score": 3,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487717,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487746,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487769,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487781,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487800,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487828,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487854,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487866,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 4,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 90,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487703,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487714,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487744,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487763,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487786,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487802,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487820,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487839,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487861,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 2,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "red-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 70,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487704,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487714,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487736,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487762,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487790,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487814,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487836,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 3,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487706,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487734,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487753,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487776,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487789,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487811,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487837,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487848,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 4,
+        "front": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+        "back": "eb8adfbd-7440-4edb-b279-c6458795635e"
+      },
+      "blue": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "red-back": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 90,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487711,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487725,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487745,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487767,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487777,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487799,
+          "player": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487816,
+          "player": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487832,
+          "player": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487844,
+          "player": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 4,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-back": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 90,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487718,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487743,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487753,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487782,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487797,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487823,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487840,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487868,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487895,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 1,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 5,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 60,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487720,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487732,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487748,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487770,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487791,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487811,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 3,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 80,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487710,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487740,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487758,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487783,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487809,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487827,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487840,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487866,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 4,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "eb8adfbd-7440-4edb-b279-c6458795635e"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-back": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 90,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487711,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487724,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487752,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487774,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487795,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487821,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487836,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487850,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487875,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 4,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "blue": {
+        "score": 5,
+        "front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+        "back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc"
+      },
+      "meta": [
+        {
+          "timestamp": 1734835487690,
+          "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-front": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "blue-back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 90,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487717,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487732,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487747,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487773,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734835487801,
+          "player": "eb8adfbd-7440-4edb-b279-c6458795635e",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487829,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487852,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487868,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734835487893,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 0,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734812930687,
+          "uid": "efdd149b-234c-4c66-b2fd-02d9743c4c75",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 176,
+          "pauseDuration": 0
+        },
+        { "changed": "side", "timestamp": 1734812943017 },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734812975033,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734813013427,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734813024148,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734813038586,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734813107048,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 0,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "meta": [
+        {
+          "timestamp": 1734813329606,
+          "uid": "60ef0aa7-5cc8-4592-8319-7817136c7ef0",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 187,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813331511,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813424361,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813428886,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813510536,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813516900,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 0,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "meta": [
+        {
+          "timestamp": 1734813627791,
+          "uid": "6be70dec-10e5-41d2-97a0-586161913911",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 222,
+          "pauseDuration": 73
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813752969,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813783723,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        { "changed": "pause", "timestamp": 1734813793290 },
+        { "changed": "play", "timestamp": 1734813808934 },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813836525,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        { "changed": "pause", "timestamp": 1734813841713 },
+        { "changed": "play", "timestamp": 1734813861909 },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813903622,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734813923765,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 3,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "meta": [
+        {
+          "timestamp": 1734813975616,
+          "uid": "60454573-798a-4327-8f2f-7cac4b944d0b",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 160,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734813982443,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814005888,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814017524,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734814035437,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734814055561,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814070806,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734814090158,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814136233,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 0,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734814481190,
+          "uid": "1c817b28-9edd-40bc-8846-093140e014be",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 108,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814528092,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814531083,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814533910,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814567945,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814589548,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 0,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734814635898,
+          "uid": "89f8967f-1c5a-462e-97c0-b89fcff8f9f7",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 102,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814642226,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814642972,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814679225,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814720442,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814738076,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 1,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734814740932,
+          "uid": "74bcd54e-bb07-4197-84de-333c23e10bf4",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 133,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814839054,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814839356,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814839659,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734814854303,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814873968,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734814874583,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 4,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "blue": {
+        "score": 5,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734815035254,
+          "uid": "2f3626a7-703a-4752-a0a2-8e70ae9a468d",
+          "red-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "red-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 337,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815039610,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815065742,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815108202,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815151385,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815182576,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815271948,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815305434,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815351736,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815372732,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 3,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734815496292,
+          "uid": "d5db5f18-b632-4a90-9eda-b2b30cba44fe",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 197,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815500203,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815500404,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815500579,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815561486,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815562112,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815621032,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815693327,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815693980,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 2,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734815748372,
+          "uid": "fdf3d5e8-b5d2-423c-a79b-2d86f419d975",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 166,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815760387,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815777613,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815789745,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815821443,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815836556,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815914170,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815914509,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 3,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734815946588,
+          "uid": "c61694e1-6a3b-4ba7-8022-3d31418cbdc5",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 265,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815948983,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734815969965,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734815994321,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734816043614,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816055124,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816074219,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734816154551,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816212192,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 2,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734816213543,
+          "uid": "5682eb75-14e6-438b-935e-e4617d542f87",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 317,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734816216457,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816217167,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734816290116,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816341911,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816375772,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816440075,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816531348,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 1,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734816740445,
+          "uid": "8f55c90e-3800-4e01-90fd-583275ba3a6b",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": true,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 269,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816765313,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816814167,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816814691,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734816842487,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734816896175,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734817009905,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 4,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 5,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734817212328,
+          "uid": "7651fa01-081f-462f-ae8e-3ee32c2c6ad0",
+          "red-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "red-back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 114,
+          "pauseDuration": 302
+        },
+        { "changed": "pause", "timestamp": 1734817232856 },
+        { "changed": "play", "timestamp": 1734817256062 },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734817290304,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734817305144,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734817339533,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734817396899,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734817412848,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734817432987,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734817463569,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734817487108,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        { "changed": "position", "side": "red", "timestamp": 1734817540173 },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734817628805,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 4,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 5,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734817809688,
+          "uid": "98e948c2-5ac3-4c72-860d-527976c6c3ad",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": -163,
+          "pauseDuration": 870
+        },
+        { "changed": "pause", "timestamp": 1734817933036 },
+        { "changed": "play", "timestamp": 1734818073905 },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734818172937,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734818265041,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734818320366,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734818341719,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734818354946,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734818385036,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734818438561,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734818463355,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734818516766,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 3,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "meta": [
+        {
+          "timestamp": 1734818533224,
+          "uid": "8632e6f5-26fe-478c-aa61-0189167d74a6",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": -546,
+          "pauseDuration": 889
+        },
+        { "changed": "pause", "timestamp": 1734818538205 },
+        { "changed": "play", "timestamp": 1734818599239 },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734818666429,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734818709016,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734818744603,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734818763748,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734818797099,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734818836075,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734818852611,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734818877010,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "blue": {
+        "score": 3,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734818903704,
+          "uid": "bcbb536f-8542-4b16-8394-bac518a34c2e",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 382,
+          "pauseDuration": 0
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734818952330,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734818985513,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734819005914,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734819052410,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734819175883,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734819220074,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734819245415,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734819286590,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 0,
+        "front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+        "back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734820509881,
+          "uid": "fbf4b92f-6e06-460a-85f2-d13a6c44cedb",
+          "red-front": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "red-back": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 295,
+          "pauseDuration": 0
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734820630317,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734820691816,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734820719829,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734820773739,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734820805003,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 1,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734820810474,
+          "uid": "43f2c001-a491-4e0f-adb3-c3c222e64b8f",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": -45,
+          "pauseDuration": 279
+        },
+        { "changed": "pause", "timestamp": 1734820815870 },
+        { "changed": "play", "timestamp": 1734820908826 },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734820909758,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734820927920,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734820976321,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734821002746,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734821017783,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734821045445,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 2,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 5,
+        "front": "407f608b-e91d-4405-9270-552277d8be20",
+        "back": "784f42fa-faf7-4050-b90d-11964e8d4633"
+      },
+      "meta": [
+        {
+          "timestamp": 1734821052323,
+          "uid": "4aec07c4-d8fd-4aaa-8f0b-86548241ed51",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "407f608b-e91d-4405-9270-552277d8be20",
+          "blue-back": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 462,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734821146697,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734821316366,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734821327645,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734821404747,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734821433174,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734821485294,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734821515012,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 1,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "meta": [
+        {
+          "timestamp": 1734821742321,
+          "uid": "003df0cf-2286-402a-8099-9f2fe3e7062d",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 287,
+          "pauseDuration": 147
+        },
+        { "changed": "pause", "timestamp": 1734821743587 },
+        { "changed": "play", "timestamp": 1734821773034 },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734821902812,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734821967464,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734822009554,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734822086309,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734822123182,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734822177115,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    },
+    {
+      "red": {
+        "score": 5,
+        "front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+        "back": "e9518215-9b23-41d1-b44c-9539e6c36581"
+      },
+      "blue": {
+        "score": 4,
+        "front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+        "back": "407f608b-e91d-4405-9270-552277d8be20"
+      },
+      "meta": [
+        {
+          "timestamp": 1734822185177,
+          "uid": "93598a81-79b9-4571-8f9e-87e54ae000b5",
+          "red-front": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "red-back": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "blue-front": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "blue-back": "407f608b-e91d-4405-9270-552277d8be20",
+          "is1v1": false,
+          "maxScore": 5,
+          "isTieBreak": false,
+          "tieBreakSpan": 2,
+          "timeElapsed": 471,
+          "pauseDuration": 0
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734822374542,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734822408136,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "blue",
+          "timestamp": 1734822474586,
+          "player": "784f42fa-faf7-4050-b90d-11964e8d4633",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734822499821,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "blue",
+          "timestamp": 1734822500107,
+          "player": "407f608b-e91d-4405-9270-552277d8be20",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734822523255,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734822578959,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "front",
+          "side": "red",
+          "timestamp": 1734822593183,
+          "player": "0d9c0072-45f4-48b1-a38e-94b25279a2bc",
+          "isOwn": false
+        },
+        {
+          "position": "back",
+          "side": "red",
+          "timestamp": 1734822656963,
+          "player": "e9518215-9b23-41d1-b44c-9539e6c36581",
+          "isOwn": false
+        }
+      ]
+    }
+  ],
+  "players": [
+    { "name": "Palotas", "uid": "407f608b-e91d-4405-9270-552277d8be20" },
+    { "name": "Kvr", "uid": "eb8adfbd-7440-4edb-b279-c6458795635e" },
+    { "name": "N5", "uid": "e9518215-9b23-41d1-b44c-9539e6c36581" },
+    { "name": "TomCsi", "uid": "784f42fa-faf7-4050-b90d-11964e8d4633" },
+    { "name": "Cartman", "uid": "0d9c0072-45f4-48b1-a38e-94b25279a2bc" },
+    { "name": "Szempy", "uid": "07c20f1c-aadb-4edf-aee0-4432b4e0ba51" }
+  ]
+}
