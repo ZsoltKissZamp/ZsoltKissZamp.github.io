@@ -178,21 +178,21 @@
               <div class="card">
                 <div class="row justify-content-md-end">
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleDisplayDate">
+                    <div @click="toggleConfiguration('displayDate')">
                       <icon-selector
                         :selector="configurations.displayDate ? 'date-active' : 'date'"
                       />
                     </div>
                   </div>
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleDisplayMetaData">
+                    <div @click="toggleConfiguration('displayMetaData')">
                       <icon-selector
                         :selector="configurations.displayMetaData ? 'meta-active' : 'meta'"
                       />
                     </div>
                   </div>
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleDisplayGamesUtils">
+                    <div @click="toggleConfiguration('displayGamesUtils')">
                       <icon-selector
                         :selector="configurations.displayGamesUtils ? 'gear-active' : 'gear'"
                       />
@@ -368,35 +368,37 @@
               <div class="crad">
                 <div class="row justify-content-md-end">
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleGoalsDisplay">
+                    <div @click="toggleConfiguration('displayGoals')">
                       <icon-selector
                         :selector="configurations.displayGoals ? 'award-active' : 'award'"
                       />
                     </div>
                   </div>
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleDisplayTotalMatchesPlayed">
+                    <div
+                      @click="toggleConfiguration('displayTotalMatchesPlayed')"
+                    >
                       <icon-selector
                         :selector="configurations.displayTotalMatchesPlayed ? 'games-active' : 'games'"
                       />
                     </div>
                   </div>
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleDisplayTotalGG">
+                    <div @click="toggleConfiguration('displayTotalGG')">
                       <icon-selector
                         :selector="configurations.displayTotalGG ? 'ideges-active' : 'ideges'"
                       />
                     </div>
                   </div>
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleDisplayWinrate">
+                    <div @click="toggleConfiguration('displayWinrate')">
                       <icon-selector
                         :selector="configurations.displayWinrate ? 'winrate-active' : 'winrate'"
                       />
                     </div>
                   </div>
                   <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleDisplayUtils">
+                    <div @click="toggleConfiguration('displayUtils')">
                       <icon-selector
                         :selector="configurations.displayUtils ? 'gear-active' : 'gear'"
                       />
@@ -527,7 +529,7 @@
                     :checked="configurations.clearPlayers"
                     placeholder=""
                     title="Clear Players"
-                    @click="toggleclearPlayers"
+                    @click="toggleConfiguration('clearPlayers')"
                   />
                 </div>
               </div>
@@ -982,12 +984,28 @@
                 <icon-selector :selector="'position'" :size="32" />
               </div>
               <div class="card text-primary">
-                <div
-                  v-if="app.isRunning"
-                  class="card-body"
-                  @click="incrementScore('back', 'blue')"
-                >
-                  <h3>{{ playerById(game.blue.back) }}</h3>
+                <div v-if="app.isRunning" class="card-body">
+                  <div class="row">
+                    <h3>{{ playerById(game.blue.back) }}</h3>
+                  </div>
+                  <div class="row">
+                    <button
+                      class="btn btn-outline-secondary col-md"
+                      type="button"
+                      title="Goal!"
+                      @click="incrementScore('back', 'blue')"
+                    >
+                      Goal
+                    </button>
+                    <button
+                      class="btn btn-outline-secondary col-md"
+                      type="button"
+                      title="Own Goal!"
+                      @click="incrementScore('back', 'blue', true)"
+                    >
+                      Own Goal
+                    </button>
+                  </div>
                 </div>
                 <div v-else class="card-body row p-2">
                   <label for="blueBack" class="col-md-2 align-conten-md-center">
@@ -1528,19 +1546,23 @@
           deleteGame(game) {
             this.games = _.filter(this.games, (g) => !_.isEqual(game, g));
           },
-          incrementScore(position, side) {
-            this.game[side].score++;
+          incrementScore(position, side, isOwn) {
+            const actualSide = isOwn ? this.changeSide(side) : side;
+            this.game[actualSide].score++;
             this.game.meta.push({
               position,
               side,
               timestamp: Date.now(),
               player: this.game[side][position],
-              isOwn: false,
+              isOwn,
               ball: this.game.ball,
             });
-            this.game.ball = this.changeSide(side);
+            this.game.ball = isOwn ? side : this.changeSide(side);
             if (
-              _.isEqual(this.game[side].score, Number(this.settings.maxScore))
+              _.isEqual(
+                this.game[actualSide].score,
+                Number(this.settings.maxScore)
+              )
             ) {
               this.resetGame();
             }
@@ -1710,40 +1732,8 @@
           toggleIs1v1() {
             this.settings.is1v1 = !this.settings.is1v1;
           },
-          toggleclearPlayers() {
-            this.configurations.clearPlayers =
-              !this.configurations.clearPlayers;
-          },
-          toggleGoalsDisplay() {
-            this.configurations.displayGoals =
-              !this.configurations.displayGoals;
-          },
-          toggleDisplayUtils() {
-            this.configurations.displayUtils =
-              !this.configurations.displayUtils;
-          },
-          toggleDisplayTotalMatchesPlayed() {
-            this.configurations.displayTotalMatchesPlayed =
-              !this.configurations.displayTotalMatchesPlayed;
-          },
-          toggleDisplayWinrate() {
-            this.configurations.displayWinrate =
-              !this.configurations.displayWinrate;
-          },
-          toggleDisplayDate() {
-            this.configurations.displayDate = !this.configurations.displayDate;
-          },
-          toggleDisplayGamesUtils() {
-            this.configurations.displayGamesUtils =
-              !this.configurations.displayGamesUtils;
-          },
-          toggleDisplayMetaData() {
-            this.configurations.displayMetaData =
-              !this.configurations.displayMetaData;
-          },
-          toggleDisplayTotalGG() {
-            this.configurations.displayTotalGG =
-              !this.configurations.displayTotalGG;
+          toggleConfiguration(type) {
+            this.configurations[type] = !this.configurations[type];
           },
           translateKey(key) {
             switch (key) {
