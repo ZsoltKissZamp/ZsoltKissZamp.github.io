@@ -831,31 +831,27 @@
           <div class="row col-md">
             <div class="col-md">
               <div class="card text-danger">
-                <div
-                  v-if="app.isRunning"
-                  class="card-body"
-                >
+                <div v-if="app.isRunning" class="card-body">
                   <div class="row">
                     <h3>{{ playerById(game.red.front) }}</h3>
                   </div>
                   <div class="row">
-                    <div class="row">
-                      <button
-                        class="btn btn-outline-secondary col-md"
-                        type="button"
-                        title="Goal!"
-                        @click="incrementScore('front', 'red')"
-                      >
-                        Goal
-                      </button>
-                      <button
-                        class="btn btn-outline-secondary col-md"
-                        type="button"
-                        title="Own Goal!"
-                        @click="incrementScore('front', 'red', true)"
-                      >
-                        Own Goal
-                      </button>
+                    <button
+                      class="btn btn-outline-secondary col-md"
+                      type="button"
+                      title="Goal!"
+                      @click="incrementScore('front', 'red')"
+                    >
+                      Goal
+                    </button>
+                    <button
+                      class="btn btn-outline-secondary col-md"
+                      type="button"
+                      title="Own Goal!"
+                      @click="incrementScore('front', 'red', true)"
+                    >
+                      Own Goal
+                    </button>
                   </div>
                 </div>
                 <div v-else class="card-body row p-2">
@@ -885,31 +881,27 @@
                 <icon-selector :selector="'position'" :size="32" />
               </div>
               <div class="card text-danger">
-                <div
-                  v-if="app.isRunning"
-                  class="card-body"
-                >
+                <div v-if="app.isRunning" class="card-body">
                   <div class="row">
                     <h3>{{ playerById(game.red.back) }}</h3>
                   </div>
                   <div class="row">
-                    <div class="row">
-                      <button
-                        class="btn btn-outline-secondary col-md"
-                        type="button"
-                        title="Goal!"
-                        @click="incrementScore('back', 'red')"
-                      >
-                        Goal
-                      </button>
-                      <button
-                        class="btn btn-outline-secondary col-md"
-                        type="button"
-                        title="Own Goal!"
-                        @click="incrementScore('back', 'red', true)"
-                      >
-                        Own Goal
-                      </button>
+                    <button
+                      class="btn btn-outline-secondary col-md"
+                      type="button"
+                      title="Goal!"
+                      @click="incrementScore('back', 'red')"
+                    >
+                      Goal
+                    </button>
+                    <button
+                      class="btn btn-outline-secondary col-md"
+                      type="button"
+                      title="Own Goal!"
+                      @click="incrementScore('back', 'red', true)"
+                    >
+                      Own Goal
+                    </button>
                   </div>
                 </div>
                 <div v-else class="card-body row p-2">
@@ -987,31 +979,27 @@
             </div>
             <div class="col-md">
               <div class="card text-primary">
-                <div
-                  v-if="app.isRunning"
-                  class="card-body"
-                >
+                <div v-if="app.isRunning" class="card-body">
                   <div class="row">
                     <h3>{{ playerById(game.blue.front) }}</h3>
                   </div>
                   <div class="row">
-                    <div class="row">
-                      <button
-                        class="btn btn-outline-secondary col-md"
-                        type="button"
-                        title="Goal!"
-                        @click="incrementScore('front', 'blue')"
-                      >
-                        Goal
-                      </button>
-                      <button
-                        class="btn btn-outline-secondary col-md"
-                        type="button"
-                        title="Own Goal!"
-                        @click="incrementScore('front', 'blue', true)"
-                      >
-                        Own Goal
-                      </button>
+                    <button
+                      class="btn btn-outline-secondary col-md"
+                      type="button"
+                      title="Goal!"
+                      @click="incrementScore('front', 'blue')"
+                    >
+                      Goal
+                    </button>
+                    <button
+                      class="btn btn-outline-secondary col-md"
+                      type="button"
+                      title="Own Goal!"
+                      @click="incrementScore('front', 'blue', true)"
+                    >
+                      Own Goal
+                    </button>
                   </div>
                 </div>
                 <div v-else class="card-body row p-2">
