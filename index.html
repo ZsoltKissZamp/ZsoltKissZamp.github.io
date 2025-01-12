@@ -140,22 +140,12 @@
         left: 25.5em;
         top: -8.2em;
       }
-      .ball {
-        width: 15px;
-        height: 15px;
-        background: white;
+      .middleSwitch {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border-radius: 50%;
-        box-shadow: 0 0 5px black;
-      }
-      .ball.red {
-        background-color: red;
-      }
-      .ball.blue {
-        background-color: blue;
+        border: 1px solid white;
       }
       .counter {
         width: 200px;
@@ -186,6 +176,9 @@
       }
       .hold {
         width: 5em;
+      }
+      .ball > div {
+        margin-top: 15px;
       }
     </style>
   </head>
@@ -428,12 +421,17 @@
       </div>
       <!-- App -->
       <div class="red row mb-5 justify-content-center">
+        <div class="col-1 ball">
+          <icon-selector
+            :selector="_.isEqual(game.ball, 'blue') ? 'ball-active': 'ball'"
+          ></icon-selector>
+        </div>
         <div class="change col-2">
           <button
             type="button"
             class="btn btn-primary-outline"
             title="Change Position"
-            @click="changePosition('red')"
+            @click="switchSides('red')"
           >
             <icon-selector
               selector="side"
@@ -529,7 +527,13 @@
               ondrop="drop(event, 'red')"
               ondragover="allowDrop(event)"
             ></div>
-            <div class="ball" id="ball" @click="selectBall"></div>
+            <div class="middleSwitch" @click="switchSides()">
+              <icon-selector
+                selector="position"
+                size="32"
+                color="white"
+              ></icon-selector>
+            </div>
           </div>
         </div>
         <div class="col hold" v-show="app.isRunning">
@@ -548,7 +552,7 @@
             type="button"
             class="btn btn-primary-outline"
             title="Change Position"
-            @click="changePosition('blue')"
+            @click="switchSides('blue')"
           >
             <icon-selector
               selector="side"
@@ -556,6 +560,11 @@
               size="24"
             ></icon-selector>
           </button>
+        </div>
+        <div class="col-1 ball">
+          <icon-selector
+            :selector="_.isEqual(game.ball, 'blue') ? 'ball-active': 'ball'"
+          ></icon-selector>
         </div>
       </div>
       <!-- Game parts -->
@@ -968,7 +977,6 @@
             rod,
           });
           this.game.ball = isOwn ? side : this.changeSide(side);
-          this.toggleBallColor(this.game.ball);
           if (
             _.isEqual(this.game.red.score, Number(this.settings.maxScore)) ||
             _.isEqual(this.game.blue.score, Number(this.settings.maxScore))
@@ -1112,11 +1120,6 @@
         },
         deleteGame(game) {
           this.games = _.filter(this.games, (g) => !_.isEqual(game, g));
-        },
-        toggleBallColor(value) {
-          const ball = document.getElementById("ball");
-          ball.classList.remove(this.changeSide(value));
-          ball.classList.add(value);
         },
       },
     });
@@ -1758,7 +1761,6 @@
           "resetGame",
           "reStartGame",
           "toggleModal",
-          "toggleBallColor",
         ]),
         startTimer() {
           if (this.app.isRunning) {
@@ -1780,7 +1782,6 @@
       },
       mounted() {
         this.startTimer();
-        this.toggleBallColor(this.game.ball);
         if (this.app.isRunning) {
           const redCounter = document.getElementById("redCounter");
           const blueCounter = document.getElementById("blueCounter");
@@ -1853,11 +1854,6 @@
             if (this.settings.is1v1) {
               this.game.blue.back = value;
             }
-          },
-        },
-        "game.ball": {
-          handler(value) {
-            this.toggleBallColor(value);
           },
         },
         "displayable.selected": {
