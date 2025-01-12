@@ -10,13 +10,13 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
     <!-- Font Awesome -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <!-- Google Fonts -->
@@ -28,495 +28,207 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.1.0/mdb.min.css"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/vue-good-table@2.21.11/dist/vue-good-table.min.css"
+      rel="stylesheet"
+    />
     <style>
       .tets * {
         outline: 1px solid red;
       }
-
-      .centered {
-        align-content: center !important;
-        justify-items: center !important;
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
       }
-      .display {
-        height: 8em;
-        border-radius: 16px;
-      }
-
-      .extra {
-        top: 0.8em;
-      }
-
-      .stats {
-        width: 85% !important;
-      }
-
-      .popped {
-        height: 85% !important;
-      }
-
-      h1 {
-        font-size: 3em;
-      }
-
-      .player {
-        max-height: 60vh;
-        overflow-y: scroll;
-      }
-
-      .table {
-        max-height: 50%;
-      }
-
-      .form-switch {
-        align-content: center;
-        margin-left: 1em !important;
-      }
-
       .orbitron-timer {
         font-family: "Orbitron", serif;
         font-optical-sizing: auto;
         font-weight: 600;
         font-style: normal;
       }
-      .beNoWrap {
-        flex-flow: row;
-        background-color: mintcream;
-        min-height: 14em;
+      .stats {
+        width: 85% !important;
       }
-      .input-container {
-        margin-left: 1em !important;
-        width: 65px;
+      .popped {
+        height: 85% !important;
       }
-      .red {
-        margin-right: 1em !important;
+      .half {
+        height: 50% !important;
       }
-      .blue {
-        margin-left: 1em !important;
+      .table-soccer {
+        width: 600px;
+        height: 300px;
+        background: green;
+        border: 10px solid #8b4513;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .player-selection {
+        justify-content: space-between;
+      }
+      .front.blue {
+        margin-right: 10em;
+      }
+      .front.red {
+        margin-left: 10em;
+      }
+      .goal {
+        width: 25px;
+        height: 100px;
+        background: gray;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .goal.blue {
+        left: -10px;
+      }
+      .goal.red {
+        right: -10px;
+      }
+      .rod {
+        width: 300px;
+        height: 10px;
+        background: #ccc;
+        position: relative;
+        transform: rotate(90deg);
+      }
+      .player {
+        width: 20px;
+        height: 40px;
+        position: absolute;
+        top: -15px;
+        border-radius: 5px;
+        transform: rotate(90deg);
+      }
+      .player.blue {
+        background: blue;
+        right: -40px;
+      }
+      .player.red {
+        background: red;
+        right: 321px;
+      }
+      #blue-1 {
+        left: -8em;
+        top: 8.3em;
+      }
+      #blue-2 {
+        left: -3.5em;
+        top: 5.9em;
+      }
+      #red-3 {
+        left: 1.25em;
+        top: 3.8em;
+      }
+      #blue-5 {
+        left: 6.1em;
+        top: 1.1em;
+      }
+      #red-5 {
+        left: 11.1em;
+        top: -1em;
+      }
+      #blue-3 {
+        left: 16.2em;
+        top: -3.7em;
+      }
+      #red-2 {
+        left: 21.5em;
+        top: -5.8em;
+      }
+      #red-1 {
+        left: 25.5em;
+        top: -8.2em;
+      }
+      .ball {
+        width: 15px;
+        height: 15px;
+        background: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        box-shadow: 0 0 5px black;
+      }
+      .ball.red {
+        background-color: red;
+      }
+      .ball.blue {
+        background-color: blue;
+      }
+      .counter {
+        width: 200px;
+        height: 10px;
+        background: #ccc;
+        position: relative;
+        transform: rotate(90deg);
+        margin-top: 10em;
+      }
+      #blueCounter {
+        margin-left: -3em;
+      }
+      #redCounter {
+        margin-left: -6em;
+      }
+      .tile {
+        width: 20px;
+        height: 40px;
+        position: absolute;
+        top: -15px;
+        border-radius: 15px;
+      }
+      .tile.blue {
+        background-color: blue;
+      }
+      .tile.red {
+        background-color: red;
+      }
+      .hold {
+        width: 5em;
       }
     </style>
   </head>
-
   <body>
-    <div id="app" class="container text-center user-select-none">
-      <!-- infoBackdrop -->
+    <div id="app" class="text-center user-select-none">
+      <!-- backdrop -->
       <div
-        id="infoBackdrop"
-        class="offcanvas offcanvas-top"
-        data-bs-backdrop="static"
+        id="backdrop"
+        class="offcanvas"
         tabindex="-1"
-        aria-labelledby="infoBackdropLabel"
+        aria-labelledby="backdropLabel"
       >
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="infoBackdropLabel"></h5>
+          <h5 class="offcanvas-title" id="backdropLabel">
+            <strong v-if="_.isEqual(displayable.selected, 'end')"
+              >End Game</strong
+            >
+          </h5>
           <button
             type="button"
             class="btn-close bg-white"
-            data-bs-dismiss="offcanvas"
             title="Close"
-          ></button>
-        </div>
-        <div class="offcanvas-body">
-          <h3>Hy there!</h3>
-          <div>
-            This a page's reason to exists is to track locally played Table
-            Soccer games.
-          </div>
-          <div>
-            This is a single file web-app using only CDN's and it's under heavy
-            development!
-          </div>
-          <div>Datas are stored in localStorage!</div>
-          More Info will follow soon ....
-          <i class="fas fa-spinner fa-pulse"></i>
-          BUG's : timer,
-        </div>
-      </div>
-      <!-- pauseBackdrop -->
-      <div
-        class="offcanvas offcanvas-top"
-        id="pauseBackdrop"
-        data-bs-backdrop="static"
-        tabindex="-1"
-        aria-labelledby="pauseBackdropLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="pauseBackdropLabel"></h5>
-        </div>
-        <div class="offcanvas-body">
-          <button
-            type="button"
-            class="btn btn-secondary"
+            v-show="!_.isEqual(displayable.selected, 'pause')"
             data-bs-dismiss="offcanvas"
-            @click="toggleStatus('play')"
-            title="Close"
-          >
-            <icon-selector :selector="'play'" />
-          </button>
-        </div>
-      </div>
-      <!-- gamesBackdrop -->
-      <div
-        id="gamesBackdrop"
-        class="offcanvas offcanvas-end stats"
-        data-bs-backdrop="static"
-        tabindex="-1"
-        aria-labelledby="gamesBackdropLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="gamesBackdropLabel"></h5>
-          <button
-            type="button"
-            class="btn-close bg-white"
-            data-bs-dismiss="offcanvas"
-            title="Close"
+            @click="toggleBackdrop()"
+            v-if="!_.isEqual(displayable.selected, 'end')"
           ></button>
         </div>
         <div class="offcanvas-body">
           <div class="container">
-            <div class="row mt-0">
-              <div class="card">
-                <div class="row justify-content-md-end">
-                  <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleConfiguration('displayDate')">
-                      <icon-selector
-                        :selector="configurations.displayDate ? 'date-active' : 'date'"
-                      />
-                    </div>
-                  </div>
-                  <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleConfiguration('displayMetaData')">
-                      <icon-selector
-                        :selector="configurations.displayMetaData ? 'meta-active' : 'meta'"
-                      />
-                    </div>
-                  </div>
-                  <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleConfiguration('displayGamesUtils')">
-                      <icon-selector
-                        :selector="configurations.displayGamesUtils ? 'gear-active' : 'gear'"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-2">
-              <table class="table table-responsive" id="gamesTable">
-                <thead class="table-info">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" v-if="configurations.displayDate">
-                      <icon-selector :selector="'date'" />
-                    </th>
-                    <th scope="col" class="text-danger">
-                      <icon-selector
-                        :selector="'front'"
-                        :color="'red'"
-                        :size="24"
-                      />
-                    </th>
-                    <th scope="col" class="text-danger">
-                      <icon-selector
-                        :selector="'back'"
-                        :color="'red'"
-                        :size="24"
-                      />
-                    </th>
-                    <th scope="col" class="text-danger">
-                      <icon-selector
-                        :selector="'award'"
-                        :color="'red'"
-                        :size="24"
-                      />
-                    </th>
-                    <th
-                      v-for="meta in defaultChanges"
-                      scope="col"
-                      v-if="configurations.displayMetaData"
-                    >
-                      <icon-selector
-                        :selector="meta.changed"
-                        :size="24"
-                        :color="meta.side"
-                      />
-                    </th>
-                    <th scope="col" class="text-primary">
-                      <icon-selector
-                        :selector="'award'"
-                        :color="'blue'"
-                        :size="24"
-                      />
-                    </th>
-                    <th scope="col" class="text-primary">
-                      <icon-selector
-                        :selector="'front'"
-                        :color="'blue'"
-                        :size="24"
-                      />
-                    </th>
-                    <th scope="col" class="text-primary">
-                      <icon-selector
-                        :selector="'back'"
-                        :color="'blue'"
-                        :size="24"
-                      />
-                    </th>
-                    <th
-                      scope="col"
-                      class="text-secondary"
-                      v-if="configurations.displayGamesUtils"
-                    >
-                      <icon-selector :selector="'gear'" :size="24" />
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(game, index) in games" :id="game.meta[0].uid">
-                    <th scope="row">{{ index + 1 }}</th>
-                    <td v-if="configurations.displayDate">
-                      {{ dayjs(game.meta[0].timestamp).format(`YY-M-D HH:mm:ss`)
-                      }}
-                    </td>
-                    <td>{{ playerById(game.red.front) }}</td>
-                    <td>{{ playerById(game.red.back) }}</td>
-                    <td>{{ game.red.score }}</td>
-                    <td
-                      v-if="configurations.displayMetaData"
-                      v-for="meta in defaultChanges"
-                    >
-                      {{ getMetaCount(game, meta) }}
-                    </td>
-                    <td>{{ game.blue.score }}</td>
-                    <td>{{ playerById(game.blue.front) }}</td>
-                    <td>{{ playerById(game.blue.back) }}</td>
-                    <td class="row" v-if="configurations.displayGamesUtils">
-                      <button
-                        class="btn btn-outline col"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#displayBackdrop"
-                        aria-controls="displayBackdrop"
-                        @click="showGame(game.meta[0].uid)"
-                        type="button"
-                        title="Show"
-                      >
-                        <icon-selector :selector="'eye'" />
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline col"
-                        title="Delete"
-                        @click="deleteGame(game)"
-                      >
-                        <icon-selector :selector="'trash3'" />
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- playersBackdrop -->
-      <div
-        id="playersBackdrop"
-        class="offcanvas offcanvas-end stats"
-        data-bs-backdrop="static"
-        tabindex="-1"
-        aria-labelledby="playersBackdropLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="playersBackdropLabel"></h5>
-          <button
-            type="button"
-            class="btn-close bg-white"
-            data-bs-dismiss="offcanvas"
-            title="Close"
-            @click="plyr2Update = {}"
-          ></button>
-        </div>
-        <div class="offcanvas-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-3">
-                <h4 class="pt-1">Add New User</h4>
-              </div>
-              <div class="col-md-4">
-                <input
-                  type="text"
-                  id="new-nickname"
-                  class="form-control"
-                  :value="newNickname"
-                  placeholder="Enter a new nickname"
-                  @input="addNewNickname"
-                  @keyup.enter="addNickname"
-                />
-              </div>
-              <div class="col-md-1">
-                <button
-                  class="btn btn-success"
-                  @click="addNickname"
-                  title="Add Player"
-                  type="button"
-                >
-                  <icon-selector :selector="'plus'" />
-                </button>
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="crad">
-                <div class="row justify-content-md-end">
-                  <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleConfiguration('displayGoals')">
-                      <icon-selector
-                        :selector="configurations.displayGoals ? 'award-active' : 'award'"
-                      />
-                    </div>
-                  </div>
-                  <div class="justify-content-md-center col-md-1">
-                    <div
-                      @click="toggleConfiguration('displayTotalMatchesPlayed')"
-                    >
-                      <icon-selector
-                        :selector="configurations.displayTotalMatchesPlayed ? 'games-active' : 'games'"
-                      />
-                    </div>
-                  </div>
-                  <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleConfiguration('displayTotalGG')">
-                      <icon-selector
-                        :selector="configurations.displayTotalGG ? 'ideges-active' : 'ideges'"
-                      />
-                    </div>
-                  </div>
-                  <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleConfiguration('displayWinrate')">
-                      <icon-selector
-                        :selector="configurations.displayWinrate ? 'winrate-active' : 'winrate'"
-                      />
-                    </div>
-                  </div>
-                  <div class="justify-content-md-center col-md-1">
-                    <div @click="toggleConfiguration('displayUtils')">
-                      <icon-selector
-                        :selector="configurations.displayUtils ? 'gear-active' : 'gear'"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-2">
-              <table class="table table-responsive" id="playerTable">
-                <thead class="table-info">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col" v-if="configurations.displayGoals">
-                      <icon-selector :selector="'award'" :size="24" />
-                    </th>
-                    <th
-                      scope="col"
-                      v-if="configurations.displayTotalMatchesPlayed"
-                    >
-                      <icon-selector :selector="'games'" :size="24" />
-                    </th>
-                    <th scope="col" v-if="configurations.displayTotalGG">
-                      <icon-selector :selector="'ideges'" :size="24" />
-                    </th>
-                    <th scope="col" v-if="configurations.displayWinrate">
-                      <icon-selector :selector="'winrate'" :size="24" />
-                    </th>
-                    <th scope="col" v-if="configurations.displayUtils">
-                      <icon-selector :selector="'gear'" :size="24" />
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(player, index) in nicknames" :key="player.id">
-                    <th scope="row">{{ index + 1 }}</th>
-                    <td>
-                      <input
-                        v-if="_.isEqual(plyr2Update.uid, player.uid)"
-                        type="text"
-                        id="update-nickname"
-                        :value="plyr2Update.name"
-                        placeholder="Update nickname"
-                        @keyup.enter="updatePlayerName"
-                        class="form-control col-md-1"
-                        @input="updateName"
-                      />
-                      <h5 v-else>{{ player.name }}</h5>
-                    </td>
-                    <td v-if="configurations.displayGoals">
-                      {{ _.flatten(getPlayerMetadatas(player.uid)).length }}
-                    </td>
-                    <td v-if="configurations.displayTotalMatchesPlayed">
-                      {{ getGamesByPlayer(player.uid).length }}
-                    </td>
-                    <td v-if="configurations.displayTotalGG">
-                      {{ getGotGoals(player.uid) }}
-                    </td>
-                    <td v-if="configurations.displayWinrate">
-                      {{ getWinrateByPlayer(player.uid) }} %
-                    </td>
-                    <td v-if="configurations.displayUtils">
-                      <button
-                        type="button"
-                        class="btn btn-outline"
-                        title="Show"
-                        @click="showPlayer(player)"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#displayBackdrop"
-                        aria-controls="displayBackdrop"
-                      >
-                        <icon-selector :selector="'eye'" />
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline"
-                        title="Edit"
-                        @click="updatePlayer(player)"
-                      >
-                        <icon-selector :selector="'edit'" />
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline"
-                        title="Delete"
-                        @click="deletePlayer(player)"
-                      >
-                        <icon-selector :selector="'trash3'" />
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- configurationBackdrop -->
-      <div
-        id="configurationBackdrop"
-        class="offcanvas offcanvas-start"
-        data-bs-backdrop="static"
-        tabindex="-1"
-        aria-labelledby="gameBackdropLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="gameBackdropLabel"></h5>
-          <button
-            type="button"
-            class="btn-close bg-white"
-            data-bs-dismiss="offcanvas"
-            title="Close"
-          ></button>
-        </div>
-        <div class="offcanvas-body">
-          <div class="container">
-            <div class="bg-white row">
+            <div
+              v-if="_.isEqual(displayable.selected, 'settings')"
+              class="bg-white row"
+            >
               <div class="mb-2 input-group">
                 <span class="input-group-text col-md-6" id="Clear Players"
                   >Clear Players:</span
@@ -526,10 +238,10 @@
                     type="checkbox"
                     class="form-check-input"
                     id="clearPlayers"
-                    :checked="configurations.clearPlayers"
+                    :checked="app.clearPlayers"
                     placeholder=""
                     title="Clear Players"
-                    @click="toggleConfiguration('clearPlayers')"
+                    @click="toggleClearPlayers"
                   />
                 </div>
               </div>
@@ -599,1057 +311,442 @@
                 />
               </div>
             </div>
+            <div v-if="_.isEqual(displayable.selected, 'players')">
+              <div class="row">
+                <div class="col-md-3">
+                  <h4 class="pt-1">Add New User</h4>
+                </div>
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    id="new-nickname"
+                    class="form-control"
+                    :value="newNickname"
+                    placeholder="Enter a new nickname"
+                    @input="addNewNickname"
+                    @keyup.enter="addNickname"
+                  />
+                </div>
+                <div class="col-md-1">
+                  <button
+                    class="btn btn-success"
+                    @click="addNickname"
+                    title="Add Player"
+                    type="button"
+                  >
+                    <icon-selector selector="plus" />
+                  </button>
+                </div>
+              </div>
+              <table-component type="players"></table-component>
+            </div>
+            <div v-if="_.isEqual(displayable.selected, 'games')">
+              <table-component type="games"></table-component>
+            </div>
+            <div v-if="_.isEqual(displayable.selected, 'pause')">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="offcanvas"
+                @click="toggleStatus('play')"
+                title="Close"
+              >
+                <icon-selector selector="play" />
+              </button>
+            </div>
+            <div v-if="_.isEqual(displayable.selected, 'end')">
+              <div class="row">
+                <div class="col-md">{{game.red.score}}</div>
+                <div class="col-md">{{game.blue.score}}</div>
+              </div>
+            </div>
+            <div v-if="_.isEqual(displayable.selected, 'info')">
+              <div class="row">INFO</div>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- displayBackdrop -->
-      <div
-        id="displayBackdrop"
-        class="offcanvas offcanvas-bottom popped"
-        data-bs-backdrop="static"
-        tabindex="-1"
-        aria-labelledby="displayGameLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="displayGameLabel"></h5>
+        <div
+          class="offcanvas-footer"
+          v-if="_.isEqual(displayable.selected, 'end')"
+        >
           <button
             type="button"
-            class="btn-close bg-white"
+            class="btn btn-secondary"
             data-bs-dismiss="offcanvas"
-            title="Close"
-            @click="resetShowDisplay(true)"
-          ></button>
-        </div>
-        <div class="offcanvas-body">
-          <div v-if="_.isEqual(display?.showType, 'games')" class="container">
-            <div class="row">
-              <div class="col-md-6">
-                <table
-                  class="table table-responsive caption-top"
-                  id="gameStatTable"
-                >
-                  <caption>
-                    <icon-selector :selector="'games'" :size="36" />
-                  </caption>
-                  <tbody>
-                    <tr
-                      v-for="(meta, key) in _.omit(display.showData.meta[0], ['uid'], display.showData.meta[0].isTieBreak ? 'isTieBreak' : 'tieBreakSpan')"
-                    >
-                      <td v-if="_.includes(defaultPostions, key)">
-                        <icon-selector
-                          :selector="_.split(key, '-')[1]"
-                          :color="_.split(key, '-')[0]"
-                          :size="26"
-                        />
-                      </td>
-                      <td v-else>{{ translateKey(key) }}</td>
-                      <td v-if="_.includes(defaultPostions, key)">
-                        {{ playerById(meta) }}
-                      </td>
-                      <td v-else>{{ translateMetaWithKey(key, meta) }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-md-6">
-                <table
-                  class="table table-responsive caption-top"
-                  id="gameMetaStatTable"
-                >
-                  <caption>
-                    <icon-selector :selector="'meta'" :size="36" />
-                  </caption>
-                  <thead class="table-info">
-                    <tr>
-                      <th scope="col">
-                        <icon-selector :selector="'stopwatch'" :size="26" />
-                      </th>
-                      <th scope="col">
-                        <icon-selector :selector="'activity'" :size="26" />
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="meta in _.drop(display.showData.meta)"
-                      :id="meta.timestamp"
-                    >
-                      <td>
-                        {{ dayjs.duration(meta.timestamp -
-                        display.showData.meta[0].timestamp,'ms').format('HH:mm:ss')
-                        }}
-                      </td>
-                      <td>
-                        <div v-if="_.has(meta, 'changed')">
-                          <icon-selector
-                            :selector="meta.changed"
-                            :size="22"
-                            :color="meta.side"
-                          />
-                        </div>
-                        <div v-else>{{ playerById(meta.player) }}</div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div v-else class="row justify-content-md-center">
-            <caption>
-              <h2>{{ playerById(display?.showId) }}</h2>
-            </caption>
-            <div class="col-md-4">
-              <table
-                class="table table-responsive caption-top"
-                id="gameStatTable"
-              >
-                <tbody>
-                  <tr>
-                    <td><icon-selector :selector="'games'" /></td>
-                    <td>{{ getGamesByPlayer(display?.showId).length }}</td>
-                  </tr>
-                  <tr>
-                    <td><icon-selector :selector="'award'" /></td>
-                    <td>
-                      {{ _.flatten(getPlayerMetadatas(display?.showId)).length
-                      }}
-                    </td>
-                  </tr>
-                  <tr v-for="key in defaultPostions">
-                    <td>
-                      <icon-selector
-                        :selector="_.split(key, '-')[1]"
-                        :color="_.split(key, '-')[0]"
-                      />
-                    </td>
-                    <td>
-                      {{ _.get(getGameSetupByPlayer(display?.showId), key)}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <icon-selector :selector="'ideges'" />
-                    </td>
-                    <td>{{ getGotGoals(display?.showId) }}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <icon-selector :selector="'winrate'" />
-                    </td>
-                    <td>{{ getWinrateByPlayer(display?.showId) }} %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+            @click="reStartGame"
+            title="Restart"
+          >
+            <icon-selector selector="restart"></icon-selector>
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="offcanvas"
+            @click="resetGame()"
+            title="End"
+          >
+            <icon-selector selector="stop"></icon-selector>
+          </button>
         </div>
       </div>
-      <!-- content -->
-      <div class="mt-3">
-        <div class="card row mt-3">
-          <div
-            v-if="app.isRunning"
-            class="row justify-content-end gap-2 p-0 m-0"
-          >
-            <button
-              class="btn btn-info col"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#pauseBackdrop"
-              title="Pause Game"
-              @click="toggleStatus('pause')"
-              type="button"
-            >
-              <icon-selector :selector="'pause'" />
-            </button>
-            <button
-              class="btn btn-warning col"
-              title="Undo"
-              @click="undoGame"
-              type="button"
-              v-if="!_.lte(_.size(game.meta), 1) && _.has(_.last(game.meta), 'player')"
-            >
-              <icon-selector :selector="'undo'" />
-            </button>
-          </div>
-          <div v-else class="row justify-content-end gap-2 p-0 m-0">
-            <button
-              class="btn btn-info col"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#infoBackdrop"
-              aria-controls="infoBackdrop"
-              title="Info"
-              type="button"
-              v-show="false"
-            >
-              <icon-selector :selector="'info'" :size="32" />
-            </button>
-            <button
-              v-if="!app.isRunning"
-              class="btn btn-secondary col"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#configurationBackdrop"
-              aria-controls="configurationBackdrop"
-              title="Settings"
-              type="button"
-            >
-              <icon-selector :selector="'settings'" :size="32" />
-            </button>
-            <button
-              class="btn btn-secondary col"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#playersBackdrop"
-              aria-controls="playersBackdrop"
-              title="Players"
-              type="button"
-            >
-              <icon-selector :selector="'players'" :size="32" />
-            </button>
-            <button
-              class="btn btn-secondary col"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#gamesBackdrop"
-              aria-controls="gamesBackdrop"
-              title="Games"
-              type="button"
-            >
-              <icon-selector :selector="'games'" :size="32" />
-            </button>
-            <button
-              v-if="!app.isRunning"
-              v-show="_.isEqual(playersCount.length, settings.is1v1 ? 2 : 4)"
-              class="btn btn-success col"
-              @click="startGame"
-              title="Start New Game"
-              type="button"
-            >
-              <icon-selector :selector="'new-game'" :size="32" />
-            </button>
+      <!-- Buttons -->
+      <div class="row mt-3 mb-3 justify-content-end gap-2 p-0 m-0">
+        <button
+          type="button"
+          class="btn btn-info col"
+          title="Info"
+          @click="toggleBackdrop('info')"
+        >
+          <icon-selector selector="info" :size="32" />
+        </button>
+        <button
+          v-show="!app.isRunning"
+          type="button"
+          class="btn btn-secondary col"
+          title="Settings"
+          @click="toggleBackdrop('settings')"
+        >
+          <icon-selector selector="settings" :size="32" />
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary col"
+          title="Players"
+          @click="toggleBackdrop('players')"
+        >
+          <icon-selector selector="players" :size="32" />
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary col"
+          title="Games"
+          @click="toggleBackdrop('games')"
+        >
+          <icon-selector selector="games" :size="32" />
+        </button>
+        <button
+          v-if="!app.isRunning"
+          v-show="_.isEqual(playersCount.length, settings.is1v1 ? 2 : 4)"
+          class="btn btn-success col"
+          @click="startGame"
+          title="Start New Game"
+          type="button"
+        >
+          <icon-selector selector="new-game" :size="32" />
+        </button>
+      </div>
+      <!-- App -->
+      <div class="player-selection red row mb-5">
+        <div class="front red col-4">
+          <player-card side="red" pos="front"></player-card>
+        </div>
+        <div class="back red col-4">
+          <player-card side="red" pos="back"></player-card>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col hold" v-show="app.isRunning">
+          <div class="counter blue" id="blueCounter"></div>
+        </div>
+        <div class="col">
+          <div class="table-soccer">
+            <div
+              class="goal blue"
+              ondrop="drop(event, 'blue')"
+              ondragover="allowDrop(event)"
+            ></div>
+            <div class="rod" id="blue-1">
+              <div
+                class="player blue"
+                draggable="true"
+                id="blue-player-1"
+                ondragstart="drag(event)"
+              ></div>
+            </div>
+            <div class="rod" id="blue-2">
+              <div
+                class="player blue"
+                draggable="true"
+                id="blue-player-2"
+                ondragstart="drag(event)"
+              ></div>
+            </div>
+            <div class="rod" id="red-3">
+              <div
+                class="player red"
+                draggable="true"
+                id="red-player-4"
+                ondragstart="drag(event)"
+              ></div>
+            </div>
+            <div class="rod" id="blue-5">
+              <div
+                class="player blue"
+                draggable="true"
+                id="blue-player-3"
+                ondragstart="drag(event)"
+              ></div>
+            </div>
+            <div class="rod" id="red-5">
+              <div
+                class="player red"
+                draggable="true"
+                id="red-player-3"
+                ondragstart="drag(event)"
+              ></div>
+            </div>
+            <div class="rod" id="blue-3">
+              <div
+                class="player blue"
+                draggable="true"
+                id="blue-player-4"
+                ondragstart="drag(event)"
+              ></div>
+            </div>
+            <div class="rod" id="red-2">
+              <div
+                class="player red"
+                draggable="true"
+                id="red-player-2"
+                ondragstart="drag(event)"
+              ></div>
+            </div>
+            <div class="rod" id="red-1">
+              <div
+                class="player red"
+                draggable="true"
+                id="red-player-1"
+                ondragstart="drag(event)"
+              ></div>
+            </div>
+            <div
+              class="goal red"
+              ondrop="drop(event, 'red')"
+              ondragover="allowDrop(event)"
+            ></div>
+            <div class="ball" id="ball" @click="selectBall"></div>
           </div>
         </div>
-        <div class="card row mt-3 align-items-center beNoWrap">
-          <div class="row col-md">
-            <div class="col-md">
-              <div class="card text-danger">
-                <div v-if="app.isRunning" class="card-body">
-                  <div class="row">
-                    <h3>{{ playerById(game.red.front) }}</h3>
-                  </div>
-                  <div class="row">
-                    <button
-                      class="btn btn-outline-secondary col-md"
-                      type="button"
-                      title="Goal!"
-                      @click="incrementScore('front', 'red')"
-                    >
-                      Goal
-                    </button>
-                    <button
-                      class="btn btn-outline-secondary col-md"
-                      type="button"
-                      title="Own Goal!"
-                      @click="incrementScore('front', 'red', true)"
-                    >
-                      Own Goal
-                    </button>
-                  </div>
-                </div>
-                <div v-else class="card-body row p-2">
-                  <label for="redFront" class="col-md-2 align-conten-md-center">
-                    <icon-selector :selector="'front'" />
-                  </label>
-                  <select
-                    class="form-control col red"
-                    id="redFront"
-                    v-model="game.red.front"
-                    title="Red Front"
-                  >
-                    <option
-                      v-for="player in _.filter([game.red.front, ...suitablePlayers])"
-                      :key="player"
-                      :value="player"
-                    >
-                      {{ playerById(player) }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div
-                @click="switchSides('red')"
-                v-if="app.isRunning || !configurations.clearPlayers"
-              >
-                <icon-selector :selector="'position'" :size="32" />
-              </div>
-              <div class="card text-danger">
-                <div v-if="app.isRunning" class="card-body">
-                  <div class="row">
-                    <h3>{{ playerById(game.red.back) }}</h3>
-                  </div>
-                  <div class="row">
-                    <button
-                      class="btn btn-outline-secondary col-md"
-                      type="button"
-                      title="Goal!"
-                      @click="incrementScore('back', 'red')"
-                    >
-                      Goal
-                    </button>
-                    <button
-                      class="btn btn-outline-secondary col-md"
-                      type="button"
-                      title="Own Goal!"
-                      @click="incrementScore('back', 'red', true)"
-                    >
-                      Own Goal
-                    </button>
-                  </div>
-                </div>
-                <div v-else class="card-body row p-2">
-                  <label for="redBack" class="col-md-2 align-conten-md-center">
-                    <icon-selector :selector="'back'" />
-                  </label>
-                  <select
-                    class="form-control col red"
-                    id="redBack"
-                    v-model="game.red.back"
-                    title="Red Back"
-                    :disabled="settings.is1v1"
-                  >
-                    <option
-                      v-for="player in _.filter([game.red.back, ...suitablePlayers])"
-                      :key="player"
-                      :value="player"
-                    >
-                      {{ playerById(player) }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-md-1 centered border border-success red"
-              @click="!app.isRunning && selectBall('red')"
-            >
-              <div v-if="_.isEqual(game.ball, 'red')">
-                <icon-selector
-                  :selector="`ball${app.isRunning ?'-active': ''}`"
-                />
-              </div>
-            </div>
+        <div class="col hold" v-show="app.isRunning">
+          <div class="counter red" id="redCounter"></div>
+        </div>
+      </div>
+      <div class="player-selection blue row mt-5">
+        <div class="back blue col-4">
+          <player-card side="blue" pos="back"></player-card>
+        </div>
+        <div class="front blue col-4">
+          <player-card side="blue" pos="front"></player-card>
+        </div>
+      </div>
+      <!-- Game parts -->
+      <div class="row mt-3 mb-3" v-show="app.isRunning">
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto orbitron-timer">
+            {{ dayjs.duration(settings.timeElapsed,
+            'seconds').format('HH:mm:ss') }}
           </div>
-          <div class="row col-md">
-            <div
-              v-if="app.isRunning || !configurations.clearPlayers"
-              @click="switchSides()"
-            >
-              <icon-selector :selector="'side'" :size="32" />
-            </div>
-            <div v-if="app.isRunning" class="col-md bg-danger display mr-4">
-              <div class="card extra">
-                <div class="card-body align-conten-md-center">
-                  <h1>{{ game.red.score }}</h1>
-                </div>
-              </div>
-            </div>
-            <div v-if="app.isRunning" class="col-md bg-primary display ml-4">
-              <div class="card extra">
-                <div class="card-body align-conten-md-center">
-                  <h1>{{ game.blue.score }}</h1>
-                </div>
-              </div>
-            </div>
-            <div v-else v-show="configurations.clearPlayers ">VS</div>
-            <div v-if="app.isRunning" class="row justify-content-md-center">
-              <div class="col-md-auto orbitron-timer">
-                {{ dayjs.duration(settings.timeElapsed,
-                'seconds').format('HH:mm:ss') }}
-              </div>
-            </div>
-          </div>
-          <div class="row col-md">
-            <div
-              class="col-md-1 centered border border-success blue"
-              @click="!app.isRunning && selectBall('blue')"
-            >
-              <div v-if="_.isEqual(game.ball, 'blue')">
-                <icon-selector
-                  :selector="`ball${app.isRunning ?'-active': ''}`"
-                />
-              </div>
-            </div>
-            <div class="col-md">
-              <div class="card text-primary">
-                <div v-if="app.isRunning" class="card-body">
-                  <div class="row">
-                    <h3>{{ playerById(game.blue.front) }}</h3>
-                  </div>
-                  <div class="row">
-                    <button
-                      class="btn btn-outline-secondary col-md"
-                      type="button"
-                      title="Goal!"
-                      @click="incrementScore('front', 'blue')"
-                    >
-                      Goal
-                    </button>
-                    <button
-                      class="btn btn-outline-secondary col-md"
-                      type="button"
-                      title="Own Goal!"
-                      @click="incrementScore('front', 'blue', true)"
-                    >
-                      Own Goal
-                    </button>
-                  </div>
-                </div>
-                <div v-else class="card-body row p-2">
-                  <label
-                    for="blueFront"
-                    class="col-md-2 align-conten-md-center"
-                  >
-                    <icon-selector :selector="'front'" />
-                  </label>
-                  <select
-                    class="form-control col red"
-                    id="blueFront"
-                    v-model="game.blue.front"
-                    title="Blue Front"
-                  >
-                    <option
-                      v-for="player in _.filter([game.blue.front, ...suitablePlayers])"
-                      :key="player"
-                      :value="player"
-                    >
-                      {{ playerById(player) }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div
-                @click="switchSides('blue')"
-                v-if="app.isRunning || !configurations.clearPlayers"
-              >
-                <icon-selector :selector="'position'" :size="32" />
-              </div>
-              <div class="card text-primary">
-                <div v-if="app.isRunning" class="card-body">
-                  <div class="row">
-                    <h3>{{ playerById(game.blue.back) }}</h3>
-                  </div>
-                  <div class="row">
-                    <button
-                      class="btn btn-outline-secondary col-md"
-                      type="button"
-                      title="Goal!"
-                      @click="incrementScore('back', 'blue')"
-                    >
-                      Goal
-                    </button>
-                    <button
-                      class="btn btn-outline-secondary col-md"
-                      type="button"
-                      title="Own Goal!"
-                      @click="incrementScore('back', 'blue', true)"
-                    >
-                      Own Goal
-                    </button>
-                  </div>
-                </div>
-                <div v-else class="card-body row p-2">
-                  <label for="blueBack" class="col-md-2 align-conten-md-center">
-                    <icon-selector :selector="'back'" />
-                  </label>
-                  <select
-                    class="form-control col red"
-                    id="blueBack"
-                    v-model="game.blue.back"
-                    title="Blue Back"
-                    :disabled="settings.is1v1"
-                  >
-                    <option
-                      v-for="player in _.filter([game.blue.back, ...suitablePlayers])"
-                      :key="player"
-                      :value="player"
-                    >
-                      {{ playerById(player) }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div class="row justify-content-end gap-2 p-0 m-0">
+          <button
+            class="btn btn-info col"
+            title="Pause Game"
+            @click="toggleBackdrop('pause')"
+            type="button"
+          >
+            <icon-selector selector="pause" />
+          </button>
+          <button
+            class="btn btn-warning col"
+            title="Undo"
+            @click="undoGame"
+            type="button"
+            v-if="!_.lte(_.size(game.meta), 1) && _.has(_.last(game.meta), 'player')"
+          >
+            <icon-selector selector="undo" />
+          </button>
         </div>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/duration.js"></script>
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.1.0/mdb.umd.min.js"
-    ></script>
-    <script type="module">
-      import { UUID } from "https://unpkg.com/uuidjs@^5";
-      dayjs.extend(window.dayjs_plugin_relativeTime);
-      dayjs.extend(dayjs_plugin_duration);
-      Vue.component("icon-selector", {
-        props: ["selector", "size", "color"],
-        methods: {
-          getIcon(selector, size = 20, color = "currentColor") {
-            switch (selector) {
-              case "winrate": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-trophy" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935M3.504 1q.01.775.056 1.469c.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.5.5 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667q.045-.694.056-1.469z"/>
-                  </svg>
-                `;
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/duration.js"></script>
+  <script src="https://unpkg.com/@vue/composition-api"></script>
+  <script src="https://unpkg.com/vue-demi"></script>
+  <script src="https://unpkg.com/pinia"></script>
+  <script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+    function drop(event, loc) {
+      event.preventDefault();
+      const [side, p, rod] = event.dataTransfer.getData("text").split("-");
+      const store = window.useAppStore();
+      const isOwn = _.isEqual(side, loc);
+      if (store.app.isRunning) {
+        const unsubscribe = store.$onAction(
+          ({ name, store, args, after, onError }) => {
+            const startTime = Date.now();
+            console.log(`Start "${name}" with params [${args.join(", ")}].`);
+            after((result) => {
+              console.log(
+                `Finished "${name}" after ${
+                  Date.now() - startTime
+                }ms.\nResult: ${result}.`
+              );
+            });
+            onError((error) => {
+              console.warn(
+                `Failed "${name}" after ${
+                  Date.now() - startTime
+                }ms.\nError: ${error}.`
+              );
+            });
+          }
+        );
+        store.incrementScore(rod, side, isOwn);
+        unsubscribe();
+      }
+    }
+  </script>
+  <script type="module">
+    const craeteTile = (side, i) => {
+      const tile = document.createElement("div");
+      tile.classList.add("tile");
+      tile.classList.add(side);
+      if (_.isEqual(side, "blue")) {
+        tile.style.right = `${i * 22}px`;
+      } else {
+        tile.style.left = `${i * 22}px`;
+      }
+      return tile;
+    };
+    import { UUID } from "https://unpkg.com/uuidjs@^5";
+    dayjs.extend(window.dayjs_plugin_relativeTime);
+    dayjs.extend(dayjs_plugin_duration);
+    const useAppStore = Pinia.defineStore("app", {
+      state() {
+        const getData = (store) => JSON.parse(localStorage.getItem(store));
+        return _.reduce(
+          _.map(
+            {
+              game: {
+                red: {
+                  score: 0,
+                  front: "",
+                  back: "",
+                },
+                blue: {
+                  score: 0,
+                  front: "",
+                  back: "",
+                },
+                meta: [],
+                ball: "red",
+              },
+              games: [],
+              app: {
+                isPlaying: false,
+                isRunning: false,
+                clearPlayers: false,
+              },
+              settings: {
+                is1v1: false,
+                maxScore: 5,
+                isTieBreak: false,
+                tieBreakSpan: 2,
+                timeElapsed: 0,
+                pauseDuration: 0,
+              },
+              display: {
+                playersUtils: false,
+                gamesUtils: false,
+                goals: false,
+                games: false,
+                date: false,
+                metaData: false,
+                winrate: false,
+                gotGoals: false,
+              },
+              displayable: {
+                showId: undefined,
+                showType: undefined,
+                selected: undefined,
+              },
+              nicknames: [],
+            },
+            (a, k) => {
+              const d = getData(`${k}State`);
+              if (!_.isEmpty(d)) {
+                return { [k]: d };
               }
-              case "winrate-active": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-trophy-fill" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935"/>
-                  </svg>
-                `;
-              }
-              case "position": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
-                  </svg>
-                `;
-              }
-              case "isOwn": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-emoji-frown-fill" viewBox="0 0 16 16">
-                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m-2.715 5.933a.5.5 0 0 1-.183-.683A4.5 4.5 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 0 1-.866.5A3.5 3.5 0 0 0 8 10.5a3.5 3.5 0 0 0-3.032 1.75.5.5 0 0 1-.683.183M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8"/>
-                  </svg>
-                `;
-              }
-              case "isGoal": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
-                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8"/>
-                  </svg>
-                `;
-              }
-              case "play": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-play-fill" viewBox="0 0 16 16">
-                    <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
-                  </svg>
-                `;
-              }
-              case "pause": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-pause-fill" viewBox="0 0 16 16">
-                    <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
-                  </svg>
-                `;
-              }
-              case "edit": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="blue" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                  </svg>
-      	        `;
-              }
-              case "plus": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg"width="${size}" height="${size}" fill="${color}" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
-                  </svg>
-                `;
-              }
-              case "trash3": {
-                return `
-                <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="red" class="bi bi-trash3" viewBox="0 0 16 16">
-                  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                </svg>
-              `;
-              }
-              case "eye": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="green" class="bi bi-eye" viewBox="0 0 16 16">
-                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                  </svg>
-                `;
-              }
-              case "back": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-                  </svg>
-                `;
-              }
-              case "front": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-up" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
-                  </svg>
-                `;
-              }
-              case "gear": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-gear" viewBox="0 0 16 16">
-                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
-                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
-                  </svg>
-                `;
-              }
-              case "gear-active": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-gear-wide-connected fa-spin" viewBox="0 0 16 16">
-                    <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z"/>
-                  </svg>
-                `;
-              }
-              case "meta": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-meta" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8.217 5.243C9.145 3.988 10.171 3 11.483 3 13.96 3 16 6.153 16.001 9.907c0 2.29-.986 3.725-2.757 3.725-1.543 0-2.395-.866-3.924-3.424l-.667-1.123-.118-.197a55 55 0 0 0-.53-.877l-1.178 2.08c-1.673 2.925-2.615 3.541-3.923 3.541C1.086 13.632 0 12.217 0 9.973 0 6.388 1.995 3 4.598 3q.477-.001.924.122c.31.086.611.22.913.407.577.359 1.154.915 1.782 1.714m1.516 2.224q-.378-.614-.727-1.133L9 6.326c.845-1.305 1.543-1.954 2.372-1.954 1.723 0 3.102 2.537 3.102 5.653 0 1.188-.39 1.877-1.195 1.877-.773 0-1.142-.51-2.61-2.87zM4.846 4.756c.725.1 1.385.634 2.34 2.001A212 212 0 0 0 5.551 9.3c-1.357 2.126-1.826 2.603-2.581 2.603-.777 0-1.24-.682-1.24-1.9 0-2.602 1.298-5.264 2.846-5.264q.136 0 .27.018Z"/>
-                  </svg>
-                `;
-              }
-              case "meta-active": {
-                return `<i class="fas fa-square-root-variable"></i>`;
-              }
-              case "ball": {
-                return `<i class="fas fa-volleyball"></i>`;
-              }
-              case "ball-active": {
-                return `<i class="fas fa-volleyball fa-spin"></i>`;
-              }
-              case "settings": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-wrench-adjustable-circle" viewBox="0 0 16 16">
-                    <path d="M12.496 8a4.5 4.5 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11q.04.3.04.61"/>
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-1 0a7 7 0 1 0-13.202 3.249l1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.5 4.5 0 0 1-1.592-.29L4.747 14.2A7 7 0 0 0 15 8m-8.295.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27z"/>
-                  </svg>
-      	        `;
-              }
-              case "players": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
-                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
-                  </svg>
-      	        `;
-              }
-              case "games": {
-                return `
-      		        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-controller" viewBox="0 0 16 16">
-                    <path d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1z"/>
-                    <path d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729q.211.136.373.297c.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466s.34 1.78.364 2.606c.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527s-2.496.723-3.224 1.527c-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.3 2.3 0 0 1 .433-.335l-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a14 14 0 0 0-.748 2.295 12.4 12.4 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.504C4.861 9.969 5.978 9.027 8 9.027s3.139.942 3.965 1.855c.164.181.307.348.44.504.214.251.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.4 12.4 0 0 0-.339-2.406 14 14 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27s-2.063.091-2.913.27"/>
-                  </svg>
-      	        `;
-              }
-              case "games-active": {
-                return `
-      		        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-joystick" viewBox="0 0 16 16">
-                    <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2"/>
-                    <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23"/>
-                  </svg>
-      	        `;
-              }
-              case "new-game": {
-                return `
-      		        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-node-plus" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M11 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8M6.025 7.5a5 5 0 1 1 0 1H4A1.5 1.5 0 0 1 2.5 10h-1A1.5 1.5 0 0 1 0 8.5v-1A1.5 1.5 0 0 1 1.5 6h1A1.5 1.5 0 0 1 4 7.5zM11 5a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 11 5M1.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
-                  </svg>
-      	        `;
-              }
-              case "award": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-award" viewBox="0 0 16 16">
-                    <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
-                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
-                  </svg>
-      	        `;
-              }
-              case "award-active": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-award-fill" viewBox="0 0 16 16">
-                    <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864z"/>
-                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
-                  </svg>
-      	        `;
-              }
-              case "info": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-info" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                  </svg>
-                `;
-              }
-              case "down": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-sort-numeric-down-alt" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M11.36 7.098c-1.137 0-1.708-.657-1.762-1.278h1.004c.058.223.343.45.773.45.824 0 1.164-.829 1.133-1.856h-.059c-.148.39-.57.742-1.261.742-.91 0-1.72-.613-1.72-1.758 0-1.148.848-1.836 1.973-1.836 1.09 0 2.063.637 2.063 2.688 0 1.867-.723 2.848-2.145 2.848zm.062-2.735c.504 0 .933-.336.933-.972 0-.633-.398-1.008-.94-1.008-.52 0-.927.375-.927 1 0 .64.418.98.934.98"/>
-                    <path d="M12.438 8.668V14H11.39V9.684h-.051l-1.211.859v-.969l1.262-.906h1.046zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293z"/>
-                  </svg>
-                `;
-              }
-              case "up": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-sort-numeric-up" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path d="M12.438 1.668V7H11.39V2.684h-.051l-1.211.859v-.969l1.262-.906h1.046z"/>
-                    <path fill-rule="evenodd" d="M11.36 14.098c-1.137 0-1.708-.657-1.762-1.278h1.004c.058.223.343.45.773.45.824 0 1.164-.829 1.133-1.856h-.059c-.148.39-.57.742-1.261.742-.91 0-1.72-.613-1.72-1.758 0-1.148.848-1.835 1.973-1.835 1.09 0 2.063.636 2.063 2.687 0 1.867-.723 2.848-2.145 2.848zm.062-2.735c.504 0 .933-.336.933-.972 0-.633-.398-1.008-.94-1.008-.52 0-.927.375-.927 1 0 .64.418.98.934.98"/>
-                    <path d="M4.5 13.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707z"/>
-                  </svg>
-                `;
-              }
-              case "date": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-calendar-event" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                  </svg>
-                `;
-              }
-              case "date-active": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-calendar-event-fill" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
-                  </svg>
-                `;
-              }
-              case "activity": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-activity" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2"/>
-                  </svg>
-                `;
-              }
-              case "arrow-repeat": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
-                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
-                  </svg>
-                `;
-              }
-              case "stopwatch": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-stopwatch" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z"/>
-                    <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3"/>
-                  </svg>
-                `;
-              }
-              case "undo": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-arrow-counterclockwise" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
-                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
-                  </svg>
-                `;
-              }
-              case "kerekes": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-person-wheelchair" viewBox="0 0 16 16">
-                    <path d="M12 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m-.663 2.146a1.5 1.5 0 0 0-.47-2.115l-2.5-1.508a1.5 1.5 0 0 0-1.676.086l-2.329 1.75a.866.866 0 0 0 1.051 1.375L7.361 3.37l.922.71-2.038 2.445A4.73 4.73 0 0 0 2.628 7.67l1.064 1.065a3.25 3.25 0 0 1 4.574 4.574l1.064 1.063a4.73 4.73 0 0 0 1.09-3.998l1.043-.292-.187 2.991a.872.872 0 1 0 1.741.098l.206-4.121A1 1 0 0 0 12.224 8h-2.79zM3.023 9.48a3.25 3.25 0 0 0 4.496 4.496l1.077 1.077a4.75 4.75 0 0 1-6.65-6.65z"/>
-                  </svg>
-                `;
-              }
-              case "ideges": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-emoji-angry" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                    <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.5 3.5 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.5 4.5 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683m6.991-8.38a.5.5 0 1 1 .448.894l-1.009.504c.176.27.285.64.285 1.049 0 .828-.448 1.5-1 1.5s-1-.672-1-1.5c0-.247.04-.48.11-.686a.502.502 0 0 1 .166-.761zm-6.552 0a.5.5 0 0 0-.448.894l1.009.504A1.94 1.94 0 0 0 5 6.5C5 7.328 5.448 8 6 8s1-.672 1-1.5c0-.247-.04-.48-.11-.686a.502.502 0 0 0-.166-.761z"/>
-                  </svg>
-                `;
-              }
-              case "ideges-active": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-emoji-angry-fill" viewBox="0 0 16 16">
-                   <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M4.053 4.276a.5.5 0 0 1 .67-.223l2 1a.5.5 0 0 1 .166.76c.071.206.111.44.111.687C7 7.328 6.552 8 6 8s-1-.672-1-1.5c0-.408.109-.778.285-1.049l-1.009-.504a.5.5 0 0 1-.223-.67zm.232 8.157a.5.5 0 0 1-.183-.683A4.5 4.5 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 1 1-.866.5A3.5 3.5 0 0 0 8 10.5a3.5 3.5 0 0 0-3.032 1.75.5.5 0 0 1-.683.183M10 8c-.552 0-1-.672-1-1.5 0-.247.04-.48.11-.686a.502.502 0 0 1 .166-.761l2-1a.5.5 0 1 1 .448.894l-1.009.504c.176.27.285.64.285 1.049 0 .828-.448 1.5-1 1.5"/>
-                  </svg>
-                `;
-              }
-              case "side": {
-                return `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
-                  </svg>
-                `;
-              }
-              default: {
-                return "hupsz";
-              }
+              return { [k]: a };
             }
-          },
-        },
-        template: `<div v-html="getIcon(selector, size, color)"></div>`,
-      });
-      new Vue({
-        el: "#app",
-        data() {
-          return {
+          ),
+          (t, n) => _.assignIn(t, n),
+          {
+            timer: undefined,
             defaultPostions: [
               "red-front",
               "red-back",
               "blue-front",
               "blue-back",
             ],
-            defaultChanges: [
-              {
-                changed: "position",
-                side: "red",
-              },
-
-              {
-                changed: "side",
-              },
-              {
-                changed: "pause",
-              },
-              {
-                changed: "position",
-                side: "blue",
-              },
-            ],
-            display: {
-              showId: undefined,
-              showType: undefined,
-              showData: [],
-            },
-            configurations: {
-              clearPlayers: true,
-              displayUtils: false,
-              displayGoals: false,
-              displayTotalMatchesPlayed: false,
-              displayDate: false,
-              displayGamesUtils: false,
-              displayMetaData: false,
-              displayTotalGG: false,
-              displayWinrate: false,
-            },
-            app: {
-              isPlaying: false,
-              isRunning: false,
-              timer: undefined,
-            },
             plyr2Update: {},
-            game: {
-              red: {
-                score: 0,
-                front: "",
-                back: "",
-              },
-              blue: {
-                score: 0,
-                front: "",
-                back: "",
-              },
-              meta: [],
-              ball: "red",
-            },
-            games: [],
             newNickname: "",
-            nicknames: [],
-            settings: {
-              is1v1: false,
-              maxScore: 5,
-              isTieBreak: false,
-              tieBreakSpan: 2,
-              timeElapsed: 0,
-              pauseDuration: 0,
-            },
-          };
+          }
+        );
+      },
+      getters: {
+        playerById() {
+          return (uid) => _.find(this.nicknames, { uid })?.name;
         },
-        methods: {
-          playerById(uid) {
-            return _.find(this.nicknames, { uid })?.name;
-          },
-          addNewNickname({ target: { value } }) {
-            this.newNickname = value;
-          },
-          addNickname() {
-            if (
-              !_.isEmpty(
-                _.slice(this.newNickname)
-                  .filter((r) => !_.isEqual(r, " "))
-                  .join("")
-              ) &&
-              !_.find(this.nicknames, { name: this.newNickname })
-            ) {
-              this.nicknames.push({
-                name: this.newNickname,
-                uid: UUID.generate(),
-              });
-              this.newNickname = "";
-            } else {
-              alert("Nickname already exists or input is empty.");
-            }
-          },
-          updatePlayer(id) {
-            this.plyr2Update = id;
-          },
-          deletePlayer(player) {
-            this.nicknames = _.filter(
+        playersCount() {
+          return _.uniq(
+            _.filter([
+              this.game.red.front,
+              this.game.red.back,
+              this.game.blue.front,
+              this.game.blue.back,
+            ])
+          );
+        },
+        suitablePlayers() {
+          return _.map(
+            _.filter(
               this.nicknames,
-              (p) => !_.isEqual(p, player)
-            );
-          },
-          showPlayer({ uid: showId }) {
-            this.display = {
-              showId,
-              showType: "players",
-            };
-          },
-          updateName({ target: { value } }) {
-            this.plyr2Update.name = value;
-          },
-          updatePlayerName(e) {
-            if (
-              _.isEmpty(
-                _.slice(this.plyr2Update.name)
-                  .filter((r) => !_.isEqual(r, " "))
-                  .join("")
-              ) ||
-              _.find(
-                this.nicknames,
-                ({ name, uid }) =>
-                  _.isEqual(name, this.plyr2Update.name) &&
-                  !_.isEqual(uid, this.plyr2Update.uid)
-              )
-            ) {
-              e.preventDefault();
-              alert("Nickname already exists or input is empty.");
-              return;
-            }
-            this.nicknames = _.map(this.nicknames, (nick) =>
-              _.isEqual(nick.uid, this.plyr2Update.uid)
-                ? this.plyr2Update
-                : nick
-            );
-            this.plyr2Update = {};
-          },
-          startGame() {
-            this.app.isPlaying = true;
-            this.app.isRunning = true;
-            this.settings.timeElapsed = 0;
-            this.settings.pauseDuration = 0;
-            this.game.meta.push(
-              _.reduce(
-                _.map(this.defaultPostions, (key) => ({
-                  [key]: _.get(this.game, _.join(_.split(key, "-"), ".")),
-                })),
-                (t, n) => _.assignIn(t, n),
-                {
-                  timestamp: Date.now(),
-                  uid: UUID.generate(),
-                  startBall: this.game.ball,
-                }
-              )
-            );
-            this.startTimer();
-          },
-          resetGame() {
-            _.assignIn(this.game.meta[0], this.settings);
-            this.games.push(this.game);
-            const {
-              red: { front, back },
-              blue: { front: Front, back: Back },
-              ball,
-            } = this.game;
-            this.game = {
-              red: {
-                score: 0,
-                front: this.configurations.clearPlayers ? "" : front,
-                back: this.configurations.clearPlayers ? "" : back,
-              },
-              blue: {
-                score: 0,
-                front: this.configurations.clearPlayers ? "" : Front,
-                back: this.configurations.clearPlayers ? "" : Back,
-              },
-              meta: [],
-              ball,
-            };
-            this.app.isRunning = false;
-            this.app.isPlaying = false;
-            clearInterval(this.app.timer);
-          },
-          undoGame() {
-            const last = _.last(this.game.meta);
-            if (last.side && last.ball) {
-              this.game[last.side].score--;
-              this.game.meta = _.dropRight(this.game.meta);
-              this.game.ball = last.ball;
-            }
-          },
-          showGame(showId) {
-            this.display = {
-              showId,
-              showType: "games",
-              showData: _.find(this.games, ({ meta }) =>
-                _.isEqual(meta[0].uid, showId)
-              ),
-            };
-          },
-          deleteGame(game) {
-            this.games = _.filter(this.games, (g) => !_.isEqual(game, g));
-          },
-          incrementScore(position, side, isOwn) {
-            const actualSide = isOwn ? this.changeSide(side) : side;
-            this.game[actualSide].score++;
-            this.game.meta.push({
-              position,
-              side,
-              timestamp: Date.now(),
-              player: this.game[side][position],
-              isOwn,
-              ball: this.game.ball,
-            });
-            this.game.ball = isOwn ? side : this.changeSide(side);
-            if (
-              _.isEqual(
-                this.game[actualSide].score,
-                Number(this.settings.maxScore)
-              )
-            ) {
-              this.resetGame();
-            }
-          },
-          switchSides(side) {
-            if (side) {
-              const { front } = this.game[side];
-              this.game[side].front = this.game[side].back;
-              this.game[side].back = front;
-              this.app.isRunning &&
-                this.game.meta.push({
-                  changed: "position",
-                  side,
-                  timestamp: Date.now(),
-                });
-            } else {
-              const { red } = this.game;
-              this.game.red = this.game.blue;
-              this.game.blue = red;
-              this.app.isRunning &&
-                this.game.meta.push({ changed: "side", timestamp: Date.now() });
-            }
-          },
-          getPlayerMetadatas(player) {
-            return _.map(_.map(this.games, "meta"), (metas) =>
+              ({ uid }) => !_.includes(this.playersCount, uid)
+            ),
+            "uid"
+          );
+        },
+        getPlayerMetadatas() {
+          return (player) =>
+            _.map(_.map(this.games, "meta"), (metas) =>
               _.filter(metas, (meta) => _.isEqual(player, meta.player))
             );
-          },
-          getGamesByPlayer(player) {
-            return _.filter(this.games, ({ red, blue }) =>
+        },
+        getGamesByPlayer() {
+          return (player) =>
+            _.filter(this.games, ({ red, blue }) =>
               _.some(
                 _.map([red.front, red.back, blue.front, blue.back], (p) =>
                   _.isEqual(p, player)
                 )
               )
             );
-          },
-          getGotGoals(player) {
-            return _.reduce(
+        },
+        getGotGoals() {
+          return (player) =>
+            _.reduce(
               _.map(
                 _.map(this.getGamesByPlayer(player), "meta"),
                 ([s, ...rest]) => {
@@ -1680,46 +777,37 @@
               (t, n) => t + n,
               0
             );
-          },
-          changePosition: (pos) => (_.isEqual(pos, "back") ? "front" : "back"),
-          changeSide: (side) => (_.isEqual(side, "blue") ? "red" : "blue"),
-          getGameSetupByPlayer(player) {
-            return _.countBy(
-              _.map(
-                _.map(_.map(this.getGamesByPlayer(player), "meta"), (metas) =>
-                  _.head(metas)
-                ),
-                (meta) =>
-                  _.compact(
-                    _.map(
-                      this.defaultPostions,
-                      (pos) => _.isEqual(_.get(meta, pos), player) && pos
-                    )
-                  )
-              )
-            );
-          },
-          getWinrateByPlayer(player) {
-            const data = this.getGamesByPlayer(player);
-            const e = _.filter(_.map(data, "meta"), ([first, ...others]) => {
-              const last = _.last(others);
-              let [defSide, defPos] = _.findKey(first, (e) =>
-                _.isEqual(player, e)
-              )?.split("-");
-              _.map(others, (o) => {
-                if (_.isEqual(o.changed, "side")) {
-                  defSide = this.changeSide(defSide);
+        },
+        getWinrateByPlayer() {
+          return (player) => {
+            const localData = this.getGamesByPlayer(player);
+            const e = _.filter(
+              _.map(localData, "meta"),
+              ([first, ...others]) => {
+                const last = _.last(others);
+                let [defSide, defPos] = _.findKey(first, (e) =>
+                  _.isEqual(player, e)
+                )?.split("-");
+                _.map(others, (o) => {
+                  if (_.isEqual(o.changed, "side")) {
+                    defSide = this.changeSide(defSide);
+                  }
+                });
+                if (_.isEqual(last.side, defSide)) {
+                  return true;
                 }
-              });
-              if (_.isEqual(last.side, defSide)) {
-                return true;
               }
-            });
-            return (
-              _.ceil(_.multiply(_.divide(e.length, data.length), 100), 2) || 0
             );
-          },
-          getMetaCount: (game, meta) =>
+            return (
+              _.ceil(
+                _.multiply(_.divide(e.length, localData.length), 100),
+                2
+              ) || 0
+            );
+          };
+        },
+        getMetaCount() {
+          return (game, meta) =>
             _.get(
               _.groupBy(
                 _.get(
@@ -1729,238 +817,1040 @@
                 "side"
               ),
               meta.side
-            )?.length || 0,
-          incrementMaxScore({ target: { value } }) {
-            this.settings.maxScore = value;
-          },
-          incrementTieBreakSpan({ target: { value } }) {
-            this.settings.tieBreakSpan = value;
-          },
-          startTimer() {
-            if (this.app.isRunning && this.game.meta.length) {
-              const startTime = dayjs(_.head(this.game.meta).timestamp);
-              this.app.timer = setInterval(() => {
-                // console.log(_.filter(this.game.meta, { changed: "pause" }));
-                if (this.app.isPlaying) {
-                  this.settings.timeElapsed =
-                    dayjs().diff(startTime, "seconds") -
-                    this.settings.pauseDuration;
-                } else {
-                  this.settings.pauseDuration++;
-                }
-              }, 1000);
-              if (this.app.isPlaying) {
-              }
+            )?.length || 0;
+        },
+      },
+      actions: {
+        addData: (store, data) =>
+          localStorage.setItem(store, JSON.stringify(data)),
+        changePosition: (pos) => (_.isEqual(pos, "back") ? "front" : "back"),
+        changeSide: (side) => (_.isEqual(side, "blue") ? "red" : "blue"),
+        toggleBackdrop(type) {
+          this.displayable.selected = type;
+          const offcanvas = document.getElementById("backdrop");
+          const offcanvasElement = new bootstrap.Offcanvas("#backdrop");
+          offcanvas.style.width = "100% !important";
+          offcanvas.style.height = "100% !important";
+          switch (type) {
+            case "players": {
+              offcanvas.classList.add("offcanvas-end");
+              offcanvas.classList.add("stats");
+              offcanvasElement.show();
+              break;
             }
-          },
-          resetShowDisplay() {
-            const offcanvasElement = new bootstrap.Offcanvas(
-              `#${this.display.showType}Backdrop`
-            );
-            offcanvasElement?.show();
-            this.display = {
-              showId: undefined,
-              showType: undefined,
-              showData: [],
-            };
-          },
-          selectBall(side) {
-            this.game.ball = side;
-          },
-          toggleStatus(changed) {
-            this.app.isPlaying = _.isEqual(changed, "play");
-            this.game.meta.push({
-              changed,
-              timestamp: Date.now(),
+            case "games": {
+              offcanvas.classList.add("offcanvas-end");
+              offcanvas.classList.add("stats");
+              offcanvasElement.show();
+              break;
+            }
+            case "pause": {
+              this.toggleStatus("pause");
+              offcanvas.classList.add("offcanvas-start");
+              offcanvasElement.show();
+              break;
+            }
+            case "end": {
+              offcanvas.classList.add("offcanvas-top");
+              offcanvasElement.show();
+              break;
+            }
+            case "settings": {
+              offcanvas.classList.add("offcanvas-start");
+              offcanvasElement.show();
+              break;
+            }
+            case "info": {
+              offcanvas.classList.add("offcanvas-top");
+              offcanvasElement.show();
+              break;
+            }
+            default: {
+              _.map(
+                [
+                  "popped",
+                  "stats",
+                  "offcanvas-start",
+                  "offcanvas-top",
+                  "offcanvas-end",
+                ],
+                (c) => offcanvas.classList.remove(c)
+              );
+              offcanvasElement.hide();
+              break;
+            }
+          }
+        },
+        addNickname() {
+          if (
+            !_.isEmpty(
+              _.slice(this.newNickname)
+                .filter((r) => !_.isEqual(r, " "))
+                .join("")
+            ) &&
+            !_.find(this.nicknames, { name: this.newNickname })
+          ) {
+            this.nicknames.push({
+              name: this.newNickname,
+              uid: UUID.generate(),
             });
-          },
-          toggleIsTieBreak() {
-            this.settings.isTieBreak = !this.settings.isTieBreak;
-          },
-          toggleIs1v1() {
-            this.settings.is1v1 = !this.settings.is1v1;
-          },
-          toggleConfiguration(type) {
-            this.configurations[type] = !this.configurations[type];
-          },
-          translateKey(key) {
-            switch (key) {
-              case "timestamp": {
-                return "Start";
+            this.newNickname = "";
+          } else {
+            alert("Nickname already exists or input is empty.");
+          }
+        },
+        addNewNickname({ target: { value } }) {
+          this.newNickname = value;
+        },
+        switchSides(side) {
+          if (side) {
+            const { front } = this.game[side];
+            this.game[side].front = this.game[side].back;
+            this.game[side].back = front;
+            this.app.isRunning &&
+              this.game.meta.push({
+                changed: "position",
+                side,
+                timestamp: Date.now(),
+              });
+          } else {
+            const { red } = this.game;
+            this.game.red = this.game.blue;
+            this.game.blue = red;
+            this.app.isRunning &&
+              this.game.meta.push({
+                changed: "side",
+                timestamp: Date.now(),
+              });
+          }
+        },
+        selectBall() {
+          if (!this.app.isRunning) {
+            this.game.ball = this.changeSide(this.game.ball);
+          }
+        },
+        incrementScore(rod, side, isOwn) {
+          const position = _.includes(["1", "2"], rod) ? "back" : "front";
+          const scoreableSide = isOwn ? this.changeSide(side) : side;
+          this.game[scoreableSide].score++;
+          const tile = craeteTile(
+            scoreableSide,
+            this.game[scoreableSide].score
+          );
+          const counter = document.getElementById(`${scoreableSide}Counter`);
+          counter.appendChild(tile);
+          this.game.meta.push({
+            position,
+            side,
+            timestamp: Date.now(),
+            player: this.game[side][position],
+            isOwn,
+            ball: this.game.ball,
+            rod,
+          });
+          this.game.ball = isOwn ? side : this.changeSide(side);
+          this.toggleBallColor(this.game.ball);
+          if (
+            _.isEqual(this.game.red.score, Number(this.settings.maxScore)) ||
+            _.isEqual(this.game.blue.score, Number(this.settings.maxScore))
+          ) {
+            this.toggleBackdrop("end");
+          }
+        },
+        resetGame(isResatart = false) {
+          setTimeout(() => {}, 10);
+          this.toggleBackdrop();
+          document.getElementById("redCounter").innerHTML = "";
+          document.getElementById("blueCounter").innerHTML = "";
+          this.app.isRunning = false;
+          this.app.isPlaying = false;
+          _.assignIn(this.game.meta[0], this.settings);
+          this.games.push(this.game);
+          const isSame = isResatart || !this.app.clearPlayers;
+          const {
+            red: { front, back },
+            blue: { front: Front, back: Back },
+            ball,
+          } = this.game;
+          this.game = {
+            red: {
+              score: 0,
+              front: isResatart ? front : "",
+              back: isResatart ? back : "",
+            },
+            blue: {
+              score: 0,
+              front: isResatart ? Front : "",
+              back: isResatart ? Back : "",
+            },
+            meta: [],
+            ball,
+          };
+        },
+        reStartGame() {
+          this.resetGame(true);
+          this.startGame();
+        },
+        startGame() {
+          this.app.isPlaying = true;
+          this.app.isRunning = true;
+          this.settings.timeElapsed = 0;
+          this.settings.pauseDuration = 0;
+          this.game.meta = [];
+          this.game.red.score = 0;
+          this.game.blue.score = 0;
+          this.game.meta.push(
+            _.reduce(
+              _.map(this.defaultPostions, (key) => ({
+                [key]: _.get(this.game, _.join(_.split(key, "-"), ".")),
+              })),
+              (t, n) => _.assignIn(t, n),
+              {
+                timestamp: Date.now(),
+                uid: UUID.generate(),
+                startBall: this.game.ball,
               }
-              case "is1v1": {
-                return "Game Type";
-              }
-              case "isTieBreak": {
-                return "Tie Break";
-              }
-              case "tieBreakSpan": {
-                return "Tie Break";
-              }
-              default: {
-                return _.startCase(key);
-              }
+            )
+          );
+        },
+        toggleStatus(changed) {
+          this.app.isPlaying = _.isEqual(changed, "play");
+          if (_.isEqual(changed, "play")) {
+            this.displayable.selected = undefined;
+          }
+          this.game.meta.push({
+            changed,
+            timestamp: Date.now(),
+          });
+        },
+        incrementMaxScore({ target: { value } }) {
+          this.settings.maxScore = value;
+        },
+        incrementTieBreakSpan({ target: { value } }) {
+          this.settings.tieBreakSpan = value;
+        },
+        toggleIsTieBreak() {
+          this.settings.isTieBreak = !this.settings.isTieBreak;
+        },
+        toggleIs1v1() {
+          this.settings.is1v1 = !this.settings.is1v1;
+        },
+        toggleClearPlayers() {
+          this.app.clearPlayers = !this.app.clearPlayers;
+        },
+        undoGame() {
+          const last = _.last(this.game.meta);
+          if (last.side && last.ball) {
+            this.game[last.isOwn ? this.changeSide(last.side) : last.side]
+              .score--;
+            this.game.meta = _.dropRight(this.game.meta);
+            this.game.ball = last.ball;
+          }
+        },
+        toggleDisplay(type) {
+          this.display[type] = !this.display[type];
+        },
+        updatePlayer(id) {
+          this.plyr2Update = id;
+        },
+        deletePlayer(player) {
+          this.nicknames = _.filter(
+            this.nicknames,
+            (p) => !_.isEqual(p, player)
+          );
+        },
+        updatePlayerName(e) {
+          if (
+            _.isEmpty(
+              _.slice(this.plyr2Update.name)
+                .filter((r) => !_.isEqual(r, " "))
+                .join("")
+            ) ||
+            _.find(
+              this.nicknames,
+              ({ name, uid }) =>
+                _.isEqual(name, this.plyr2Update.name) &&
+                !_.isEqual(uid, this.plyr2Update.uid)
+            )
+          ) {
+            e.preventDefault();
+            alert("Nickname already exists or input is empty.");
+            return;
+          }
+          this.nicknames = _.map(this.nicknames, (nick) =>
+            _.isEqual(nick.uid, this.plyr2Update.uid) ? this.plyr2Update : nick
+          );
+          this.plyr2Update = {};
+        },
+        updateName({ target: { value } }) {
+          this.plyr2Update.name = value;
+        },
+        showPlayer({ uid: showId }) {
+          this.display = {
+            showId,
+            showType: "players",
+          };
+        },
+        deleteGame(game) {
+          this.games = _.filter(this.games, (g) => !_.isEqual(game, g));
+        },
+        toggleBallColor(value) {
+          const ball = document.getElementById("ball");
+          ball.classList.remove(this.changeSide(value));
+          ball.classList.add(value);
+        },
+      },
+    });
+    window.useAppStore = useAppStore;
+    const IconSelector = Vue.component("icon-selector", {
+      props: ["selector", "size", "color"],
+      methods: {
+        getIcon(selector, size = 20, color = "currentColor") {
+          if (selector.toLocaleUpperCase().includes("UTILS")) {
+            selector = selector.includes("active") ? "gear-active" : "gear";
+          }
+          switch (selector) {
+            case "winrate": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-trophy" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935M3.504 1q.01.775.056 1.469c.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.5.5 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667q.045-.694.056-1.469z"/>
+                  </svg>
+                `;
             }
-          },
-          translateMetaWithKey(key, meta) {
-            switch (key) {
-              case "timestamp": {
-                return dayjs(meta).format(`YY-M-D HH:mm:ss`);
-              }
-              case "is1v1": {
-                return meta ? "1 vs 1" : "4 vs 4";
-              }
-              case "timeElapsed": {
-                return dayjs.duration(meta, "seconds").format("HH:mm:ss");
-              }
-              case "pauseDuration": {
-                return dayjs.duration(meta, "seconds").format("HH:mm:ss");
-              }
-              default: {
-                return meta;
-              }
+            case "winrate-active": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-trophy-fill" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935"/>
+                  </svg>
+                `;
             }
+            case "position": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5" />
+                  </svg>
+                `;
+            }
+            case "side": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+                  </svg>
+                `;
+            }
+            case "play": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-play-fill" viewBox="0 0 16 16">
+                    <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                  </svg>
+                `;
+            }
+            case "pause": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-pause-fill" viewBox="0 0 16 16">
+                    <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
+                  </svg>
+                `;
+            }
+            case "edit": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="blue" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                  </svg>
+                   `;
+            }
+            case "plus": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg"width="${size}" height="${size}" fill="${color}" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
+                  </svg>
+                `;
+            }
+            case "trash3": {
+              return `
+                <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="red" class="bi bi-trash3" viewBox="0 0 16 16">
+                  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                </svg>
+              `;
+            }
+            case "eye": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="green" class="bi bi-eye" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                  </svg>
+                `;
+            }
+            case "back": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+                  </svg>
+                `;
+            }
+            case "front": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+                  </svg>
+                `;
+            }
+            case "gear": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-gear" viewBox="0 0 16 16">
+                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+                  </svg>
+                `;
+            }
+            case "gear-active": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-gear-wide-connected fa-spin" viewBox="0 0 16 16">
+                    <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z"/>
+                  </svg>
+                `;
+            }
+            case "metaData": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-meta" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8.217 5.243C9.145 3.988 10.171 3 11.483 3 13.96 3 16 6.153 16.001 9.907c0 2.29-.986 3.725-2.757 3.725-1.543 0-2.395-.866-3.924-3.424l-.667-1.123-.118-.197a55 55 0 0 0-.53-.877l-1.178 2.08c-1.673 2.925-2.615 3.541-3.923 3.541C1.086 13.632 0 12.217 0 9.973 0 6.388 1.995 3 4.598 3q.477-.001.924.122c.31.086.611.22.913.407.577.359 1.154.915 1.782 1.714m1.516 2.224q-.378-.614-.727-1.133L9 6.326c.845-1.305 1.543-1.954 2.372-1.954 1.723 0 3.102 2.537 3.102 5.653 0 1.188-.39 1.877-1.195 1.877-.773 0-1.142-.51-2.61-2.87zM4.846 4.756c.725.1 1.385.634 2.34 2.001A212 212 0 0 0 5.551 9.3c-1.357 2.126-1.826 2.603-2.581 2.603-.777 0-1.24-.682-1.24-1.9 0-2.602 1.298-5.264 2.846-5.264q.136 0 .27.018Z"/>
+                  </svg>
+                `;
+            }
+            case "metaData-active": {
+              return `<i class="fas fa-square-root-variable"></i>`;
+            }
+            case "ball": {
+              return `<i class="fas fa-volleyball"></i>`;
+            }
+            case "ball-active": {
+              return `<i class="fas fa-volleyball fa-spin"></i>`;
+            }
+            case "settings": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-wrench-adjustable-circle" viewBox="0 0 16 16">
+                    <path d="M12.496 8a4.5 4.5 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11q.04.3.04.61"/>
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-1 0a7 7 0 1 0-13.202 3.249l1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.5 4.5 0 0 1-1.592-.29L4.747 14.2A7 7 0 0 0 15 8m-8.295.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27z"/>
+                  </svg>
+                   `;
+            }
+            case "players": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+                  </svg>
+                   `;
+            }
+            case "games": {
+              return `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-controller" viewBox="0 0 16 16">
+                    <path d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1z"/>
+                    <path d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729q.211.136.373.297c.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466s.34 1.78.364 2.606c.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527s-2.496.723-3.224 1.527c-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.3 2.3 0 0 1 .433-.335l-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a14 14 0 0 0-.748 2.295 12.4 12.4 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.504C4.861 9.969 5.978 9.027 8 9.027s3.139.942 3.965 1.855c.164.181.307.348.44.504.214.251.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.4 12.4 0 0 0-.339-2.406 14 14 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27s-2.063.091-2.913.27"/>
+                  </svg>
+                   `;
+            }
+            case "games-active": {
+              return `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-joystick" viewBox="0 0 16 16">
+                    <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2"/>
+                    <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23"/>
+                  </svg>
+                   `;
+            }
+            case "new-game": {
+              return `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-node-plus" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8M6.025 7.5a5 5 0 1 1 0 1H4A1.5 1.5 0 0 1 2.5 10h-1A1.5 1.5 0 0 1 0 8.5v-1A1.5 1.5 0 0 1 1.5 6h1A1.5 1.5 0 0 1 4 7.5zM11 5a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 11 5M1.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                  </svg>
+                   `;
+            }
+            case "goals": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-award" viewBox="0 0 16 16">
+                    <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
+                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
+                  </svg>
+                   `;
+            }
+            case "goals-active": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-award-fill" viewBox="0 0 16 16">
+                    <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864z"/>
+                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
+                  </svg>
+                   `;
+            }
+            case "info": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-info" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+                `;
+            }
+            case "down": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-sort-numeric-down-alt" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.36 7.098c-1.137 0-1.708-.657-1.762-1.278h1.004c.058.223.343.45.773.45.824 0 1.164-.829 1.133-1.856h-.059c-.148.39-.57.742-1.261.742-.91 0-1.72-.613-1.72-1.758 0-1.148.848-1.836 1.973-1.836 1.09 0 2.063.637 2.063 2.688 0 1.867-.723 2.848-2.145 2.848zm.062-2.735c.504 0 .933-.336.933-.972 0-.633-.398-1.008-.94-1.008-.52 0-.927.375-.927 1 0 .64.418.98.934.98"/>
+                    <path d="M12.438 8.668V14H11.39V9.684h-.051l-1.211.859v-.969l1.262-.906h1.046zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293z"/>
+                  </svg>
+                `;
+            }
+            case "up": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-sort-numeric-up" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path d="M12.438 1.668V7H11.39V2.684h-.051l-1.211.859v-.969l1.262-.906h1.046z"/>
+                    <path fill-rule="evenodd" d="M11.36 14.098c-1.137 0-1.708-.657-1.762-1.278h1.004c.058.223.343.45.773.45.824 0 1.164-.829 1.133-1.856h-.059c-.148.39-.57.742-1.261.742-.91 0-1.72-.613-1.72-1.758 0-1.148.848-1.835 1.973-1.835 1.09 0 2.063.636 2.063 2.687 0 1.867-.723 2.848-2.145 2.848zm.062-2.735c.504 0 .933-.336.933-.972 0-.633-.398-1.008-.94-1.008-.52 0-.927.375-.927 1 0 .64.418.98.934.98"/>
+                    <path d="M4.5 13.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707z"/>
+                  </svg>
+                `;
+            }
+            case "date": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-calendar-event" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                  </svg>
+                `;
+            }
+            case "date-active": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-calendar-event-fill" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
+                  </svg>
+                `;
+            }
+            case "activity": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-activity" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2"/>
+                  </svg>
+                `;
+            }
+            case "arrow-repeat": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                  </svg>
+                `;
+            }
+            case "stopwatch": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-stopwatch" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z"/>
+                    <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3"/>
+                  </svg>
+                `;
+            }
+            case "undo": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-arrow-counterclockwise" width="${size}" height="${size}" fill="${color}" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
+                  </svg>
+                `;
+            }
+            case "gotGoals": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-emoji-angry" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.5 3.5 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.5 4.5 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683m6.991-8.38a.5.5 0 1 1 .448.894l-1.009.504c.176.27.285.64.285 1.049 0 .828-.448 1.5-1 1.5s-1-.672-1-1.5c0-.247.04-.48.11-.686a.502.502 0 0 1 .166-.761zm-6.552 0a.5.5 0 0 0-.448.894l1.009.504A1.94 1.94 0 0 0 5 6.5C5 7.328 5.448 8 6 8s1-.672 1-1.5c0-.247-.04-.48-.11-.686a.502.502 0 0 0-.166-.761z"/>
+                  </svg>
+                `;
+            }
+            case "gotGoals-active": {
+              return `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" fill="${color}" class="bi bi-emoji-angry-fill" viewBox="0 0 16 16">
+                   <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M4.053 4.276a.5.5 0 0 1 .67-.223l2 1a.5.5 0 0 1 .166.76c.071.206.111.44.111.687C7 7.328 6.552 8 6 8s-1-.672-1-1.5c0-.408.109-.778.285-1.049l-1.009-.504a.5.5 0 0 1-.223-.67zm.232 8.157a.5.5 0 0 1-.183-.683A4.5 4.5 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 1 1-.866.5A3.5 3.5 0 0 0 8 10.5a3.5 3.5 0 0 0-3.032 1.75.5.5 0 0 1-.683.183M10 8c-.552 0-1-.672-1-1.5 0-.247.04-.48.11-.686a.502.502 0 0 1 .166-.761l2-1a.5.5 0 1 1 .448.894l-1.009.504c.176.27.285.64.285 1.049 0 .828-.448 1.5-1 1.5"/>
+                  </svg>
+                `;
+            }
+            case "restart": {
+              return `
+                  <svg class="bi bi-arrow-clockwise" width="${size}" height="${size}" fill="${color}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                  </svg>
+                `;
+            }
+            case "stop": {
+              return `
+                  <svg class="bi bi-stop-fill" width="${size}" height="${size}" fill="${color}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5"/>
+                  </svg>
+                `;
+            }
+            default:
+              return "N/A";
+          }
+        },
+      },
+      template: `<div v-html="getIcon(selector, size, color)"></div>`,
+    });
+    const PlayerCard = Vue.component("player-card", {
+      props: ["side", "pos"],
+      computed: {
+        ...Pinia.mapState(useAppStore, [
+          "nicknames",
+          "app",
+          "game",
+          "suitablePlayers",
+          "playerById",
+          "settings",
+        ]),
+        playerId: {
+          get() {
+            return this.game[this.side][this.pos];
+          },
+          set(value) {
+            if (_.isEqual(this.pos, "front") && this.settings.is1v1) {
+              this.$set(this.game[this.side], "back", value);
+            }
+            this.$set(this.game[this.side], this.pos, value);
           },
         },
-        computed: {
-          playersCount: {
-            get() {
-              return _.uniq(
-                _.filter([
-                  this.game.red.front,
-                  this.game.red.back,
-                  this.game.blue.front,
-                  this.game.blue.back,
-                ])
-              );
-            },
-          },
-          suitablePlayers: {
-            get() {
-              return _.map(
-                _.filter(
-                  this.nicknames,
-                  ({ uid }) => !_.includes(this.playersCount, uid)
-                ),
-                "uid"
-              );
-            },
-          },
+        inputId() {
+          return `${this.side}${this.pos}`;
         },
-        mounted() {
-          const gameState = localStorage.getItem("gameState");
-          if (gameState) {
-            this.game = JSON.parse(gameState);
+        availablePlayers() {
+          return [this.playerId, ...this.suitablePlayers];
+        },
+      },
+      methods: {
+        ...Pinia.mapActions(useAppStore, ["incrementScore"]),
+      },
+      template: `
+        <div>
+          <div
+            v-if="app.isRunning"
+          >
+            <h3>{{ playerById(playerId) }}</h3>
+          </div>
+          <div v-else class="row p-2">
+            <select
+              class="form-control col"
+              :id="inputId"
+              v-model="playerId"
+              :title="side + '-' + pos"
+              :disabled="_.isEqual(pos, 'back') && settings.is1v1"
+            >
+              <option
+                v-for="player in availablePlayers"
+                :key="player"
+                :value="player"
+              >
+                {{ playerById(player) }}
+              </option>
+            </select>
+          </div>
+        </div>
+      `,
+    });
+    const TableComponent = Vue.component("table-component", {
+      props: {
+        type: {
+          type: String,
+          required: true,
+        },
+      },
+      template: `
+          <div>
+            <player-table v-if="type === 'players'" />
+            <games-table v-else />
+          </div>
+        `,
+    });
+    const PlayerTable = Vue.component("player-table", {
+      computed: {
+        ...Pinia.mapState(useAppStore, [
+          "nicknames",
+          "display",
+          "plyr2Update",
+          "getPlayerMetadatas",
+          "getGamesByPlayer",
+          "getGotGoals",
+          "getWinrateByPlayer",
+        ]),
+      },
+      methods: {
+        ...Pinia.mapActions(useAppStore, [
+          "toggleDisplay",
+          "updatePlayer",
+          "deletePlayer",
+          "updatePlayerName",
+          "updateName",
+        ]),
+      },
+      template: `
+          <div>
+            <!-- Display Toggles -->
+            <div class="row mt-2">
+              <icon-toggle
+                v-for="toggle in ['goals', 'games', 'gotGoals', 'winrate', 'playersUtils']"
+                :key="toggle"
+                :display="display"
+                :toggle="toggle"
+                @click="toggleDisplay(toggle)"
+              />
+            </div>
+
+            <!-- Player Table -->
+            <table class="table table-responsive mt-2" id="playerTable">
+              <thead class="table-info">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <template v-for="column in ['goals', 'games', 'gotGoals', 'winrate', 'playersUtils']">
+                    <th v-if="display[column]" :key="column">
+                      <icon-selector :selector="column" :size="24" />
+                    </th>
+                  </template>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(player, index) in nicknames" :key="player.id">
+                  <td>{{ index + 1 }}</td>
+                  <td>
+                    <input
+                      v-if="plyr2Update.uid === player.uid"
+                      type="text"
+                      :value="plyr2Update.name"
+                      placeholder="Update nickname"
+                      @keyup.enter="updatePlayerName"
+                      @input="updateName"
+                      class="form-control"
+                    />
+                    <h5 v-else>{{ player.name }}</h5>
+                  </td>
+                  <template v-if="display.goals">
+                    <td>{{ getPlayerMetadatas(player.uid).length }}</td>
+                  </template>
+                  <template v-if="display.games">
+                    <td>{{ getGamesByPlayer(player.uid).length }}</td>
+                  </template>
+                  <template v-if="display.gotGoals">
+                    <td>{{ getGotGoals(player.uid) }}</td>
+                  </template>
+                  <template v-if="display.winrate">
+                    <td>{{ getWinrateByPlayer(player.uid) }}%</td>
+                  </template>
+                  <td v-if="display.playersUtils">
+                    <player-actions
+                      :player="player"
+                      @edit="updatePlayer"
+                      @delete="deletePlayer"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+    });
+    const GamesTable = Vue.component("games-table", {
+      data() {
+        return {
+          defaultChanges: [
+            { changed: "position", side: "red" },
+            { changed: "side" },
+            { changed: "pause" },
+            { changed: "position", side: "blue" },
+          ],
+        };
+      },
+      computed: {
+        ...Pinia.mapState(useAppStore, [
+          "games",
+          "display",
+          "playerById",
+          "getMetaCount",
+        ]),
+      },
+      methods: {
+        ...Pinia.mapActions(useAppStore, ["toggleDisplay", "deleteGame"]),
+      },
+      template: `
+          <div>
+            <!-- Display Toggles -->
+            <div class="row mt-0">
+              <div>
+                <div class="row justify-content-md-end">
+                  <icon-toggle
+                    v-for="toggle in ['date', 'metaData', 'gamesUtils']"
+                    :key="toggle"
+                    :display="display"
+                    :toggle="toggle"
+                    @click="toggleDisplay(toggle)"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Games Table -->
+            <table class="table table-responsive mt-2" id="gamesTable">
+              <thead class="table-info">
+                <tr>
+                  <th>#</th>
+                  <th v-if="display.date">
+                    <icon-selector selector="date" :size="24" />
+                  </th>
+                  <th class="text-danger">Red Front</th>
+                  <th class="text-danger">Red Back</th>
+                  <th class="text-danger">Red Score</th>
+                  <template v-if="display.metaData" v-for="meta in defaultChanges">
+                    <th :key="meta.changed">
+                      <icon-selector
+                        :selector="meta.changed"
+                        :color="meta.side"
+                        :size="24"
+                      />
+                    </th>
+                  </template>
+                  <th class="text-primary">Blue Score</th>
+                  <th class="text-primary">Blue Front</th>
+                  <th class="text-primary">Blue Back</th>
+                  <th v-if="display.gamesUtils">
+                    <icon-selector selector="gear" :size="24" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(game, index) in games" :key="game.meta[0].uid">
+                  <td>{{ index + 1 }}</td>
+                  <td v-if="display.date">
+                    {{ dayjs(game.meta[0].timestamp).format('YY-M-D HH:mm:ss') }}
+                  </td>
+                  <td>{{ playerById(game.red.front) }}</td>
+                  <td>{{ playerById(game.red.back) }}</td>
+                  <td>{{ game.red.score }}</td>
+                  <template v-if="display.metaData" v-for="meta in defaultChanges">
+                    <td :key="meta.changed">{{ getMetaCount(game, meta) }}</td>
+                  </template>
+                  <td>{{ game.blue.score }}</td>
+                  <td>{{ playerById(game.blue.front) }}</td>
+                  <td>{{ playerById(game.blue.back) }}</td>
+                  <td v-if="display.gamesUtils">
+                    <button
+                      class="btn btn-outline"
+                      @click="$emit('show', game.meta[0].uid)"
+                      type="button"
+                      title="Show"
+                    >
+                      <icon-selector selector="eye" />
+                    </button>
+                    <button
+                      class="btn btn-outline"
+                      @click="deleteGame(game)"
+                      type="button"
+                      title="Delete"
+                    >
+                      <icon-selector selector="trash3" />
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+    });
+    const PlayerActions = Vue.component("player-actions", {
+      props: {
+        player: {
+          type: Object,
+          required: true,
+        },
+      },
+      template: `
+      <div class="row">
+      <button
+        class="btn btn-outline col"
+        @click="$emit('edit', player)"
+        title="Edit"
+      >
+        <icon-selector selector="edit" />
+      </button>
+      <button
+        class="btn btn-outline col"
+        @click="$emit('delete', player)"
+        title="Delete"
+      >
+        <icon-selector selector="trash3" />
+      </button>
+      </div>
+      `,
+    });
+    const IconToggle = Vue.component("icon-toggle", {
+      props: {
+        toggle: {
+          type: String,
+          required: true,
+        },
+        display: {
+          type: Object,
+          required: true,
+        },
+      },
+      template: `
+          <div class="justify-content-md-center col-md">
+            <div @click="$emit('click', toggle)">
+              <icon-selector
+                :size="36"
+                :selector="display[toggle] ? toggle + '-active' : toggle"
+              ></icon-selector>
+            </div>
+          </div>
+        `,
+    });
+    Vue.use(Pinia.PiniaVuePlugin);
+    new Vue({
+      el: "#app",
+      pinia: Pinia.createPinia(),
+      data() {
+        return { timer: undefined };
+      },
+      computed: {
+        ...Pinia.mapState(useAppStore, [
+          "newNickname",
+          "nicknames",
+          "settings",
+          "display",
+          "displayable",
+          "app",
+          "game",
+          "games",
+          "playersCount",
+        ]),
+      },
+      methods: {
+        ...Pinia.mapActions(useAppStore, [
+          "addData",
+          "addNickname",
+          "switchSides",
+          "selectBall",
+          "startGame",
+          "toggleBackdrop",
+          "incrementMaxScore",
+          "toggleIsTieBreak",
+          "incrementTieBreakSpan",
+          "toggleIs1v1",
+          "toggleClearPlayers",
+          "toggleStatus",
+          "undoGame",
+          "toggleDisplay",
+          "addNewNickname",
+          "resetGame",
+          "reStartGame",
+          "toggleModal",
+          "toggleBallColor",
+        ]),
+        startTimer() {
+          if (this.app.isRunning) {
+            const startTime = dayjs(_.head(this.game.meta).timestamp);
+            this.timer = setInterval(() => {
+              if (this.app.isPlaying) {
+                this.settings.timeElapsed =
+                  dayjs().diff(startTime, "seconds") -
+                  this.settings.pauseDuration;
+              } else {
+                this.settings.pauseDuration++;
+              }
+            }, 1000);
           }
-          const gamesState = localStorage.getItem("gamesState");
-          if (gamesState) {
-            this.games = JSON.parse(gamesState);
+          if (!this.app.isRunning && this.timer) {
+            clearInterval(this.timer);
           }
-          const nicknamesState = localStorage.getItem("nicknamesState");
-          if (nicknamesState) {
-            this.nicknames = JSON.parse(nicknamesState);
-          }
-          const settingsState = localStorage.getItem("settingsState");
-          if (settingsState) {
-            this.settings = JSON.parse(settingsState);
-          }
-          const configsState = localStorage.getItem("configurationsState");
-          if (configsState) {
-            this.configurations = JSON.parse(configsState);
-          }
-          const displayState = localStorage.getItem("displayState");
-          if (displayState) {
-            this.display = JSON.parse(displayState);
-          }
-          const appState = localStorage.getItem("appState");
-          if (appState) {
-            this.app = JSON.parse(appState);
+        },
+      },
+      mounted() {
+        this.startTimer();
+        this.toggleBallColor(this.game.ball);
+        if (this.app.isRunning) {
+          const redCounter = document.getElementById("redCounter");
+          const blueCounter = document.getElementById("blueCounter");
+          _.map(_.range(this.game.red.score), (i) => {
+            const tile = craeteTile("red", i);
+            redCounter.appendChild(tile);
+          });
+          _.map(_.range(this.game.blue.score), (i) => {
+            const tile = craeteTile("blue", i);
+            blueCounter.appendChild(tile);
+          });
+        }
+        if (this.displayable.selected) {
+          this.toggleBackdrop(this.displayable.selected);
+        }
+      },
+      watch: {
+        game: {
+          handler(value) {
+            this.addData("gameState", this.game);
+          },
+          deep: true,
+        },
+        games: {
+          handler() {
+            this.addData("gamesState", this.games);
+          },
+          deep: true,
+        },
+        nicknames: {
+          handler() {
+            this.addData("nicknamesState", this.nicknames);
+          },
+          deep: true,
+        },
+        settings: {
+          handler() {
+            this.addData("settingsState", this.settings);
+          },
+          deep: true,
+        },
+        display: {
+          handler() {
+            this.addData("displayState", this.display);
+          },
+          deep: true,
+        },
+        displayable: {
+          handler() {
+            this.addData("displayableState", this.displayable);
+          },
+          deep: true,
+        },
+        app: {
+          handler() {
             this.startTimer();
-            if (!this.app.isPlaying && this.app.isRunning) {
-              const offcanvasElement = new bootstrap.Offcanvas(
-                "#pauseBackdrop"
-              );
-              offcanvasElement?.show();
+            this.addData("appState", this.app);
+          },
+          deep: true,
+        },
+        "game.red.front": {
+          handler(value) {
+            if (this.settings.is1v1) {
+              this.game.red.back = value;
             }
-          }
-        },
-        watch: {
-          game: {
-            handler(value) {
-              localStorage.setItem(
-                "gameState",
-                JSON.stringify(this.$data.game)
-              );
-            },
-            deep: true,
-          },
-          games: {
-            handler() {
-              localStorage.setItem(
-                "gamesState",
-                JSON.stringify(this.$data.games)
-              );
-            },
-            deep: true,
-          },
-          nicknames: {
-            handler() {
-              localStorage.setItem(
-                "nicknamesState",
-                JSON.stringify(this.$data.nicknames)
-              );
-            },
-            deep: true,
-          },
-          settings: {
-            handler() {
-              localStorage.setItem(
-                "settingsState",
-                JSON.stringify(this.$data.settings)
-              );
-            },
-            deep: true,
-          },
-          configurations: {
-            handler() {
-              localStorage.setItem(
-                "configurationsState",
-                JSON.stringify(this.$data.configurations)
-              );
-            },
-            deep: true,
-          },
-          display: {
-            handler() {
-              localStorage.setItem(
-                "displayState",
-                JSON.stringify(this.$data.display)
-              );
-            },
-            deep: true,
-          },
-          app: {
-            handler() {
-              localStorage.setItem("appState", JSON.stringify(this.$data.app));
-            },
-            deep: true,
-          },
-          "game.red.front": {
-            handler(value) {
-              if (this.$data.settings.is1v1) {
-                this.$data.game.red.back = value;
-              }
-            },
-          },
-          "game.blue.front": {
-            handler(value) {
-              if (this.$data.settings.is1v1) {
-                this.$data.game.blue.back = value;
-              }
-            },
           },
         },
-      });
-    </script>
-  </body>
+        "game.blue.front": {
+          handler(value) {
+            if (this.settings.is1v1) {
+              this.game.blue.back = value;
+            }
+          },
+        },
+        "game.ball": {
+          handler(value) {
+            this.toggleBallColor(value);
+          },
+        },
+        "displayable.selected": {
+          handler(value) {
+            if (_.isEqual(value, "end")) {
+              clearInterval(this.timer);
+            }
+          },
+        },
+      },
+    });
+  </script>
 </html>
