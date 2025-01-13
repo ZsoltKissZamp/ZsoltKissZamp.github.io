@@ -178,7 +178,10 @@
         width: 5em;
       }
       .ball > div {
-        margin-top: 15px;
+        margin-top: 8px;
+      }
+      .ball {
+        border: 1px solid gray;
       }
     </style>
   </head>
@@ -421,9 +424,10 @@
       </div>
       <!-- App -->
       <div class="red row mb-5 justify-content-center">
-        <div class="col-1 ball">
+        <div class="col-1 ball" @click="toggleBall('red')">
           <icon-selector
-            :selector="_.isEqual(game.ball, 'blue') ? 'ball-active': 'ball'"
+            v-show="_.isEqual(game.ball, 'red')"
+            :selector="`ball${app.isRunning ?'-active': ''}`"
           ></icon-selector>
         </div>
         <div class="change col-2">
@@ -561,9 +565,10 @@
             ></icon-selector>
           </button>
         </div>
-        <div class="col-1 ball">
+        <div class="col-1 ball" @click="toggleBall('blue')">
           <icon-selector
-            :selector="_.isEqual(game.ball, 'blue') ? 'ball-active': 'ball'"
+            v-show="_.isEqual(game.ball, 'blue')"
+            :selector="`ball${app.isRunning ?'-active': ''}`"
           ></icon-selector>
         </div>
       </div>
@@ -952,10 +957,8 @@
               });
           }
         },
-        selectBall() {
-          if (!this.app.isRunning) {
-            this.game.ball = this.changeSide(this.game.ball);
-          }
+        toggleBall(side) {
+          if (!this.app.isRunning) this.game.ball = side;
         },
         incrementScore(rod, side, isOwn) {
           const position = _.includes(["1", "2"], rod) ? "back" : "front";
@@ -1746,7 +1749,7 @@
           "addData",
           "addNickname",
           "switchSides",
-          "selectBall",
+          "toggleBall",
           "startGame",
           "toggleBackdrop",
           "incrementMaxScore",
