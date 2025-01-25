@@ -4,34 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Palace TS</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- Addons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.1/redux.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/8.1.1/react-redux.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/duration.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/antd@5.23.2/dist/antd.min.js"
-      integrity="sha256-114FWs2M03cfm1zccnFoL4Qr8qIVbToUNXURoByPxlk="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@ant-design/icons@5.6.0/dist/index.umd.min.js"
-      integrity="sha256-xchEIltPJ+oBJfYKlnosRWZt2yTpJEZdipjAmLb1GAM="
-      crossorigin="anonymous"
-    ></script>
-    <!-- Don't use this in production: -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
       body {
         margin: 0;
         padding: 0;
         background-color: #f0f0f0;
+        height: 100vh;
+        justify-items: center;
       }
-
       .table-soccer {
         width: 18vw;
         max-width: 600px;
@@ -45,7 +25,6 @@
         flex-direction: column;
         justify-content: space-evenly;
       }
-
       .rod {
         position: relative;
         display: flex;
@@ -57,7 +36,6 @@
         margin: 0;
         overflow: visible;
       }
-
       .player {
         width: 30px;
         height: 20px;
@@ -82,13 +60,11 @@
         align-items: center;
         position: absolute;
       }
-
       .handle-left {
         left: -70px;
         top: 50%;
         transform: translateY(-50%);
       }
-
       .handle-right {
         right: -80px;
         top: 50%;
@@ -101,7 +77,6 @@
         align-self: center;
         margin: -6vh 0;
       }
-
       /* Pop-back animation */
       @keyframes pop-back {
         0% {
@@ -114,7 +89,6 @@
           transform: translate(0, 0) scale(1);
         }
       }
-
       .pop-back {
         animation: pop-back 0.5s ease-out;
       }
@@ -122,17 +96,43 @@
   </head>
   <body>
     <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Addons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.1/redux.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/8.1.1/react-redux.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/duration.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
+      dayjs.extend(window.dayjs_plugin_relativeTime);
+      dayjs.extend(dayjs_plugin_duration);
       const { useState } = React;
       const { createStore } = Redux;
       const { Provider, useSelector, useDispatch } = ReactRedux;
-      const { Button, Col, Flex, Layout, Menu, Row, theme } = antd;
-      const { Header, Footer, Sider, Content } = Layout;
-      const { MenuUnfoldOutlined, MenuFoldOutlined } = icons;
+      const stateNames = [
+        "game",
+        "games",
+        "app",
+        "settings",
+        "display",
+        "displayable",
+        "nicknames",
+      ];
       const loadState = () => {
         try {
-          const serializedState = localStorage.getItem("reduxState");
-          if (serializedState === null) {
+          const serializedState = _.reduce(
+            _.map(stateNames, (n) => {
+              const state = localStorage.getItem(`${n}State`);
+              return _.isEmpty(state) ? {} : { [n]: state };
+            }),
+            (t, n) => _.assignIn(t, n),
+            {}
+          );
+          if (_.isEmpty(serializedState)) {
             return undefined;
           }
           return JSON.parse(serializedState);
@@ -150,14 +150,123 @@
         }
       };
       const initialState = {
-        count: 0,
+        game: {
+          red: {
+            score: 0,
+            front: "",
+            back: "",
+          },
+          blue: {
+            score: 0,
+            front: "",
+            back: "",
+          },
+          meta: [],
+          ball: "red",
+        },
+        games: [],
+        app: {
+          isPlaying: false,
+          isRunning: false,
+          clearPlayers: false,
+        },
+        settings: {
+          is1v1: false,
+          maxScore: 5,
+          isTieBreak: false,
+          tieBreakSpan: 2,
+          timeElapsed: 0,
+          pauseDuration: 0,
+        },
+        display: {
+          playersUtils: false,
+          gamesUtils: false,
+          goals: false,
+          games: false,
+          date: false,
+          metaData: false,
+          winrate: false,
+          gotGoals: false,
+        },
+        displayable: {
+          showId: undefined,
+          showType: undefined,
+          selected: undefined,
+        },
+        nicknames: [],
       };
       function counterReducer(state = initialState, action) {
         switch (action.type) {
-          case "INCREMENT":
-            return { ...state, count: state.count + 1 };
-          case "DECREMENT":
-            return { ...state, count: state.count - 1 };
+          case "app/reset":
+            return {
+              ...state,
+              app: {
+                isPlaying: false,
+                isRunning: false,
+                clearPlayers: false,
+              },
+              game: {
+                red: {
+                  score: 0,
+                  front: "",
+                  back: "",
+                },
+                blue: {
+                  score: 0,
+                  front: "",
+                  back: "",
+                },
+                meta: [],
+                ball: "red",
+              },
+            };
+          case "nicknames/add":
+            return {
+              ...state,
+              nicknames: [...state.nicknames, action.payload],
+            };
+          case "display/toggle":
+            return {
+              ...state,
+              display: {
+                ...state.display,
+                [action.payload]: !state.display[action.payload],
+              },
+            };
+          case "settings/toggle":
+            return {
+              ...state,
+              settings: {
+                ...state.settings,
+                [action.payload]: !state.settings[action.payload],
+              },
+            };
+          case "settings/maxScore":
+            return {
+              ...state,
+              settings: {
+                ...state.settings,
+                maxScore: action.payload,
+              },
+            };
+          case "games/delete":
+            return {
+              ...state,
+              games: _.filter(
+                state.games,
+                (g) => !_.isEqual(action.payload, g)
+              ),
+            };
+          case "nicknames/delete":
+            return {
+              ...state,
+              games: _.filter(
+                state.nicknames,
+                (n) => !_.isEqual(action.payload, n)
+              ),
+            };
+          case "game/score":
+            return { ...state };
           default:
             return state;
         }
@@ -284,54 +393,33 @@
           </div>
         );
       }
-      function App() {
-        const [collapsed, setCollapsed] = useState(false);
-        const {
-          token: { colorBgContainer, borderRadiusLG },
-        } = theme.useToken();
-        const count = useSelector((state) => state.count);
-        const dispatch = useDispatch();
+      function GameActions() {
         return (
-          <Layout
-            style={{
-              height: "100vh",
-            }}
-          >
-            <Header
-              style={{
-                padding: 0,
-                background: colorBgContainer,
-              }}
-            >
-              Header
-            </Header>
-            <Content>
-              <Flex vertical gap="middle">
-                <Row>
-                  <Col span="24">
-                    <div>Column Pause</div>
-                  </Col>
-                  <Col span="24">
-                    <div>Column Undo</div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span="24">
-                    <div>Column 1</div>
-                  </Col>
-                  <Col span="24">
-                    <div>
-                      <TableSoccer />
-                    </div>
-                  </Col>
-                  <Col span="24">
-                    <div>Column 3</div>
-                  </Col>
-                </Row>
-              </Flex>
-            </Content>
-            <Footer>Footer</Footer>
-          </Layout>
+          <div>
+            <div>Column Pause</div>
+            <div>Column Undo</div>
+          </div>
+        );
+      }
+      function GameDisplay() {
+        return (
+          <div>
+            <div>Column Red</div>
+            <TableSoccer />
+            <div>Column Blue</div>
+          </div>
+        );
+      }
+      function GameStats() {
+        return <div />;
+      }
+      function App() {
+        return (
+          <div>
+            <GameActions />
+            <GameDisplay />
+            <GameStats />
+          </div>
         );
       }
       const container = document.getElementById("root");

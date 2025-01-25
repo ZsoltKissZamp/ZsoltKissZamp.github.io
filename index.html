@@ -183,6 +183,11 @@
       .ball {
         border: 1px solid gray;
       }
+      .score {
+        align-self: center;
+        border: 1px solid black;
+        font-size: 3rem;
+      }
     </style>
   </head>
   <body>
@@ -477,6 +482,7 @@
       </div>
       <!-- Soccer Table -->
       <div class="row">
+        <div class="col score" v-show="app.isRunning">{{game.blue.score}}</div>
         <div class="col hold" v-show="app.isRunning">
           <div class="counter blue" id="blueCounter"></div>
         </div>
@@ -596,6 +602,7 @@
         <div class="col hold" v-show="app.isRunning">
           <div class="counter red" id="redCounter"></div>
         </div>
+        <div class="col score" v-show="app.isRunning">{{game.red.score}}</div>
       </div>
       <!-- Blue Players -->
       <div class="blue row mt-5 justify-content-center">
