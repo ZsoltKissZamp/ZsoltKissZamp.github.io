@@ -117,20 +117,20 @@
         top: 5.9em;
       }
       #red-3 {
-        left: 1.25em;
-        top: 3.8em;
-      }
-      #blue-5 {
-        left: 6.1em;
-        top: 1.1em;
-      }
-      #red-5 {
         left: 11.1em;
         top: -1em;
       }
-      #blue-3 {
+      #blue-4 {
         left: 16.2em;
         top: -3.7em;
+      }
+      #red-4 {
+        left: 1.25em;
+        top: 3.8em;
+      }
+      #blue-3 {
+        left: 6.1em;
+        top: 1.1em;
       }
       #red-2 {
         left: 21.5em;
@@ -182,6 +182,11 @@
       }
       .ball {
         border: 1px solid gray;
+      }
+      .score {
+        align-self: center;
+        border: 1px solid black;
+        font-size: 3rem;
       }
     </style>
   </head>
@@ -477,6 +482,7 @@
       </div>
       <!-- Soccer Table -->
       <div class="row">
+        <div class="col score" v-show="app.isRunning">{{game.blue.score}}</div>
         <div class="col hold" v-show="app.isRunning">
           <div class="counter blue" id="blueCounter"></div>
         </div>
@@ -484,19 +490,20 @@
           <div class="table-soccer">
             <div
               class="goal blue"
-              ondrop="drop(event, 'blue')"
-              ondragover="allowDrop(event)"
-              ontouchend="handleTouchEnd(event, 'blue')"
+              id="blueGoal"
+              @drop="onDrop(event, 'blue')"
+              @dragover="allowDrop"
+              @touchend="handleTouchEnd(event, 'blue')"
             ></div>
             <div class="rod" id="blue-1">
               <div
                 class="player blue"
                 draggable="true"
                 id="blue-player-1"
-                ondragstart="drag(event)"
-                ontouchstart="handleTouchStart(event)"
-                ontouchmove="handleTouchMove(event)"
-                ontouchend="handleTouchEnd(event, null)"
+                @dragstart="drag"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd(event, 'blue-1')"
               ></div>
             </div>
             <div class="rod" id="blue-2">
@@ -504,54 +511,54 @@
                 class="player blue"
                 draggable="true"
                 id="blue-player-2"
-                ondragstart="drag(event)"
-                ontouchstart="handleTouchStart(event)"
-                ontouchmove="handleTouchMove(event)"
-                ontouchend="handleTouchEnd(event, null)"
+                @dragstart="drag"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd(event, 'blue-2')"
               ></div>
             </div>
-            <div class="rod" id="red-3">
+            <div class="rod" id="red-4">
               <div
                 class="player red"
                 draggable="true"
                 id="red-player-4"
-                ondragstart="drag(event)"
-                ontouchstart="handleTouchStart(event)"
-                ontouchmove="handleTouchMove(event)"
-                ontouchend="handleTouchEnd(event, null)"
-              ></div>
-            </div>
-            <div class="rod" id="blue-5">
-              <div
-                class="player blue"
-                draggable="true"
-                id="blue-player-3"
-                ondragstart="drag(event)"
-                ontouchstart="handleTouchStart(event)"
-                ontouchmove="handleTouchMove(event)"
-                ontouchend="handleTouchEnd(event, null)"
-              ></div>
-            </div>
-            <div class="rod" id="red-5">
-              <div
-                class="player red"
-                draggable="true"
-                id="red-player-3"
-                ondragstart="drag(event)"
-                ontouchstart="handleTouchStart(event)"
-                ontouchmove="handleTouchMove(event)"
-                ontouchend="handleTouchEnd(event, null)"
+                @dragstart="drag"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd(event, 'red-4')"
               ></div>
             </div>
             <div class="rod" id="blue-3">
               <div
                 class="player blue"
                 draggable="true"
+                id="blue-player-3"
+                @dragstart="drag"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd(event, 'blue-3')"
+              ></div>
+            </div>
+            <div class="rod" id="red-3">
+              <div
+                class="player red"
+                draggable="true"
+                id="red-player-3"
+                @dragstart="drag"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd(event, 'red-3')"
+              ></div>
+            </div>
+            <div class="rod" id="blue-4">
+              <div
+                class="player blue"
+                draggable="true"
                 id="blue-player-4"
-                ondragstart="drag(event)"
-                ontouchstart="handleTouchStart(event)"
-                ontouchmove="handleTouchMove(event)"
-                ontouchend="handleTouchEnd(event, null)"
+                @dragstart="drag"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd(event, 'blue-4')"
               ></div>
             </div>
             <div class="rod" id="red-2">
@@ -559,10 +566,10 @@
                 class="player red"
                 draggable="true"
                 id="red-player-2"
-                ondragstart="drag(event)"
-                ontouchstart="handleTouchStart(event)"
-                ontouchmove="handleTouchMove(event)"
-                ontouchend="handleTouchEnd(event, null)"
+                @dragstart="drag"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd(event, 'red-2')"
               ></div>
             </div>
             <div class="rod" id="red-1">
@@ -570,17 +577,18 @@
                 class="player red"
                 draggable="true"
                 id="red-player-1"
-                ondragstart="drag(event)"
-                ontouchstart="handleTouchStart(event)"
-                ontouchmove="handleTouchMove(event)"
-                ontouchend="handleTouchEnd(event, null)"
+                @dragstart="drag"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd(event, 'red-1')"
               ></div>
             </div>
             <div
               class="goal red"
-              ondrop="drop(event, 'red')"
-              ondragover="allowDrop(event)"
-              ontouchend="handleTouchEnd(event, 'blue')"
+              id="redGoal"
+              @drop="onDrop(event, 'red')"
+              @dragover="allowDrop"
+              @touchend="handleTouchEnd(event, 'blue')"
             ></div>
             <div class="middleSwitch" @click="switchSides()">
               <icon-selector
@@ -594,6 +602,7 @@
         <div class="col hold" v-show="app.isRunning">
           <div class="counter red" id="redCounter"></div>
         </div>
+        <div class="col score" v-show="app.isRunning">{{game.red.score}}</div>
       </div>
       <!-- Blue Players -->
       <div class="blue row mt-5 justify-content-center">
@@ -664,119 +673,6 @@
   <script src="https://unpkg.com/@vue/composition-api"></script>
   <script src="https://unpkg.com/vue-demi"></script>
   <script src="https://unpkg.com/pinia"></script>
-  <script>
-    function allowDrop(event) {
-      event.preventDefault();
-    }
-    function drag(event) {
-      event.dataTransfer.setData("text", event.target.id);
-    }
-    function drop(event, loc) {
-      event.preventDefault();
-      const store = window.useAppStore();
-      const unsubscribe = store.$onAction(
-        ({ name, store, args, after, onError }) => {
-          const startTime = Date.now();
-          console.log(`Start "${name}" with params [${args.join(", ")}].`);
-          after((result) => {
-            console.log(
-              `Finished "${name}" after ${
-                Date.now() - startTime
-              }ms.\nResult: ${result}.`
-            );
-          });
-          onError((error) => {
-            console.warn(
-              `Failed "${name}" after ${
-                Date.now() - startTime
-              }ms.\nError: ${error}.`
-            );
-          });
-        }
-      );
-
-      const [side, p, rod] = event.dataTransfer.getData("text").split("-");
-      const isOwn = _.isEqual(side, loc);
-      if (store.app.isRunning) {
-        store.incrementScore(rod, side, isOwn);
-        unsubscribe();
-      }
-    }
-    function handleTouchStart(event) {
-      const target = event.target;
-
-      // Store the initial touch position and element's position
-      target.dataset.startX = event.touches[0].clientX;
-      target.dataset.startY = event.touches[0].clientY;
-      target.dataset.originalLeft = target.style.left || "0px";
-      target.dataset.originalTop = target.style.top || "0px";
-
-      // Mark the element as being dragged
-      target.style.position = "absolute";
-      target.dataset.dragging = "true";
-    }
-    function handleTouchMove(event) {
-      const target = event.target;
-
-      if (target.dataset.dragging !== "true") return;
-
-      const startX = parseFloat(target.dataset.startX);
-      const startY = parseFloat(target.dataset.startY);
-      const deltaX = event.touches[0].clientX - startX;
-      const deltaY = event.touches[0].clientY - startY;
-
-      // Update the element's position
-      target.style.left = `${
-        parseFloat(target.dataset.originalLeft) + deltaX
-      }px`;
-      target.style.top = `${parseFloat(target.dataset.originalTop) + deltaY}px`;
-    }
-    function handleTouchEnd(event, side) {
-      const target = event.target;
-      target.dataset.dragging = "false";
-      const store = window.useAppStore();
-      const unsubscribe = store.$onAction(
-        ({ name, store, args, after, onError }) => {
-          const startTime = Date.now();
-          console.log(`Start "${name}" with params [${args.join(", ")}].`);
-          after((result) => {
-            console.log(
-              `Finished "${name}" after ${
-                Date.now() - startTime
-              }ms.\nResult: ${result}.`
-            );
-          });
-          onError((error) => {
-            console.warn(
-              `Failed "${name}" after ${
-                Date.now() - startTime
-              }ms.\nError: ${error}.`
-            );
-          });
-        }
-      );
-
-      const goalElement = document.querySelector(`.goal.${side}`);
-      const goalRect = goalElement.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
-
-      // Check if the dragged player overlaps the goal
-      if (
-        targetRect.left < goalRect.right &&
-        targetRect.right > goalRect.left &&
-        targetRect.top < goalRect.bottom &&
-        targetRect.bottom > goalRect.top
-      ) {
-        const [loc, p, rod] = target.id.split("-");
-        const isOwn = _.isEqual(side, loc);
-
-        if (store.app.isRunning) {
-          store.incrementScore(rod, loc, isOwn);
-          unsubscribe();
-        }
-      }
-    }
-  </script>
   <script type="module">
     const craeteTile = (side, i) => {
       const tile = document.createElement("div");
@@ -790,6 +686,7 @@
       return tile;
     };
     import { UUID } from "https://unpkg.com/uuidjs@^5";
+    // import * as vueTouchEvents from "https://cdn.jsdelivr.net/npm/@vuemod/vue-touch@0.0.22/index.min.js";
     dayjs.extend(window.dayjs_plugin_relativeTime);
     dayjs.extend(dayjs_plugin_duration);
     const useAppStore = Pinia.defineStore("app", {
@@ -1251,6 +1148,82 @@
         },
         deleteGame(game) {
           this.games = _.filter(this.games, (g) => !_.isEqual(game, g));
+        },
+        drag(event) {
+          event.dataTransfer.setData("text", event.target.id);
+        },
+        onDrop(event, loc) {
+          event.preventDefault();
+          const [side, p, rod] = event.dataTransfer.getData("text").split("-");
+          const isOwn = _.isEqual(side, loc);
+          if (this.app.isRunning) {
+            this.incrementScore(rod, side, isOwn);
+          }
+        },
+        allowDrop(event) {
+          event.preventDefault();
+        },
+        handleTouchStart(event) {
+          const target = event.target;
+          target.dataset.startX = event.touches[0].clientX;
+          target.dataset.startY = event.touches[0].clientY;
+          target.dataset.originalLeft = target.style.left || "0px";
+          target.dataset.originalTop = target.style.top || "0px";
+
+          target.style.position = "absolute";
+          target.dataset.dragging = "true";
+        },
+        handleTouchMove(event) {
+          const target = event.target;
+
+          if (target.dataset.dragging !== "true") return;
+
+          const startX = parseFloat(target.dataset.startX);
+          const startY = parseFloat(target.dataset.startY);
+          const deltaX = event.touches[0].clientX - startX;
+          const deltaY = event.touches[0].clientY - startY;
+
+          // Correct for the 90-degree rotation (X and Y axes are swapped)
+          const correctedDeltaX = deltaY;
+          const correctedDeltaY = -deltaX;
+
+          // Update the element's position based on the corrected deltas
+          if (_.isEqual(target.id.split("-")[0], "blue")) {
+            target.style.left = `${
+              parseFloat(target.dataset.originalLeft) + correctedDeltaX
+            }px`;
+          } else {
+            target.style.left = `${
+              parseFloat(target.dataset.originalLeft) + correctedDeltaX
+            }px`;
+          }
+          target.style.top = `${
+            parseFloat(target.dataset.originalTop) + correctedDeltaY
+          }px`;
+        },
+        handleTouchEnd(event, sideRod) {
+          const target = event.target;
+          target.dataset.dragging = "false";
+          const [side, rod] = sideRod.split("-");
+
+          const goalElement = document.getElementById(`${side}Goal`);
+          const goalRect = goalElement.getBoundingClientRect();
+          const targetRect = target.getBoundingClientRect();
+
+          if (
+            targetRect.left < goalRect.right &&
+            targetRect.right > goalRect.left &&
+            targetRect.top < goalRect.bottom &&
+            targetRect.bottom > goalRect.top
+          ) {
+            const [loc, p, rod] = target.id.split("-");
+            const isOwn = _.isEqual(side, loc);
+
+            if (this.app.isRunning) {
+              this.incrementScore(rod, loc, isOwn);
+            }
+          }
+          target.style = "";
         },
         resetApp() {
           this.app = {
@@ -1874,6 +1847,7 @@
       `,
     });
     Vue.use(Pinia.PiniaVuePlugin);
+    // Vue.use(vueTouchEvents);
     new Vue({
       el: "#app",
       pinia: Pinia.createPinia(),
@@ -1895,6 +1869,13 @@
       },
       methods: {
         ...Pinia.mapActions(useAppStore, [
+          "onTapItem",
+          "handleTouchStart",
+          "handleTouchMove",
+          "handleTouchEnd",
+          "drag",
+          "onDrop",
+          "allowDrop",
           "addData",
           "addNickname",
           "switchSides",
