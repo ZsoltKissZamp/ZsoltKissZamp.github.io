@@ -12,61 +12,11 @@
         height: 100vh;
         justify-items: center;
       }
-      .table-soccer {
-        width: 18vw;
-        max-width: 600px;
-        height: 55vh;
-        background-color: green;
-        border: 10px solid #654321;
-        border-radius: 10px;
-        position: relative;
-        overflow: visible;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-      }
-      .rod {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 8px;
-        background-color: #555;
-        border-radius: 5px;
-        margin: 0;
-        overflow: visible;
-      }
-      .player {
-        width: 30px;
-        height: 20px;
-        border-radius: 50%;
-        border: 2px solid white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 4px;
-        cursor: grab;
-        position: relative;
-      }
-      .blue {
-        background-color: blue;
-      }
-      .red {
-        background-color: red;
-      }
       .handle {
         display: flex;
         justify-content: center;
         align-items: center;
         position: absolute;
-      }
-      .handle-left {
-        left: -70px;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      .handle-right {
-        right: -80px;
         top: 50%;
         transform: translateY(-50%);
       }
@@ -124,18 +74,19 @@
       ];
       const loadState = () => {
         try {
-          const serializedState = _.reduce(
-            _.map(stateNames, (n) => {
-              const state = localStorage.getItem(`${n}State`);
-              return _.isEmpty(state) ? {} : { [n]: state };
-            }),
-            (t, n) => _.assignIn(t, n),
-            {}
-          );
-          if (_.isEmpty(serializedState)) {
-            return undefined;
+          const serializedState = localStorage.getItem("reduxState");
+          if (serializedState === null) {
+            return undefined; // No saved state, use default initial state
           }
           return JSON.parse(serializedState);
+          // return _.reduce(
+          //   _.map(stateNames, (n) => {
+          //     const state = localStorage.getItem(`${n}State`);
+          //     return _.isEmpty(state) ? {} : { [n]: JSON.parse(state) };
+          //   }),
+          //   (t, n) => _.assignIn(t, n),
+          //   {}
+          // );
         } catch (err) {
           console.error("Failed to load state from localStorage:", err);
           return undefined;
@@ -143,6 +94,7 @@
       };
       const saveState = (state) => {
         try {
+          console.log("saveState", state);
           const serializedState = JSON.stringify(state);
           localStorage.setItem("reduxState", serializedState);
         } catch (err) {
@@ -291,14 +243,14 @@
       );
       function TableSoccer() {
         const rows = [
-          { team: "red", player: 1 },
-          { team: "red", player: 2 },
-          { team: "blue", player: 3 },
-          { team: "red", player: 5 },
-          { team: "blue", player: 5 },
-          { team: "red", player: 3 },
-          { team: "blue", player: 2 },
           { team: "blue", player: 1 },
+          { team: "blue", player: 2 },
+          { team: "red", player: 3 },
+          { team: "blue", player: 5 },
+          { team: "red", player: 5 },
+          { team: "blue", player: 3 },
+          { team: "red", player: 2 },
+          { team: "red", player: 1 },
         ];
         const handleDragStart = (e, playerInfo) => {
           e.dataTransfer.setData("player", JSON.stringify(playerInfo));
@@ -339,22 +291,68 @@
         };
 
         return (
-          <div className="table-soccer">
+          <div
+            style={{
+              width: "18vw",
+              maxWidth: 600,
+              height: "55vh",
+              backgroundColor: "green",
+              border: "10px solid #654321",
+              borderRadius: 10,
+              position: "relative",
+              overflow: "visible",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+            }}
+          >
             <div
-              className="goal red"
+              className="goal blue"
               onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, "red")}
+              onDrop={(e) => handleDrop(e, blue)}
               onTouchEnd={handleDragEnd}
             ></div>
             {rows.map((row, rowIndex) => (
-              <div key={rowIndex} className="rod">
+              <div
+                key={rowIndex}
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 8,
+                  backgroundColor: "#555",
+                  borderRadius: 5,
+                  margin: 0,
+                  overflow: "visible",
+                }}
+              >
                 {row.team === "red" && (
-                  <div className="handle handle-left">{handleSVG}</div>
+                  <div
+                    className="handle"
+                    style={{
+                      right: -80,
+                    }}
+                  >
+                    {handleSVG}
+                  </div>
                 )}
-                {Array.from({ length: row.player }).map((_, i) => (
+                {Array.from({ length: row.player }).map((holder, i) => (
                   <div
                     key={i}
-                    className={`player ${row.team}`}
+                    style={{
+                      width: 30,
+                      height: 20,
+                      borderRadius: "50%",
+                      border: "2px solid white",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: "0 4px",
+                      cursor: "grab",
+                      position: "relative",
+                      backgroundColor: row.team,
+                    }}
                     draggable
                     onDragStart={(e) =>
                       handleDragStart(e, {
@@ -380,14 +378,21 @@
                   ></div>
                 ))}
                 {row.team === "blue" && (
-                  <div className="handle handle-right">{handleSVG}</div>
+                  <div
+                    className="handle"
+                    style={{
+                      left: -70,
+                    }}
+                  >
+                    {handleSVG}
+                  </div>
                 )}
               </div>
             ))}
             <div
-              className="goal blue"
+              className="goal red"
               onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, "blue")}
+              onDrop={(e) => handleDrop(e, "red")}
               onTouchEnd={handleDragEnd}
             ></div>
           </div>
@@ -395,18 +400,90 @@
       }
       function GameActions() {
         return (
-          <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "2rem 0",
+            }}
+          >
             <div>Column Pause</div>
             <div>Column Undo</div>
           </div>
         );
       }
+      const ScoreBoard = ({ side }) => {
+        const CounterTile = () => (
+          <div
+            style={{
+              width: 20,
+              height: 40,
+              borderRadius: 15,
+              backgroundColor: side,
+              alignSelf: "center",
+            }}
+          ></div>
+        );
+        const Rod = () => (
+          <div
+            style={{
+              backgroundColor: "#555",
+              height: 8,
+              margin: 4,
+              display: "flex",
+            }}
+          >
+            {Array.from({ length: 3 }).map((holder, i) => (
+              <CounterTile key={i} />
+            ))}
+          </div>
+        );
+        const Counter = () => <div id="counter"></div>;
+        return (
+          <div
+            style={{
+              width: "80%",
+              margin: 8,
+              marginTop: side === "blue" ? 8 : 20,
+              marginBottom: side === "red" ? 8 : 20,
+            }}
+          >
+            {side === "red" ? (
+              <>
+                <Rod />
+                <Counter />
+              </>
+            ) : (
+              <>
+                <Counter />
+                <Rod />
+              </>
+            )}
+          </div>
+        );
+      };
       function GameDisplay() {
         return (
-          <div>
-            <div>Column Red</div>
-            <TableSoccer />
+          <div
+            style={{
+              display: "flex",
+              flexFlow: "row",
+              margin: "1rem",
+            }}
+          >
             <div>Column Blue</div>
+            <div
+              style={{
+                display: "flex",
+                flexFlow: "column",
+                alignItems: "center",
+              }}
+            >
+              <ScoreBoard side={"blue"} />
+              <TableSoccer />
+              <ScoreBoard side={"red"} />
+            </div>
+            <div>Column Red</div>
           </div>
         );
       }
@@ -425,9 +502,11 @@
       const container = document.getElementById("root");
       const root = ReactDOM.createRoot(container);
       root.render(
-        <Provider store={store}>
-          <App />
-        </Provider>
+        <React.StrictMode>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </React.StrictMode>
       );
     </script>
   </body>
