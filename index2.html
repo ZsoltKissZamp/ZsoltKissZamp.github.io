@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palace TS</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+        height: 100vh;
+        justify-items: center;
+      }
+      .handle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .goal {
+        width: 75px;
+        height: 30px;
+        background: gray;
+        align-self: center;
+        margin: -6vh 0;
+      }
+      /* Pop-back animation */
+      @keyframes pop-back {
+        0% {
+          transform: translate(0, 0) scale(1.2);
+        }
+        50% {
+          transform: translate(0, 0) scale(0.8);
+        }
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+      }
+      .pop-back {
+        animation: pop-back 0.5s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Addons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.1/redux.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/8.1.1/react-redux.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/duration.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      dayjs.extend(window.dayjs_plugin_relativeTime);
+      dayjs.extend(dayjs_plugin_duration);
+      const { useState } = React;
+      const { createStore } = Redux;
+      const { Provider, useSelector, useDispatch } = ReactRedux;
+      const stateNames = [
+        "game",
+        "games",
+        "app",
+        "settings",
+        "display",
+        "displayable",
+        "nicknames",
+      ];
+      const loadState = () => {
+        try {
+          const serializedState = localStorage.getItem("reduxState");
+          if (serializedState === null) {
+            return undefined; // No saved state, use default initial state
+          }
+          return JSON.parse(serializedState);
+          // return _.reduce(
+          //   _.map(stateNames, (n) => {
+          //     const state = localStorage.getItem(`${n}State`);
+          //     return _.isEmpty(state) ? {} : { [n]: JSON.parse(state) };
+          //   }),
+          //   (t, n) => _.assignIn(t, n),
+          //   {}
+          // );
+        } catch (err) {
+          console.error("Failed to load state from localStorage:", err);
+          return undefined;
+        }
+      };
+      const saveState = (state) => {
+        try {
+          console.log("saveState", state);
+          const serializedState = JSON.stringify(state);
+          localStorage.setItem("reduxState", serializedState);
+        } catch (err) {
+          console.error("Failed to save state to localStorage:", err);
+        }
+      };
+      const initialState = {
+        game: {
+          red: {
+            score: 0,
+            front: "",
+            back: "",
+          },
+          blue: {
+            score: 0,
+            front: "",
+            back: "",
+          },
+          meta: [],
+          ball: "red",
+        },
+        games: [],
+        app: {
+          isPlaying: false,
+          isRunning: false,
+          clearPlayers: false,
+        },
+        settings: {
+          is1v1: false,
+          maxScore: 5,
+          isTieBreak: false,
+          tieBreakSpan: 2,
+          timeElapsed: 0,
+          pauseDuration: 0,
+        },
+        display: {
+          playersUtils: false,
+          gamesUtils: false,
+          goals: false,
+          games: false,
+          date: false,
+          metaData: false,
+          winrate: false,
+          gotGoals: false,
+        },
+        displayable: {
+          showId: undefined,
+          showType: undefined,
+          selected: undefined,
+        },
+        nicknames: [],
+      };
+      function counterReducer(state = initialState, action) {
+        switch (action.type) {
+          case "app/reset":
+            return {
+              ...state,
+              app: {
+                isPlaying: false,
+                isRunning: false,
+                clearPlayers: false,
+              },
+              game: {
+                red: {
+                  score: 0,
+                  front: "",
+                  back: "",
+                },
+                blue: {
+                  score: 0,
+                  front: "",
+                  back: "",
+                },
+                meta: [],
+                ball: "red",
+              },
+            };
+          case "nicknames/add":
+            return {
+              ...state,
+              nicknames: [...state.nicknames, action.payload],
+            };
+          case "display/toggle":
+            return {
+              ...state,
+              display: {
+                ...state.display,
+                [action.payload]: !state.display[action.payload],
+              },
+            };
+          case "settings/toggle":
+            return {
+              ...state,
+              settings: {
+                ...state.settings,
+                [action.payload]: !state.settings[action.payload],
+              },
+            };
+          case "settings/maxScore":
+            return {
+              ...state,
+              settings: {
+                ...state.settings,
+                maxScore: action.payload,
+              },
+            };
+          case "games/delete":
+            return {
+              ...state,
+              games: _.filter(
+                state.games,
+                (g) => !_.isEqual(action.payload, g)
+              ),
+            };
+          case "nicknames/delete":
+            return {
+              ...state,
+              games: _.filter(
+                state.nicknames,
+                (n) => !_.isEqual(action.payload, n)
+              ),
+            };
+          case "game/score":
+            return { ...state };
+          default:
+            return state;
+        }
+      }
+      const persistedState = loadState();
+      const store = createStore(counterReducer, persistedState);
+      store.subscribe(() => {
+        saveState(store.getState());
+      });
+      const handleSVG = (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="60"
+          height="20"
+          viewBox="0 0 60 20"
+          fill="none"
+        >
+          <rect x="0" y="5" width="50" height="10" fill="#333" rx="5" />
+          <circle cx="5" cy="10" r="5" fill="#555" />
+          <rect x="10" y="7" width="35" height="6" fill="#444" rx="3" />
+        </svg>
+      );
+      function TableSoccer() {
+        const rows = [
+          { team: "blue", player: 1 },
+          { team: "blue", player: 2 },
+          { team: "red", player: 3 },
+          { team: "blue", player: 5 },
+          { team: "red", player: 5 },
+          { team: "blue", player: 3 },
+          { team: "red", player: 2 },
+          { team: "red", player: 1 },
+        ];
+        const handleDragStart = (e, playerInfo) => {
+          e.dataTransfer.setData("player", JSON.stringify(playerInfo));
+          const rect = e.target.getBoundingClientRect();
+          e.target.dataset.originalX = rect.left;
+          e.target.dataset.originalY = rect.top;
+          e.target.style.opacity = "0.5";
+        };
+        const handleDragEnd = (e) => {
+          e.target.style.opacity = "1";
+        };
+        const handleDrop = (e, goalTeam) => {
+          console.log(goalTeam);
+          e.preventDefault();
+          const playerData = JSON.parse(e.dataTransfer.getData("player"));
+          console.log(
+            `Player ${playerData.index} dragged into ${goalTeam} goal`
+          );
+
+          const player = document.querySelector(
+            `[data-index="${playerData.index}"]`
+          );
+          if (player) {
+            player.classList.add("pop-back");
+
+            // Remove the animation class after animation completes
+            player.addEventListener(
+              "animationend",
+              () => {
+                player.classList.remove("pop-back");
+              },
+              { once: true }
+            );
+          }
+        };
+        const handleDragOver = (e) => {
+          e.preventDefault();
+        };
+
+        return (
+          <div
+            style={{
+              width: "18vw",
+              maxWidth: 600,
+              height: "55vh",
+              backgroundColor: "green",
+              border: "10px solid #654321",
+              borderRadius: 10,
+              position: "relative",
+              overflow: "visible",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <div
+              className="goal blue"
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, blue)}
+              onTouchEnd={handleDragEnd}
+            ></div>
+            {rows.map((row, rowIndex) => (
+              <div
+                key={rowIndex}
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 8,
+                  backgroundColor: "#555",
+                  borderRadius: 5,
+                  margin: 0,
+                  overflow: "visible",
+                }}
+              >
+                {row.team === "red" && (
+                  <div
+                    className="handle"
+                    style={{
+                      right: -80,
+                    }}
+                  >
+                    {handleSVG}
+                  </div>
+                )}
+                {Array.from({ length: row.player }).map((holder, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: 30,
+                      height: 20,
+                      borderRadius: "50%",
+                      border: "2px solid white",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: "0 4px",
+                      cursor: "grab",
+                      position: "relative",
+                      backgroundColor: row.team,
+                    }}
+                    draggable
+                    onDragStart={(e) =>
+                      handleDragStart(e, {
+                        team: row.team,
+                        index: `${rowIndex}-${i}`,
+                      })
+                    }
+                    onDragEnd={handleDragEnd}
+                    onTouchEnd={handleDragEnd}
+                    onTouchMove={(e) =>
+                      handleDrop(e, {
+                        team: row.team,
+                        index: `${rowIndex}-${i}`,
+                      })
+                    }
+                    onTouchStart={(e) =>
+                      handleDragStart(e, {
+                        team: row.team,
+                        index: `${rowIndex}-${i}`,
+                      })
+                    }
+                    data-index={`${rowIndex}-${i}`}
+                  ></div>
+                ))}
+                {row.team === "blue" && (
+                  <div
+                    className="handle"
+                    style={{
+                      left: -70,
+                    }}
+                  >
+                    {handleSVG}
+                  </div>
+                )}
+              </div>
+            ))}
+            <div
+              className="goal red"
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, "red")}
+              onTouchEnd={handleDragEnd}
+            ></div>
+          </div>
+        );
+      }
+      function GameActions() {
+        return (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "2rem 0",
+            }}
+          >
+            <div>Column Pause</div>
+            <div>Column Undo</div>
+          </div>
+        );
+      }
+      const ScoreBoard = ({ side }) => {
+        const CounterTile = () => (
+          <div
+            style={{
+              width: 20,
+              height: 40,
+              borderRadius: 15,
+              backgroundColor: side,
+              alignSelf: "center",
+            }}
+          ></div>
+        );
+        const Rod = () => (
+          <div
+            style={{
+              backgroundColor: "#555",
+              height: 8,
+              margin: 4,
+              display: "flex",
+            }}
+          >
+            {Array.from({ length: 3 }).map((holder, i) => (
+              <CounterTile key={i} />
+            ))}
+          </div>
+        );
+        const Counter = () => <div id="counter"></div>;
+        return (
+          <div
+            style={{
+              width: "80%",
+              margin: 8,
+              marginTop: side === "blue" ? 8 : 20,
+              marginBottom: side === "red" ? 8 : 20,
+            }}
+          >
+            {side === "red" ? (
+              <>
+                <Rod />
+                <Counter />
+              </>
+            ) : (
+              <>
+                <Counter />
+                <Rod />
+              </>
+            )}
+          </div>
+        );
+      };
+      function GameDisplay() {
+        return (
+          <div
+            style={{
+              display: "flex",
+              flexFlow: "row",
+              margin: "1rem",
+            }}
+          >
+            <div>Column Blue</div>
+            <div
+              style={{
+                display: "flex",
+                flexFlow: "column",
+                alignItems: "center",
+              }}
+            >
+              <ScoreBoard side={"blue"} />
+              <TableSoccer />
+              <ScoreBoard side={"red"} />
+            </div>
+            <div>Column Red</div>
+          </div>
+        );
+      }
+      function GameStats() {
+        return <div />;
+      }
+      function App() {
+        return (
+          <div>
+            <GameActions />
+            <GameDisplay />
+            <GameStats />
+          </div>
+        );
+      }
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(
+        <React.StrictMode>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </React.StrictMode>
+      );
+    </script>
+  </body>
+</html>

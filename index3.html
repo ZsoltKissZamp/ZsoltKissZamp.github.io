@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table Soccer</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      .table-soccer {
+        width: 80%;
+        max-width: 600px;
+        height: 400px;
+        background-color: green;
+        border: 10px solid #654321;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+
+      .rod {
+        position: relative;
+        display: flex;
+        justify-content: cen;
+        align-items: center;
+        height: 10%;
+        background-color: #555;
+        border-radius: 5px;
+        margin: 0 5%;
+      }
+
+      .player {
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        border-radius: 50%;
+        border: 2px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .player.team-blue {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function TableSoccer() {
+        const rows = [
+          { team: "red", players: 1 },
+          { team: "blue", players: 2 },
+          { team: "red", players: 5 },
+          { team: "blue", players: 3 },
+          { team: "red", players: 3 },
+          { team: "blue", players: 5 },
+          { team: "red", players: 2 },
+          { team: "blue", players: 1 },
+        ];
+
+        return (
+          <div className="table-soccer">
+            {rows.map((row, index) => (
+              <div key={index} className="rod">
+                {Array.from({ length: row.players }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`player ${
+                      row.team === "blue" ? "team-blue" : ""
+                    }`}
+                  >
+                    {index + 1}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<TableSoccer />);
+    </script>
+  </body>
+</html>

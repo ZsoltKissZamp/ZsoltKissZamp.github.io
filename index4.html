@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table Soccer</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      .table-soccer {
+        width: 18vw;
+        max-width: 600px;
+        height: 55vh;
+        background-color: green;
+        border: 10px solid #654321;
+        border-radius: 10px;
+        position: relative;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+
+      .rod {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 8px;
+        background-color: #555;
+        border-radius: 5px;
+        margin: 0;
+        overflow: visible;
+      }
+
+      .player {
+        width: 30px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 4px;
+        cursor: grab;
+        position: relative;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .red {
+        background-color: red;
+      }
+      .handle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+      }
+
+      .handle-left {
+        left: -70px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .handle-right {
+        right: -80px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .goal {
+        width: 75px;
+        height: 30px;
+        background: gray;
+        align-self: center;
+        margin: -6vh 0;
+      }
+
+      /* Pop-back animation */
+      @keyframes pop-back {
+        0% {
+          transform: translate(0, 0) scale(1.2);
+        }
+        50% {
+          transform: translate(0, 0) scale(0.8);
+        }
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+      }
+
+      .pop-back {
+        animation: pop-back 0.5s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const handleSVG = (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="60"
+          height="20"
+          viewBox="0 0 60 20"
+          fill="none"
+        >
+          <rect x="0" y="5" width="50" height="10" fill="#333" rx="5" />
+          <circle cx="5" cy="10" r="5" fill="#555" />
+          <rect x="10" y="7" width="35" height="6" fill="#444" rx="3" />
+        </svg>
+      );
+
+      function TableSoccer() {
+        const rows = [
+          { team: "red", player: 1 },
+          { team: "red", player: 2 },
+          { team: "blue", player: 3 },
+          { team: "red", player: 5 },
+          { team: "blue", player: 5 },
+          { team: "red", player: 3 },
+          { team: "blue", player: 2 },
+          { team: "blue", player: 1 },
+        ];
+
+        const handleDragStart = (e, playerInfo) => {
+          e.dataTransfer.setData("player", JSON.stringify(playerInfo));
+          const rect = e.target.getBoundingClientRect();
+          e.target.dataset.originalX = rect.left;
+          e.target.dataset.originalY = rect.top;
+          e.target.style.opacity = "0.5";
+        };
+
+        const handleDragEnd = (e) => {
+          e.target.style.opacity = "1";
+        };
+
+        const handleDrop = (e, goalTeam) => {
+          e.preventDefault();
+          const playerData = JSON.parse(e.dataTransfer.getData("player"));
+          console.log(
+            `Player ${playerData.index} dragged into ${goalTeam} goal`
+          );
+
+          const player = document.querySelector(
+            `[data-index="${playerData.index}"]`
+          );
+          if (player) {
+            player.classList.add("pop-back");
+
+            // Remove the animation class after animation completes
+            player.addEventListener(
+              "animationend",
+              () => {
+                player.classList.remove("pop-back");
+              },
+              { once: true }
+            );
+          }
+        };
+
+        const handleDragOver = (e) => {
+          e.preventDefault();
+        };
+
+        return (
+          <div className="table-soccer">
+            <div
+              className="goal red"
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, "red")}
+            ></div>
+            {rows.map((row, rowIndex) => (
+              <div key={rowIndex} className="rod">
+                {row.team === "red" && (
+                  <div className="handle handle-left">{handleSVG}</div>
+                )}
+                {Array.from({ length: row.player }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`player ${row.team}`}
+                    draggable
+                    onDragStart={(e) =>
+                      handleDragStart(e, {
+                        team: row.team,
+                        index: `${rowIndex}-${i}`,
+                      })
+                    }
+                    onDragEnd={handleDragEnd}
+                    data-index={`${rowIndex}-${i}`}
+                  ></div>
+                ))}
+                {row.team === "blue" && (
+                  <div className="handle handle-right">{handleSVG}</div>
+                )}
+              </div>
+            ))}
+            <div
+              className="goal blue"
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, "blue")}
+            ></div>
+          </div>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<TableSoccer />);
+    </script>
+  </body>
+</html>
